@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg">
+    <include
+        android:id="@+id/header_layout_back"
+        layout="@layout/header_back"/>
+
+    <include layout="@layout/header"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/size_30_dp"
+            android:layout_marginRight="@dimen/size_30_dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorRed"
+                android:textSize="@dimen/header_size"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/lbl_otp_verification" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInput_otp_code"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/size_30_dp"
+                android:layout_height="wrap_content">
+                <EditText android:id="@+id/editText_otp_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:hint="@string/hint_otp_code"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_verify"
+                android:textColor="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/header_size"
+                android:layout_marginLeft="@dimen/size_30_dp"
+                android:layout_marginRight="@dimen/size_30_dp"
+                android:background="@drawable/drawable_btn"
+                android:textAllCaps="false"
+                android:text="@string/btn_verify"/>
+            <TextView
+                android:id="@+id/tv_resend_otp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/header_size"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/size_30_dp"
+                android:text="@string/lbl_resend_otp"/>
+
+            <TextView
+                android:id="@+id/txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="5"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+

@@ -1,0 +1,319 @@
+<resources>
+    <string name="app_name">FortuneCourier</string>
+
+    <!--URL-->
+    <string name="url_domain_customer">http://server.ashoresystems.com/~sivs/customerapis/</string>
+    <string name="url_domain_associate">http://server.ashoresystems.com/~sivs/associateapis/</string>
+
+    <string name="url_customer_signup">signup</string>
+    <string name="url_verfiy_signup_otp">verify_signup_otp</string>
+    <string name="url_verfiy_forgot_password_otp">verify_forgot_password_otp</string>
+    <string name="url_resend_otp">resend_otp</string>
+    <string name="url_login">login</string>
+    <string name="url_logout">logout</string>
+    <string name="url_forgot_password">forgot_password</string>
+    <string name="url_reset_password">reset_password</string>
+    <string name="url_facebook_login">facebook_login</string>
+    <string name="url_set_phone_no">set_phone_no</string>
+    <string name="url_verify_facebook_otp">verify_facebook_otp</string>
+    <string name="url_change_password">change_password</string>
+    <string name="url_change_phone_no">change_phone_no</string>
+    <string name="url_terms_n_privacy">terms_n_privacy</string>
+    <string name="url_verify_phone_no_otp">verify_phone_no_otp</string>
+    <string name="url_get_countries">get_countries</string>
+    <string name="url_get_states">get_states</string>
+    <string name="url_get_customer_details">get_customer_details</string>
+    <string name="url_get_associate_details">get_associate_details</string>
+    <string name="url_update_customer_profile">update_customer_profile</string>
+    <string name="url_update_associate_profile">update_associate_profile</string>
+    <string name="url_validate_address">validate_address</string>
+    <string name="url_check_rates">check_rates</string>
+    <string name="url_validate_postal_code">validate_postal_code</string>
+    <string name="url_fetch_carriers">fetch_carriers</string>
+    <string name="url_fetch_service_types">fetch_service_types</string>
+    <string name="url_drop_off_type">drop_off_type</string>
+    <string name="url_fetch_package_types">fetch_package_types</string>
+    <string name="url_contact_us">contact_us</string>
+    <string name="url_get_from_countries">get_from_countries</string>
+    <string name="url_get_to_countries">get_to_countries</string>
+    <string name="url_dashboard_content">dashboard_content</string>
+
+    <!--Login Screen -->
+
+    <string name="btn_sign_up">Sign Up</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_register_now">Register Now</string>
+    <string name="lbl_existing_customer"> Existing Customer?<font fgcolor="red"> Login</font></string>
+    <string name="lbl_associate_portal">Associate Portal</string>
+    <string name="lbl_become_customer">Become Customer</string>
+    <string name="lbl_check_rates">Check Rates</string>
+    <string name="lbl_existing_associate"> Existing Associate?<font fgcolor="red"> Login</font></string>
+    <string name="lbl_customer_portal">Customer Portal</string>
+    <string name="lbl_become_associate">Become Associate</string>
+    <string name="info">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard.</string>
+    <string name="lbl_t_n_c">Terms &amp; Conditions</string>
+    <!--Register Screen-->
+
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_phone_number">Phone Number</string>
+    <string name="hint_old_phone_number">Old Phone Number</string>
+    <string name="hint_new_phone_number">New Phone Number</string>
+    <string name="hint_email_address">Email Address</string>
+    <string name="hint_email_phonenumber">Email / Mobile Number</string>
+
+    <string name="hint_business_name">Business Name</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_new_password">New Password</string>
+    <string name="hint_old_password">Old Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="btn_register">Register</string>
+    <string name="lbl_terms_conditions">I agree to the <a href="...">Terms &amp; Conditions</a></string>
+    <string name="btn_next">Next</string>
+    <string name="btn_get_quick_quote">Get Quick Quote</string>
+    <string name="btn_get_detailed_quote">Get Detailed Quote</string>
+
+
+    <!--
+        <string name="lbl_terms_conditions">Terms &amp; Conditions</string>
+    -->
+<!--
+I agree to the <a href="...">terms and conditions
+    <string name="lbl_t_n_c">I agree to the <a href="...">terms and conditions</a></string>
+-->
+    <string name="lbl_or_register">or Register with</string>
+    <string name="lbl_or_login">or Login with</string>
+
+    <string name="lbl_create_account">No account yet? Create one</string>
+    <string name="lbl_remember_me">Remember Me</string>
+    <string name="lbl_forgot_password">Forgot Your Password?</string>
+
+    <!--Update Profile-->
+    <string name="hint_addressline1">Addressline1</string>
+    <string name="hint_addressline2">Addressline2</string>
+    <string name="lbl_country">Country</string>
+    <string name="hint_zip">Zip</string>
+    <string name="lbl_state">State</string>
+    <string name="lbl_city">City</string>
+    <string name="lbl_zip">Zip</string>
+    <string name="hint_contact_name">Contact Name</string>
+    <string name="hint_address">Address</string>
+    <string name="hint_ship_date">Ship Date</string>
+
+    <!--OTP Verification-->
+    <string name="lbl_otp_verification">OTP Verification</string>
+    <string name="lbl_resend_otp">Resend OTP</string>
+    <string name="hint_otp_code">OTP code</string>
+    <string name="btn_verify">Verify</string>
+
+    <!--Forgot Password-->
+    <string name="lbl_back">Back</string>
+    <string name="btn_submit">Submit</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_save">Save</string>
+    <string name="lbl_rates">Rates</string>
+    <string name="lbl_delivery_dates_time">Delivery Dates/Time</string>
+    <string name="lbl_describe_your_message">Describe your Message</string>
+    <string name="lbl_enter_message">Enter Message</string>
+    <string name="lbl_add_screenshots">Add Screenshots:- </string>
+    <string name="btn_send_message">Send Message</string>
+
+    <string name="err_msg_internet">Internet Connection is not available.</string>
+    <string name="err_msg_name">Enter at least 3 characters</string>
+    <string name="err_msg_email">Enter valid email address</string>
+    <string name="err_msg_phonenumber">Enter Valid Mobile Number</string>
+    <string name="err_msg_password">Enter between 7 and 10 alphanumeric characters</string>
+    <string name="err_msg_confirm_password">Password Do not match</string>
+    <string name="err_msg_terms_and_condition">Please tick on terms and conditions</string>
+    <string name="err_msg_zip">Enter Valid Zip Code</string>
+    <string name="err_msg_city">Enter City</string>
+    <string name="err_msg_shipment_date">Enter Shipment Date</string>
+    <string name="err_msg_weight">Enter Weight</string>
+    <string name="err_msg_declared_value">Enter Value</string>
+    <string name="err_msg_length">Enter Length</string>
+    <string name="err_msg_width">Enter Width</string>
+    <string name="err_msg_height">Enter Height</string>
+    <string name="err_msg_enter_message">Enter Message</string>
+    <string name="err_msg_server">Error in server side</string>
+    <string name="err_msg_select_country">Please select country</string>
+    <string name="err_msg_select_state">Please select city</string>
+
+    <string name="err_msg_package_info">Enter Package Information</string>
+
+    <string name="msg_update_profile">Profile Updated Successfully.</string>
+    <string name="msg_password_change">Password Changed Successfully.</string>
+    <string name="msg_signup">Signup has been done successfully.</string>
+
+    <!--Update Profile-->
+    <string name="btn_update_profile">Update Profile</string>
+    <string name="lbl_change_password">Change Password</string>
+
+    <!--Dashboard-->
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+
+    <!-- Navigation Drawer menu labels -->
+    <string name="nav_home">Home</string>
+    <string name="nav_photos">Photos</string>
+    <string name="nav_movies">Movies</string>
+    <string name="nav_notifications">Notifications</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_about_us">About Us</string>
+
+    <string name="activity_title_about_us">About Us</string>
+    <string name="activity_title_privacy_policy">Privacy Policy</string>
+    <string name="action_clear_all">Clear All</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_mark_all_read">Mark All as Read</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="title_activity_dashboard_customer">DashboardCustomerActivity</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="facebook_app_id">159085818168688</string>
+    <string name="fb_login_protocol_scheme">fb159085818168688</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_dashboard</item>
+        <item>@string/nav_item_generate_shipment</item>
+        <item>@string/nav_item_view_shipment_history</item>
+        <item>@string/nav_item_track_shipment</item>
+        <item>@string/nav_item_calculate_rates</item>
+        <item>@string/nav_item_update_profile</item>
+        <item>@string/nav_item_change_password</item>
+        <item>@string/nav_item_change_number</item>
+        <item>@string/nav_item_share_app</item>
+        <item>@string/nav_item_notifications</item>
+        <item>@string/nav_item_contact_us</item>
+        <item>@string/nav_item_logout</item>
+
+    </string-array>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels_for_set_password">
+        <item>@string/nav_item_dashboard</item>
+        <item>@string/nav_item_generate_shipment</item>
+        <item>@string/nav_item_view_shipment_history</item>
+        <item>@string/nav_item_track_shipment</item>
+        <item>@string/nav_item_calculate_rates</item>
+        <item>@string/nav_item_update_profile</item>
+        <item>@string/nav_item_set_password</item>
+        <item>@string/nav_item_change_number</item>
+        <item>@string/nav_item_share_app</item>
+        <item>@string/nav_item_notifications</item>
+        <item>@string/nav_item_contact_us</item>
+        <item>@string/nav_item_logout</item>
+
+    </string-array>
+
+    <string-array name="array_carrier">
+        <item>Fedex</item>
+        <item>USPS</item>
+        <item>USP</item>
+
+    </string-array>
+
+    <string-array name="array_unit">
+        <item>LBS</item>
+        <item>KG</item>
+
+    </string-array>
+
+    <string-array name="array_currency_unit">
+        <item>$</item>
+        <item>INR</item>
+        <item>CAD</item>
+
+    </string-array>
+
+
+    <string name="nav_item_dashboard">Dashboard</string>
+    <string name="nav_item_generate_shipment">Generate Shipment Order</string>
+    <string name="nav_item_track_shipment">Track Shipment</string>
+    <string name="nav_item_view_shipment_history">View Shipment History</string>
+    <string name="nav_item_calculate_rates">Calculate Rates</string>
+    <string name="nav_item_update_profile">Update Profile</string>
+    <string name="nav_item_change_password">Change Password</string>
+    <string name="nav_item_set_password">Set Password</string>
+    <string name="nav_item_change_number">Change Number</string>
+    <string name="nav_item_share_app">Share App</string>
+    <string name="nav_item_notifications">Notifications</string>
+    <string name="nav_item_contact_us">Contact Us</string>
+    <string name="nav_item_logout">Logout</string>
+    <string name="lbl_version">Version : 1.1</string>
+    <string name="lbl_set_phone_number">Set Phone Number</string>
+    <string name="logout_text">"Are you sure you want to logout from the app?"</string>
+    <string name="logout">Logout</string>
+    <string name="lbl_select_country">Select Country</string>
+    <string name="lbl_select_state">Select State</string>
+    <string name="lbl_select_city">Select City</string>
+    <string name="lbl_select_carrier">Select Carrier</string>
+    <string name="lbl_service_type">Service Type</string>
+
+    <string name="lbl_pickup_drop">Pickup Drop</string>
+    <string name="lbl_select_pickup_drop">Select Pickup Drop</string>
+
+    <string name="lbl_package_type">Package Type</string>
+    <string name="lbl_select_package_type">Select Package Type</string>
+
+    <string name="lbl_new_user"> New User ? Sign Up</string>
+
+    <string name="account_photo_title">Add Photo! ( Please select photo from local storage.)</string>
+    <string name="account_photo_option1">Take Photo</string>
+    <string name="account_photo_option2">Choose from Gallery</string>
+    <string name="account_photo_option3">Cancel</string>
+
+    <!--Create Shipment-->
+    <string name="lbl_from">From</string>
+    <string name="lbl_to">To</string>
+    <string name="hint_weight">Weight</string>
+    <string name="hint_declared_value">Declared Value (Per package)</string>
+    <string name="lbl_weight_unit_kg">KG</string>
+    <string name="lbl_weight_unit_lbs">LBS</string>
+    <string name="lbl_dimensional_unit_cm">CM</string>
+    <string name="lbl_dimensional_unit_inch">IN</string>
+    <string name="lbl_currency_unit_$">$</string>
+    <string name="lbl_currency_unit_inr">INR</string>
+    <string name="lbl_currency_unit_cad">CAD</string>
+
+    <string name="lbl_currency">$</string>
+    <string name="lbl_no_of_packages">No. of Packages</string>
+    <string name="lbl_package_dimension_cms">Package Dimension (cms)</string>
+    <string name="lbl_package_dimension_in">Package Dimension (In)</string>
+    <string name="hint_length">Length</string>
+    <string name="hint_height">Height</string>
+    <string name="hint_width">Width</string>
+    <string name="hint_package_description">Package Description</string>
+    <string name="lbl_package_1">Package Details 1</string>
+    <string name="lbl_package_2">Package Details 2</string>
+    <string name="lbl_package_3">Package Details 3</string>
+    <string name="lbl_package_4">Package Details 4</string>
+    <string name="lbl_package_5">Package Details 5</string>
+
+    <string name="lbl_first">1</string>
+    <string name="lbl_second">2</string>
+    <string name="lbl_third">3</string>
+    <string name="lbl_fourth">4</string>
+    <string name="lbl_fifth">5</string>
+
+    <string name="lbl_header_check_rate">Check Rates</string>
+    <string name="lbl_header_create_shipment">Create Shipment</string>
+    <string name="lbl_header_package_and_shipment">Package &amp; Shipment Details</string>
+    <string name="lbl_header_rate_and_transit">Rate &amp; Transit</string>
+    <string name="lbl_header_shipment_history">Shipment History</string>
+
+
+
+</resources>

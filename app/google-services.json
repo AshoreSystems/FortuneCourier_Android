@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "372803265344",
+    "firebase_url": "https://fortune-courier.firebaseio.com",
+    "project_id": "fortune-courier",
+    "storage_bucket": "fortune-courier.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372803265344:android:2fbfe7894de0a934",
+        "android_client_info": {
+          "package_name": "com.example.aspl.fortunecourier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372803265344-pg92kvn8pnpd9cc5h43u5p8vcmtleim9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABbUR7-rnoP9uaiDAloddF4owUrzosofk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

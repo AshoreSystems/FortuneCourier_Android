@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_with_image"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/header_layout_back"
+        layout="@layout/header_back"
+        android:visibility="invisible" />
+
+    <include layout="@layout/header" />
+
+    <!-- <ScrollView
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_weight="1"
+         android:fillViewport="true">-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/size_30_dp"
+        android:layout_marginRight="@dimen/size_30_dp"
+        android:layout_marginTop="-10dp"
+
+        android:layout_weight="1"
+
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_become_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_become_customer"
+                android:textColor="@color/colorRed"
+                android:textSize="@dimen/header_size" />
+
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:gravity="center_horizontal"
+                android:maxLines="4"
+                android:scrollbars="vertical"
+                android:text="@string/info"
+                android:textColor="@color/colorBlack" />
+
+            <Button
+                android:id="@+id/btn_register_now"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_30_dp"
+                android:layout_marginRight="@dimen/size_30_dp"
+                android:layout_marginTop="@dimen/edittext_margin"
+                android:background="@drawable/drawable_btn"
+                android:text="@string/btn_register_now"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/header_size" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_existing_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/activity_margin"
+            android:text="@string/lbl_existing_customer"
+            android:textSize="@dimen/text_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_portal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/lbl_associate_portal"
+                android:textColor="@color/colorRed"
+                android:textSize="@dimen/header_size" />
+
+            <TextView
+                android:id="@+id/tv_check_rates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:gravity="center_horizontal"
+                android:text="@string/lbl_check_rates"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_size" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <!-- </ScrollView>-->
+
+</LinearLayout>
+
