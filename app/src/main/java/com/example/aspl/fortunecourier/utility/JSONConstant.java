@@ -95,6 +95,7 @@ public class JSONConstant {
     public static final String TO_C_ZIPCODE = "to_c_zipcode";
     public static final String TO_C_ADDRESS_LINE1 = "to_c_address_line1";
     public static final String TO_C_CITY = "to_c_city";
+
     public static final String TOTALINSUREDVALUE = "TotalInsuredValue";
     public static final String PACKAGECOUNT = "PackageCount";
     public static final String PACKAGEWEIGHT = "PackageWeight";

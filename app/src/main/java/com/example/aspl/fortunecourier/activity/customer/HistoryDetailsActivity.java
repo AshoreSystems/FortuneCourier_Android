@@ -148,6 +148,23 @@ public class HistoryDetailsActivity extends Activity implements View.OnClickList
                 try {
                     JSONObject Json_response = new JSONObject(response.toString());
                     if(Json_response.getString(JSONConstant.STATUS).equalsIgnoreCase(JSONConstant.SUCCESS)) {
+                        JSONObject jsonObject = Json_response.getJSONObject("shipment_details");
+                        tv_carrier.setText(jsonObject.getString("carrier_name"));
+                        tv_service_type.setText(jsonObject.getString(JSONConstant.SERVICE_TYPE));
+                        tv_package_type.setText(jsonObject.getString(JSONConstant.PACKAGING_TYPE));
+                        tv_no_of_packages.setText(jsonObject.getString(JSONConstant.PACKAGECOUNT));
+                        tv_pickup_drop.setText(jsonObject.getString(JSONConstant.DROP_OFF_TYPE));
+                        tv_ship_date.setText(jsonObject.getString("shipmentdate"));
+                        tv_to_name.setText(jsonObject.getString("to_contact_name"));
+
+
+
+                        progressBar.dismiss();
+
+                        // "":{"shipment_id":"ship_151435509510DC7B",""master_tracking_no":"794656866660","shipmentday":"FRI","to_contact_name":"nilesh","country_of_origin_code":"US","state_of_origin_code":"IL","origin_addressline1":"415 w golf rd","city_of_origin":"Arlington Heights","origin_postal_code":"60005","from_contact_name":"nilesh","destination_country_code":"US","destination_state_code":"CA","destination_addressline1":"342 Grant Ave","destination_postal_code":"94108","destination_city":"San Francisco","expected_deliver_date":"01\/03\/2018","expected_deliver_day":"WED","status":"Pending","base_amount":"125.43","total_amount":"147.65","surcharge":"5.42","tax1":"4.06","tax2":"","admin_commission":"10.03","currency":"USD","packages":[{"PackageWeight":"20","Length":"0","Height":"0","Width":"0","Girth":"","WeightUnit":"LB","DimensionUnit":"IN","CurrencyUnit":"USD","DesiredValue":"25"}],"tax1_text":"Tax 1","tax2_text":"Tax 2","surcharge_text":"Surcharge"}}
+
+
+                        // "":{"shipment_id":"ship_151435509510DC7B","carrier_name":"FedEX","service_type":"FEDEX_2_DAY","packaging_type":"FEDEX_BOX","package_count":"1","drop_off_type":"REGULAR_PICKUP","master_tracking_no":"794656866660","shipmentdate":"12\/29\/2017","shipmentday":"FRI","to_contact_name":"nilesh","country_of_origin_code":"US","state_of_origin_code":"IL","origin_addressline1":"415 w golf rd","city_of_origin":"Arlington Heights","origin_postal_code":"60005","from_contact_name":"nilesh","destination_country_code":"US","destination_state_code":"CA","destination_addressline1":"342 Grant Ave","destination_postal_code":"94108","destination_city":"San Francisco","expected_deliver_date":"01\/03\/2018","expected_deliver_day":"WED","status":"Pending","base_amount":"125.43","total_amount":"147.65","surcharge":"5.42","tax1":"4.06","tax2":"","admin_commission":"10.03","currency":"USD","packages":[{"PackageWeight":"20","Length":"0","Height":"0","Width":"0","Girth":"","WeightUnit":"LB","DimensionUnit":"IN","CurrencyUnit":"USD","DesiredValue":"25"}],"tax1_text":"Tax 1","tax2_text":"Tax 2","surcharge_text":"Surcharge"}}
 
                        /* Snackbar.make(tv_carrier,Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
                         mSessionManager.putStringData(SessionManager.KEY_MASTER_TRACKING_NO,Json_response.getString("master_tracking_no"));
@@ -163,6 +180,7 @@ public class HistoryDetailsActivity extends Activity implements View.OnClickList
                     progressBar.dismiss();
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    progressBar.dismiss();
                 }
             }
         });
