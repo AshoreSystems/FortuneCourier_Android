@@ -285,8 +285,7 @@ public class ContactUsAssociateActivity extends AppCompatActivity implements Vie
             try {
                 message = new StringBody(strMessage);
                 user_id = new StringBody(mSessionManager.getStringData(SessionManager.KEY_A_ID));
-             /*   device_id = new StringBody(mSessionManager.getStringData(SessionManager.KEY_CDT_DEVICE_ID));
-                lang = new StringBody("en");*/
+
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -308,14 +307,12 @@ public class ContactUsAssociateActivity extends AppCompatActivity implements Vie
                 }
                 reqEntity.addPart("cu_message", message);
                 reqEntity.addPart("a_id", user_id);
-                // reqEntity.addPart("device_id", device_id);
-                //reqEntity.addPart("lang", lang);
 
             } else {
+                reqEntity.addPart("cu_message", message);
+                reqEntity.addPart("a_id", user_id);
 
-                //Toast.makeText(ContactUsAssociateActivity.this, "Please select atleast image or video for post", Toast.LENGTH_SHORT).show();
             }
-
 
             httppost.setEntity(reqEntity);
 

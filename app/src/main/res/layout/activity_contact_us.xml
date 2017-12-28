@@ -52,9 +52,11 @@
             android:id="@+id/editText_enter_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/add_image_border"
             android:lines="10"
             android:minLines="5"
+            android:padding="5dp"
             android:gravity="top|left"
             android:maxLines="15"
             android:hint="@string/lbl_enter_message" />
@@ -62,7 +64,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:orientation="vertical"
             android:paddingBottom="15dp"
             android:paddingLeft="10dp"
@@ -73,7 +74,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp"
                 android:text="@string/lbl_add_screenshots"
                 android:textSize="16dp" />
 

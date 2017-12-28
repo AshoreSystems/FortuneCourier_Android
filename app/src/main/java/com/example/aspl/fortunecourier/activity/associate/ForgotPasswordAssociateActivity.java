@@ -134,7 +134,14 @@ public class ForgotPasswordAssociateActivity extends AppCompatActivity implement
                                     mSessionManager.putStringData(SessionManager.KEY_A_PHONE_NO,editText_phoneNumber.getText().toString().trim());
                                     startActivity(new Intent(ForgotPasswordAssociateActivity.this, OTPVerificationAssociateActivity.class).putExtra(AppConstant.SIGNUP_OR_FORGOT_OTP,AppConstant.FORGOT_OTP));
                                 } else {
-                                    Snackbar.make(btn_submit,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
+                                    JSONObject jsonObject = Json_response.getJSONObject(JSONConstant.ERROR_MESSAGES);
+                                    if (jsonObject.has(JSONConstant.A_PHONE_NO)) {
+                                        textInput_phoneNumber.setError(jsonObject.getString(JSONConstant.A_PHONE_NO));
+                                        requestFocus(editText_phoneNumber);
+                                    }
+                                    if (jsonObject.has(JSONConstant.MESSAGE)) {
+                                        Snackbar.make(textInput_phoneNumber,jsonObject.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
+                                    }
                                 }
                                 progressBar.dismiss();
 

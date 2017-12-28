@@ -126,6 +126,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/ll_generate_shipment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin"
@@ -178,6 +179,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_view_shipment_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin"

@@ -334,7 +334,7 @@ public class SignUpCustomerActivity extends Activity implements View.OnClickList
                                     hideKeyboard();
                                     finish();
                                 } else {
-                                    JSONObject jsonObject = Json_response.getJSONObject("error_messages");
+                                    JSONObject jsonObject = Json_response.getJSONObject(JSONConstant.ERROR_MESSAGES);
 
                                     if (jsonObject.has(JSONConstant.C_FIRST_NAME)) {
                                         textInput_firstName.setError(jsonObject.getString(JSONConstant.C_FIRST_NAME));

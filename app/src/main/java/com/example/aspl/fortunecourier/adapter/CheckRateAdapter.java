@@ -34,7 +34,7 @@ public class CheckRateAdapter extends RecyclerView.Adapter<CheckRateAdapter.View
    // private Context context;
 
 
-    private int lastSelectedPosition = -1;
+    public int lastSelectedPosition = -1;
 
     public CheckRateAdapter(List<Rates> offersListIn, Activity activity) {
         checkRateList = offersListIn;
@@ -79,20 +79,6 @@ public class CheckRateAdapter extends RecyclerView.Adapter<CheckRateAdapter.View
             }
         });
 
-       /* strForTooltip = "BaseAmount : $"+rates.getBaseAmount();
-        strForTooltip1 = rates.getCs_surcharge_title()+": $"+rates.getCs_surcharge();
-        strForTooltip2 = rates.getCs_tax1_title()+": $"+rates.getCs_tax1();
-        strForTooltip3 = rates.getCs_tax2_title()+": $"+rates.getCs_tax2();*/
-
-
-        /*if(position%2==0){
-            holder.ll_row.setBackgroundColor(Color.LTGRAY);
-        }else {
-            holder.ll_row.setBackgroundColor(Color.WHITE);
-        }*/
-
-        //since only one radio button is allowed to be selected,
-        // this condition un-checks previous selections
         holder.rb_select.setChecked(lastSelectedPosition == position);
     }
 
@@ -114,14 +100,7 @@ public class CheckRateAdapter extends RecyclerView.Adapter<CheckRateAdapter.View
             ll_row = (LinearLayout) view.findViewById(R.id.ll_row);
             tv_service_desc = (TextView) view.findViewById(R.id.tv_service_desc);
             tv_amount = (TextView) view.findViewById(R.id.tv_amount);
-           // Rates rates =  checkRateList.get(mPosition);
 
-           /* tv_amount.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openToolTip(mActivity,tv_amount,"bottom",strForTooltip,strForTooltip1,strForTooltip2,strForTooltip3);
-                }
-            });*/
             tv_delivery_timestamp = (TextView) view.findViewById(R.id.tv_delivery_timestamp);
 
             rb_select = (RadioButton) view.findViewById(R.id.rb_select);
@@ -131,9 +110,9 @@ public class CheckRateAdapter extends RecyclerView.Adapter<CheckRateAdapter.View
                     lastSelectedPosition = getAdapterPosition();
                     notifyDataSetChanged();
 
-                    Toast.makeText(CheckRateAdapter.this.mActivity,
+                   /* Toast.makeText(CheckRateAdapter.this.mActivity,
                             "selected offer is " + tv_service_desc.getText(),
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_LONG).show();*/
                 }
             });
         }

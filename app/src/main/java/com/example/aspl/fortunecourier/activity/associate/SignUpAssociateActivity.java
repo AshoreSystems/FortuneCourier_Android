@@ -260,7 +260,7 @@ public class SignUpAssociateActivity extends AppCompatActivity implements View.O
                                     hideKeyboard();
                                     finish();
                                 } else {
-                                    JSONObject jsonObject = Json_response.getJSONObject("error_messages");
+                                    JSONObject jsonObject = Json_response.getJSONObject(JSONConstant.ERROR_MESSAGES);
 
                                     if (jsonObject.has(JSONConstant.A_FIRST_NAME)) {
                                         textInput_firstName.setError(jsonObject.getString(JSONConstant.A_FIRST_NAME));

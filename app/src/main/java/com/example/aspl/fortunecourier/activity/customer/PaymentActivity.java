@@ -6,14 +6,14 @@ import android.os.Bundle;
 import com.example.aspl.fortunecourier.R;
 
 /**
- * Created by aspl on 9/12/17.
+ * Created by aspl on 26/12/17.
  */
 
-public class TrackShipmentActivity extends Activity {
+public class PaymentActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_shipment_history);
+        setContentView(R.layout.activity_payment);
     }
 }

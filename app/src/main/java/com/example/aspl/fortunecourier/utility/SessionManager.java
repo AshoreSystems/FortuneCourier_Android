@@ -52,6 +52,53 @@ public class SessionManager {
 	public static final String KEY_WHICH_USER = "KEY_WHICH_USER"; // 1= Customer , 2= Associate
 
 
+	//From Create Shipment Screen
+
+	public static final String KEY_F_COUNTRY_CODE = "KEY_F_COUNTRY_CODE";
+	public static final String KEY_F_STATE = "KEY_F_STATE";
+	public static final String KEY_F_COMPANY = "KEY_F_COMPANY";
+	public static final String KEY_F_CONTACT_NAME = "KEY_F_CONTACT_NAME";
+	public static final String KEY_F_ADDRESSLINE_1= "KEY_F_ADDRESSLINE_1";
+	public static final String KEY_F_ADDRESSLINE_2= "KEY_F_ADDRESSLINE_2";
+	public static final String KEY_F_ZIP_CODE = "KEY_F_ZIP_CODE";
+	public static final String KEY_F_CITY = "KEY_F_CITY";
+	public static final String KEY_F_DIALLING_CODE = "KEY_F_DIALLING_CODE";
+	public static final String KEY_F_PHONE_NUMBER = "KEY_F_PHONE_NUMBER";
+
+	public static final String KEY_T_COUNTRY_CODE = "KEY_T_COUNTRY_CODE";
+	public static final String KEY_T_STATE = "KEY_T_STATE";
+	public static final String KEY_T_COMPANY = "KEY_T_COMPANY";
+	public static final String KEY_T_CONTACT_NAME = "KEY_T_CONTACT_NAME";
+	public static final String KEY_T_ADDRESSLINE_1= "KEY_T_ADDRESSLINE_1";
+	public static final String KEY_T_ADDRESSLINE_2= "KEY_T_ADDRESSLINE_2";
+	public static final String KEY_T_ZIP_CODE = "KEY_T_ZIP_CODE";
+	public static final String KEY_T_CITY = "KEY_T_CITY";
+	public static final String KEY_T_DIALLING_CODE = "KEY_T_DIALLING_CODE";
+	public static final String KEY_T_PHONE_NUMBER = "KEY_T_PHONE_NUMBER";
+
+	public static final String KEY_SHIP_DATE = "KEY_SHIP_DATE";
+	public static final String KEY_CARRIER_CODE = "KEY_CARRIER_CODE";
+
+	public static final String KEY_SERVICE_TYPE = "KEY_SERVICE_TYPE";
+	public static final String KEY_SERVICE_TYPE_NAME = "KEY_SERVICE_TYPE_NAME";
+
+	public static final String KEY_PICKUP_DROP = "KEY_PICKUP_DROP";
+	public static final String KEY_PICKUP_DROP_NAME = "KEY_PICKUP_DROP_NAME";
+
+	public static final String KEY_PACKAGE_TYPE= "KEY_PACKAGE_TYPE";
+	public static final String KEY_PACKAGE_TYPE_NAME= "KEY_PACKAGE_TYPE_NAME";
+
+	public static final String KEY_PACKAGE_COUNT= "KEY_PACKAGE_COUNT";
+	public static final String KEY_IS_IDENTICAL = "KEY_IS_IDENTICAL";
+
+	public static final String KEY_DELIVERY_TIMESTAMP = "KEY_DELIVERY_TIMESTAMP";
+	public static final String KEY_DELIVERY_DATE = "KEY_DELIVERY_DATE";
+
+	public static final String KEY_SELECTED_SERVICE_DESCRIPTION = "KEY_SELECTED_SERVICE_DESCRIPTION";
+	public static final String KEY_AMOUNT = "KEY_AMOUNT";
+	public static final String KEY_MASTER_TRACKING_NO = "KEY_SELECTED_SERVICE_DESCRIPTION";
+	public static final String KEY_SHIPMENT_ID = "KEY_SHIPMENT_ID";
+
 	/*
 	public static final String KEY_ADT_DEVICE_ID = "KEY_ADT_DEVICE_ID";
 	public static final String KEY_ADT_DEVICE_TOKEN = "KEY_ADT_DEVICE_TOKEN";*/

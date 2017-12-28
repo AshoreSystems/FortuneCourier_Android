@@ -7,6 +7,7 @@ android {
     useLibrary 'org.apache.http.legacy'
 
 
+
     defaultConfig {
         applicationId "com.example.aspl.fortunecourier"
         minSdkVersion 15
@@ -54,12 +55,8 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:10.2.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.wdullaer:materialdatetimepicker:2.3.0'
-
     compile group: 'org.apache.httpcomponents', name: 'httpclient-android', version: '4.3.5.1'
     compile 'com.github.michaelye.easydialog:easydialog:1.4'
-
-
-
 
     compile('org.apache.httpcomponents:httpmime:4.3') {
         exclude module: "httpclient"

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -24,11 +26,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.R;
+import com.example.aspl.fortunecourier.SplashActivity;
+import com.example.aspl.fortunecourier.customspinner.SearchableSpinner;
 import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.model.Country;
+import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
 import com.example.aspl.fortunecourier.utility.JSONConstant;
+import com.example.aspl.fortunecourier.utility.SessionManager;
+import com.example.aspl.fortunecourier.utility.VolleyResponseListener;
+import com.example.aspl.fortunecourier.utility.VolleyUtils;
+import com.hbb20.CountryCodePicker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,8 +56,9 @@ public class CreateShipmentFromActivity extends Activity implements View.OnClick
     private Button btn_next;
     private TextView tv_from_or_to;
     private String strCountryName, strStateName, strCityName,strCountryCode;
-    private Spinner spinner_country;
-    private Spinner spinner_state;
+    /*private Spinner spinner_country;
+    private Spinner spinner_state;*/
+    private SearchableSpinner spinner_country,spinner_state;
     private Spinner spinner_city;
 
     private EditText editText_zip,editText_city,editText_company,editText_contact_name,editText_addressline1,editText_addressline2,editText_phoneNumber;//,editText_address;
@@ -58,9 +68,12 @@ public class CreateShipmentFromActivity extends Activity implements View.OnClick
     ArrayList<String> countries;
     ArrayList<String> states;
     ConnectionDetector cd;
+    private SessionManager mSessionManager;
 
     private ProgressDialog progressBar;
     private ImageView img_info;
+    private CountryCodePicker ccp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +85,9 @@ public class CreateShipmentFromActivity extends Activity implements View.OnClick
     public void init(){
 
         cd = new ConnectionDetector(this);
+        mSessionManager = new SessionManager(this);
 
-        arrayListCountries = new ArrayList<>();/* else if(editText_address.getText().toString().trim().isEmpty()){
-            textInput_address.setErrorEnabled(false);
-            textInput_city.setError(getResources().getString(R.string.err_msg_name));
-            requestFocus(editText_address);
-        }*/
+        arrayListCountries = new ArrayList<>();
         countries = new ArrayList<>();
 
         View header_layout_back = findViewById(R.id.header_layout_back);
@@ -92,17 +102,23 @@ public class CreateShipmentFromActivity extends Activity implements View.OnClick
         btn_next = (Button) findViewById(R.id.btn_next);
         btn_next.setOnClickListener(this);
 
-        spinner_country = (Spinner) findViewById(R.id.spinner_country);
+        spinner_country = (SearchableSpinner) findViewById(R.id.spinner_country);
+        spinner_country.setTitle(getResources().getString(R.string.select_country));
         spinner_country.setOnItemSelectedListener(this);
 
-        spinner_state = (Spinner) findViewById(R.id.spinner_state);
+        spinner_state = (SearchableSpinner) findViewById(R.id.spinner_state);
+        spinner_state.setTitle(getResources().getString(R.string.lbl_select_state));
         spinner_state.setOnItemSelectedListener(this);
+
+        ccp = (CountryCodePicker) findViewById(R.id.ccp);
+
 
         if(cd.isConnectingToInternet()){
             getAllCountries();
         }else {
             Snackbar.make(spinner_city,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
         }
+
 
         textInput_zip = (TextInputLayout) findViewById(R.id.textInput_zip);
         textInput_city = (TextInputLayout) findViewById(R.id.textInput_city);
@@ -128,12 +144,12 @@ public class CreateShipmentFromActivity extends Activity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_next:
-                startActivity(new Intent(CreateShipmentFromActivity.this,CreateShipmentToActivity.class));
-               /* if (cd.isConnectingToInternet()){
+                hideKeyboard();
+               if (cd.isConnectingToInternet()){
                     validateAndNext();
                 }else {
                     Snackbar.make(btn_next,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
-                }*/
+                }
                 break;
 
             case R.id.header_layout_back:
@@ -150,27 +166,59 @@ public class CreateShipmentFromActivity extends Activity implements View.OnClick
     }
 
     private void validateAndNext(){
-        //if (editText_zip.getText().toString().trim().isEmpty() || editText_zip.getText().toString().trim().length() != 6 || editText_zip.getText().toString().trim().length() != 5) {
-        if (editText_zip.getText().toString().trim().isEmpty()) {
+        if (spinner_country.getSelectedItemPosition()==-1){
+            Snackbar.make(spinner_country,getResources().getString(R.string.err_msg_select_country), Toast.LENGTH_SHORT).show();
+        }
+       /* else if(editText_company.getText().toString().trim().isEmpty()){
+            //textInput_city.setErrorEnabled(false);
+            textInput_company.setError(getResources().getString(R.string.err_msg_name));
+            requestFocus(editText_company);
+        }*/
+        else if(editText_contact_name.getText().toString().trim().isEmpty()){
+           // textInput_company.setErrorEnabled(false);
+            textInput_contact_name.setError(getResources().getString(R.string.err_msg_name));
+            requestFocus(editText_contact_name);
+        }else if(editText_addressline1.getText().toString().trim().isEmpty()){
+            textInput_contact_name.setErrorEnabled(false);
+            textInput_addressline1.setError(getResources().getString(R.string.err_msg_addressline1));
+            requestFocus(editText_addressline1);
+        } else if(editText_zip.getText().toString().trim().isEmpty()){
+            textInput_addressline1.setErrorEnabled(false);
             textInput_zip.setError(getResources().getString(R.string.err_msg_zip));
             requestFocus(editText_zip);
         }else if(editText_city.getText().toString().trim().isEmpty()){
             textInput_zip.setErrorEnabled(false);
-            textInput_city.setError(getResources().getString(R.string.err_msg_name));
+            textInput_city.setError(getResources().getString(R.string.err_msg_city));
             requestFocus(editText_city);
-        }
-        /*else if(editText_address.getText().toString().trim().isEmpty()){
-            textInput_address.setErrorEnabled(false);
-            textInput_city.setError(getResources().getString(R.string.err_msg_name));
-            requestFocus(editText_address);
-        }*/
-        else {
+        }else if(spinner_state.getSelectedItemPosition()==-1){
             textInput_city.setErrorEnabled(false);
+            Snackbar.make(spinner_country,getResources().getString(R.string.err_msg_select_state), Toast.LENGTH_SHORT).show();
+        }else if(editText_phoneNumber.getText().toString().trim().isEmpty() || editText_phoneNumber.getText().toString().trim().length() != 10){
+            textInput_phoneNumber.setError(getResources().getString(R.string.err_msg_phonenumber));
+            requestFocus(editText_phoneNumber);
+        }else {
+            textInput_phoneNumber.setErrorEnabled(false);
+            textInput_company.setErrorEnabled(false);
+            textInput_contact_name.setErrorEnabled(false);
+            textInput_addressline1.setErrorEnabled(false);
             textInput_zip.setErrorEnabled(false);
-           // textInput_address.setErrorEnabled(false);
+            textInput_city.setErrorEnabled(false);
 
+            mSessionManager.putStringData(SessionManager.KEY_F_COUNTRY_CODE,strCountryCode);
+            mSessionManager.putStringData(SessionManager.KEY_F_STATE,strStateName);
+            mSessionManager.putStringData(SessionManager.KEY_F_COMPANY,editText_company.getText().toString().trim());
+            mSessionManager.putStringData(SessionManager.KEY_F_CONTACT_NAME,editText_contact_name.getText().toString().trim());
+            mSessionManager.putStringData(SessionManager.KEY_F_ADDRESSLINE_1,editText_addressline1.getText().toString().trim());
+            mSessionManager.putStringData(SessionManager.KEY_F_ADDRESSLINE_2,editText_addressline2.getText().toString().trim());
+            mSessionManager.putStringData(SessionManager.KEY_F_ZIP_CODE,editText_zip.getText().toString().trim());
+            mSessionManager.putStringData(SessionManager.KEY_F_CITY,editText_city.getText().toString().trim());
+            mSessionManager.putStringData(SessionManager.KEY_F_DIALLING_CODE,"+"+ccp.getFullNumber());
+            mSessionManager.putStringData(SessionManager.KEY_F_PHONE_NUMBER,editText_phoneNumber.getText().toString().trim());
+
+            //startActivity(new Intent(CreateShipmentFromActivity.this,CreateShipmentToActivity.class));
             verifyAddress();
         }
+
     }
 
 
@@ -185,7 +233,7 @@ public class CreateShipmentFromActivity extends Activity implements View.OnClick
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()){
             case R.id.spinner_country:
-                strCountryName = spinner_country.getItemAtPosition(position).toString();
+                strCountryName = arrayListCountries.get(position).getCountry_name();
                 strCountryCode = arrayListCountries.get(position).getCountry_code();
                 if(cd.isConnectingToInternet()){
                     getAllStates(arrayListCountries.get(position).getCountry_code());
@@ -195,7 +243,7 @@ public class CreateShipmentFromActivity extends Activity implements View.OnClick
                 break;
 
             case R.id.spinner_state:
-                strStateName = spinner_country.getItemAtPosition(position).toString();
+                strStateName = states.get(position).toString();
                 break;
         }
     }
@@ -244,6 +292,35 @@ public class CreateShipmentFromActivity extends Activity implements View.OnClick
 
                                 }
                                 progressBar.dismiss();
+
+                                if(AppConstant.IS_FROM_CALCULATE_RATES){
+                                    editText_zip.setText(AppConstant.F_C_ZIPCODE);
+                                    Log.e("Harshada","->"+AppConstant.F_C_COUNTRY_CODE);
+                                    for (int i = 0;i<arrayListCountries.size();i++) {
+                                        System.out.println(arrayListCountries.get(i).getCountry_code()+"satte name ->"+ AppConstant.F_C_COUNTRY_CODE);
+                                        if (arrayListCountries.get(i).getCountry_code().equalsIgnoreCase(AppConstant.F_C_COUNTRY_CODE)) {
+                                            spinner_country.setItemOnPosition(i);
+
+                                        }
+                                    }
+                                }
+                               /* if (mSessionManager.getBooleanData(SessionManager.KEY_IS_C_REMEMBERED)) {
+                                    if (mSessionManager.getBooleanData(SessionManager.KEY_IS_C_LOGOUT)) {
+                                        //for outer check rate functionality
+
+                                    } else {
+                                        editText_zip.setText(AppConstant.F_C_ZIPCODE);
+                                        Log.e("Harshada","->"+AppConstant.F_C_COUNTRY_CODE);
+                                        for (int i = 0;i<arrayListCountries.size();i++) {
+                                            System.out.println(arrayListCountries.get(i).getCountry_code()+"satte name ->"+ AppConstant.F_C_COUNTRY_CODE);
+                                            if (arrayListCountries.get(i).getCountry_code().equalsIgnoreCase(AppConstant.F_C_COUNTRY_CODE)) {
+                                                spinner_country.setItemOnPosition(i);
+
+                                            }
+                                        }
+                                    }
+                                }*/
+
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -372,10 +449,13 @@ public class CreateShipmentFromActivity extends Activity implements View.OnClick
                             try {
                                 JSONObject Json_response = new JSONObject(response);
                                 if(Json_response.getString(JSONConstant.STATUS).equalsIgnoreCase(JSONConstant.SUCCESS)){
-
+                                    AppConstant.F_C_COUNTRY_CODE = strCountryCode;
+                                    AppConstant.F_C_ZIPCODE = editText_zip.getText().toString().trim();
                                     progressBar.dismiss();
                                     startActivity(new Intent(CreateShipmentFromActivity.this,CreateShipmentToActivity.class));
                                 }else {
+                                    JSONObject jsonObject = Json_response.getJSONObject(JSONConstant.ERROR_MESSAGES);
+                                    Snackbar.make(editText_zip, jsonObject.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
 
                                 }
                                 progressBar.dismiss();
@@ -399,10 +479,18 @@ public class CreateShipmentFromActivity extends Activity implements View.OnClick
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put(JSONConstant.C_COUNTRY_CODE,strCountryCode);
+                    params.put(JSONConstant.C_COUNTRY_CODE,strCountryCode);
                     params.put(JSONConstant.C_STATE,strStateName);
                     params.put(JSONConstant.C_CITY,editText_city.getText().toString().trim());
                     params.put(JSONConstant.C_ZIPCODE,editText_zip.getText().toString().trim());
-                    //params.put(JSONConstant.C_ADDRESS_LINE1,editText_address.getText().toString().trim());
+                    params.put(JSONConstant.C_ADDRESS_LINE1,editText_addressline1.getText().toString().trim());
+                    params.put(JSONConstant.C_ADDRESS_LINE2,editText_addressline1.getText().toString().trim());
+                    params.put(JSONConstant.C_PHONE_NO,editText_phoneNumber.getText().toString().trim());
+                    params.put(JSONConstant.C_DIALLING_CODE,"+"+ccp.getFullNumber());
+                    params.put(JSONConstant.CONTACT_NAME,editText_contact_name.getText().toString().trim());
+                    params.put(JSONConstant.COMPANY_NAME,editText_company.getText().toString().trim());
+                     System.out.println("Harshada  =>"+params.toString());
+
                     return params;
                 }
 
@@ -430,4 +518,21 @@ public class CreateShipmentFromActivity extends Activity implements View.OnClick
         }
     }
 
+     /*  String URL = getResources().getString(R.string.url_domain_customer) + getResources().getString(R.string.url_get_states);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(JSONConstant.COUNTRY_CODE,"IN");
+
+        VolleyUtils.POST_METHOD(CreateShipmentFromActivity.this, URL, params, new VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+
+            }
+
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("==Volley Response===>>" + response);
+
+            }
+        });
+*/
 }

@@ -2,6 +2,7 @@ package com.example.aspl.fortunecourier.utility;
 
 import com.example.aspl.fortunecourier.model.Country;
 
+import java.net.PortUnreachableException;
 import java.security.PublicKey;
 
 /**
@@ -22,6 +23,9 @@ public class JSONConstant {
     public static final String CDT_DEVICE_ID = "cdt_device_id";
     public static final String CDT_DEVICE_TOKEN ="cdt_device_token";
     public static final String CDT_DEVICE_TYPE ="cdt_device_type";
+    public static final String COMPANY_NAME = "company_name";
+    public static final String CONTACT_NAME = "contact_name";
+
 
     public static final String C_FACEBOOK_ID= "c_facebook_id";
     public static final String C_PROFILE_PIC = "c_profile_pic";
@@ -64,6 +68,7 @@ public class JSONConstant {
     public static final String STATUS = "status";
     public static final String MESSAGE = "message";
     public static final String SUCCESS = "success";
+    public static final String ERROR_MESSAGES = "error_messages";
 
     public static final String COUNTRY_CODE = "country_code";
     public static final String C_COUNTRY_CODE = "c_country_code";
@@ -94,5 +99,30 @@ public class JSONConstant {
     public static final String PACKAGECOUNT = "PackageCount";
     public static final String PACKAGEWEIGHT = "PackageWeight";
     public static final String SERVICESHIPDATE = "serviceshipdate";
+    public static final String PACKAGING_TYPE="PackagingType";
+    public static final String SERVICE_TYPE ="service_type";
+    public static final String DROP_OFF_TYPE = "DropoffType";
+    //""""
+    public static final String PACKAGING_TYPE_DESCRIPTION = "PackagingTypeDescription";
+    public static final String DROPOFF_TYPE_DESCRIPTION = "DropoffTypeDescription";
+    public static final String IS_IDENTICAL = "is_identical";
+    public static final String CR_CARRIER_CODE = "cr_carrier_code";
+
+    public static final String PACKAGES = "Packages";
+
+    public static final String FROM_CONTACT_NAME = "from_contact_name";
+    public static final String FROM_COMPANY_NAME = "from_company_name";
+    public static final String FROM_C_PHONE_NO = "from_c_phone_no";
+    public static final String FROM_C_DIALLING_CODE = "from_c_dialling_code";
+
+    public static final String TO_CONTACT_NAME = "to_contact_name";
+    public static final String TO_COMPANY_NAME = "to_company_name";
+    public static final String TO_C_PHONE_NO = "to_c_phone_no";
+    public static final String TO_C_DIALLING_CODE = "to_c_dialling_code";
+
+    public static final String SHIPMENT_ID = "shipment_id";
+    public static final String MASTER_TRACKING_NO= "master_tracking_no";
+
+
 
 }

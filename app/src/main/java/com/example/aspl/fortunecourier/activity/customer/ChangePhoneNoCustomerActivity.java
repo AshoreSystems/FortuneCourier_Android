@@ -119,7 +119,20 @@ public class ChangePhoneNoCustomerActivity extends Activity implements View.OnCl
                                     mSessionManager.putStringData(SessionManager.KEY_C_DIALLING_CODE, "+"+ccp_new_phonenumber.getFullNumber());
                                     thread.start();
                                 } else {
-                                    Snackbar.make(btn_submit,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
+                                    JSONObject jsonObject = Json_response.getJSONObject(JSONConstant.ERROR_MESSAGES);
+                                    if (jsonObject.has(JSONConstant.C_PHONE_NO)) {
+                                        textInput_new_phonenumber.setError(jsonObject.getString(JSONConstant.C_PHONE_NO));
+                                        requestFocus(editText_new_phonenumber);
+                                    }
+
+                                    if (jsonObject.has(JSONConstant.C_OLD_PHONE_NO)) {
+                                        textInput_old_phonenumber.setError(jsonObject.getString(JSONConstant.C_PHONE_NO));
+                                        requestFocus(editText_old_phonenumber);
+                                    }
+
+                                    if (jsonObject.has(JSONConstant.MESSAGE)) {
+                                        Snackbar.make(textInput_old_phonenumber,jsonObject.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
+                                    }
                                 }
                                 progressBar.dismiss();
 

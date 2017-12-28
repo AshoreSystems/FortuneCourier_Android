@@ -37,7 +37,7 @@ public class MySMSBroadCastReceiver extends BroadcastReceiver
                 String Sender = smsm[i].getOriginatingAddress();
                 //Check here sender is yours
                 Intent smsIntent = new Intent("otp");
-                smsIntent.putExtra("message",sms_str);
+                smsIntent.putExtra(JSONConstant.MESSAGE,sms_str);
 
                 LocalBroadcastManager.getInstance(context).sendBroadcast(smsIntent);
 

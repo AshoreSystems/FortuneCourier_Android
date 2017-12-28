@@ -225,7 +225,7 @@ public class OTPVerificationAssociateActivity extends AppCompatActivity implemen
                                     }else if(getIntent().getStringExtra(AppConstant.SIGNUP_OR_FORGOT_OTP).equalsIgnoreCase(AppConstant.FORGOT_OTP)){
                                         startActivity(new Intent(OTPVerificationAssociateActivity.this, ResetPasswordAssociateActivity.class));
                                     }else if(getIntent().getStringExtra(AppConstant.SIGNUP_OR_FORGOT_OTP).equalsIgnoreCase(AppConstant.CHANGE_PHONE_OTP)) {
-                                        Snackbar.make(btn_verify, Json_response.getString("message"), Snackbar.LENGTH_LONG).show();
+                                        Snackbar.make(btn_verify, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
                                         hideKeyboard();
                                         finish();
                                         //URL = getResources().getString(R.string.url_domain) + getResources().getString(R.string.url_verify_phone_no_otp);
@@ -237,7 +237,7 @@ public class OTPVerificationAssociateActivity extends AppCompatActivity implemen
                                         finish();
                                     }
                                 } else {
-                                    Snackbar.make(btn_verify, Json_response.getString("message"), Snackbar.LENGTH_LONG).show();
+                                    Snackbar.make(btn_verify, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
                                 }
                                 progressBar.dismiss();
                             } catch (JSONException e) {

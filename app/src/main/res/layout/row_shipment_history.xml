@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_row"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_color_black"
-        android:padding="@dimen/edittext_margin">
+        android:padding="@dimen/edittext_margin"
+        android:background="@color/background_color_black">
 
         <TextView
+            android:id="@+id/tv_transaction_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3154315126"
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
+            android:text="3154315126"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/header_size" />
+            android:textSize="18sp" />
 
         <ImageView
+            android:id="@+id/img_delet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/back" />
+            android:visibility="invisible"
+            android:src="@drawable/close_circle" />
 
     </RelativeLayout>
 
@@ -32,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/colorWhite"
-        android:padding="@dimen/activity_margin">
+        android:padding="@dimen/edittext_margin">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -43,12 +47,14 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_ship_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Friday"
                 android:textColor="@color/colorRed" />
 
             <TextView
+                android:id="@+id/tv_ship_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="12/11/1017"
@@ -63,16 +69,20 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_to_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Friday"
-                android:textColor="@color/colorRed" />
+                android:text="To : Harshada"
+                android:textColor="@color/colorBlack" />
+
             <ImageView
-                android:layout_width="wrap_content"
+                android:id="@+id/img_delivery_status"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/back"/>
+                android:src="@drawable/track_progress" />
 
             <TextView
+                android:id="@+id/tv_delivery_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="12/11/1017"
@@ -84,17 +94,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:gravity="center"
             android:layout_centerInParent="true"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_delivery_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Friday"
                 android:textColor="@color/colorRed" />
 
             <TextView
+                android:id="@+id/tv_delivery_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="12/11/1017"

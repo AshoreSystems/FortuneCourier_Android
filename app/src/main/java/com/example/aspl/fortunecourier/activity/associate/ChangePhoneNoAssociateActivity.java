@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -121,7 +122,21 @@ public class ChangePhoneNoAssociateActivity extends Activity implements View.OnC
                                     hideKeyboard();
                                     finish();
                                 } else {
-                                    Snackbar.make(btn_submit,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
+                                    JSONObject jsonObject = Json_response.getJSONObject(JSONConstant.ERROR_MESSAGES);
+                                    if (jsonObject.has(JSONConstant.A_PHONE_NO)) {
+                                        textInput_new_phonenumber.setError(jsonObject.getString(JSONConstant.A_PHONE_NO));
+                                        requestFocus(editText_new_phonenumber);
+                                    }
+
+                                    if (jsonObject.has(JSONConstant.A_OLD_PHONE_NO)) {
+                                        textInput_old_phonenumber.setError(jsonObject.getString(JSONConstant.A_PHONE_NO));
+                                        requestFocus(editText_old_phonenumber);
+                                    }
+
+                                    if (jsonObject.has(JSONConstant.MESSAGE)) {
+                                        Snackbar.make(textInput_new_phonenumber,jsonObject.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
+                                    }
+
                                 }
                                 progressBar.dismiss();
 

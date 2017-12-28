@@ -115,7 +115,16 @@ public class SetPhoneNumberCustomerActivity extends Activity implements View.OnC
                                     mSessionManager.putStringData(SessionManager.KEY_C_DIALLING_CODE, "+"+ccp.getFullNumber());
                                     startActivity(new Intent(SetPhoneNumberCustomerActivity.this, OTPVerificationCustomerActivity.class).putExtra(AppConstant.SIGNUP_OR_FORGOT_OTP,"FACEBOOK OTP"));
                                 } else {
-                                    Snackbar.make(btn_submit,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
+                                   JSONObject jsonObject = Json_response.getJSONObject(JSONConstant.ERROR_MESSAGES);
+                                   if (jsonObject.has(JSONConstant.C_PHONE_NO)) {
+                                       textInput_phoneNumber.setError(jsonObject.getString(JSONConstant.C_PHONE_NO));
+                                       requestFocus(editText_phoneNumber);
+                                   }
+
+                                   if (jsonObject.has(JSONConstant.MESSAGE)) {
+                                       Snackbar.make(textInput_phoneNumber,jsonObject.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
+                                   }
+                                    //Snackbar.make(btn_submit,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
                                 }
                                 progressBar.dismiss();
 

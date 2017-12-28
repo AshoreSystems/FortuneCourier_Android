@@ -51,7 +51,7 @@ public class FragmentDrawerCustomer extends Fragment {
     //private static String[] titles = null;
     static  List<String>  titles = new ArrayList<>();
     private SessionManager mSessionManager;
-    private static int[] images = {R.drawable.ic_dashboard,R.drawable.ic_orderlist_red,R.drawable.ic_calculate_red,R.drawable.ic_track_red,R.drawable.ic_history_red,R.drawable.ic_update_profile_red,R.drawable.ic_change_password_red,R.drawable.ic_change_number_red,R.drawable.ic_share_app_red,R.drawable.ic_notifications_red,R.drawable.ic_contact_us_red,R.drawable.ic_logout};
+    private static int[] images = {R.drawable.ic_dashboard,R.drawable.ic_orderlist_red,R.drawable.ic_track_red,R.drawable.ic_history_red,R.drawable.ic_calculate_red,R.drawable.ic_update_profile_red,R.drawable.ic_change_password_red,R.drawable.ic_change_number_red,R.drawable.ic_share_app_red,R.drawable.ic_notifications_red,R.drawable.ic_contact_us_red,R.drawable.ic_logout};
     private FragmentDrawerListener drawerListener;
     TextView tv_username;
     RoundedImageView img_profile_pic;

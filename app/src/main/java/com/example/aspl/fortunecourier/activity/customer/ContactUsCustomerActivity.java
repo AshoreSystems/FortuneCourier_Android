@@ -37,7 +37,9 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -252,11 +254,15 @@ public class ContactUsCustomerActivity extends AppCompatActivity implements View
             HttpPost httppost = new HttpPost(getResources().getString(R.string.url_domain_customer) + getResources().getString(R.string.url_contact_us));
             FileBody first = null, second = null, third = null;
 
-            MultipartEntity reqEntity = new MultipartEntity();
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+
+            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            //FileBody fileBody = new FileBody(new File(image)); //image should be a String
+           // builder.addPart("my_file", fileBody);
+
+            //MultipartEntity reqEntity = new MultipartEntity();
             StringBody message = null;
             StringBody user_id = null;
-           /* StringBody device_id = null;
-            StringBody lang = null;*/
 
             String firstString = "";
             try {
@@ -297,32 +303,46 @@ public class ContactUsCustomerActivity extends AppCompatActivity implements View
             }
             if (!firstString.equals("") || img1 != null) {
                 try {
-                    reqEntity.addPart("attachment1", first);
+                    //reqEntity.addPart("attachment1", first);
+                    builder.addPart("attachment1", first);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 try {
-                    reqEntity.addPart("attachment2", second);
+                   // reqEntity.addPart("attachment2", second);
+                    builder.addPart("attachment2", second);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 try {
-                    reqEntity.addPart("attachment3", third);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                reqEntity.addPart("cu_message", message);
-                reqEntity.addPart("c_id", user_id);
-                // reqEntity.addPart("device_id", device_id);
-                //reqEntity.addPart("lang", lang);
+                    //reqEntity.addPart("attachment3", third);
+                    builder.addPart("attachment3", third);
 
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                builder.addPart("cu_message", message);
+                builder.addPart("c_id", user_id);
+
+              /*  reqEntity.addPart("cu_message", message);
+                reqEntity.addPart("c_id", user_id);*/
 
             } else {
-                //Toast.makeText(ContactUsCustomerActivity.this, "Please select atleast image or video for post", Toast.LENGTH_SHORT).show();
+
+               /* reqEntity.addPart("cu_message", message);
+                reqEntity.addPart("c_id", user_id);*/
+
+                builder.addPart("cu_message", message);
+                builder.addPart("c_id", user_id);
             }
 
 
-            httppost.setEntity(reqEntity);
+            //System.out.println("###->"+reqEntity.toString());
+
+            //httppost.setEntity(reqEntity);
+            httppost.setEntity(builder.build());
+
 
             // DEBUG
             System.out.println("executing request " + httppost.getRequestLine());

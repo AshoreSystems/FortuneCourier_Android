@@ -132,8 +132,11 @@ public class DashboardCustomerActivity extends AppCompatActivity implements Frag
                 break;
 
             case 1:
-                fragment = new FriendsFragment();
-                title = getString(R.string.nav_item_generate_shipment);
+                hideKeyboard();
+                AppConstant.IS_FROM_CALCULATE_RATES =false;
+                startActivity(new Intent(DashboardCustomerActivity.this,CreateShipmentFromActivity.class));
+              /*  fragment = new FriendsFragment();
+                title = getString(R.string.nav_item_generate_shipment);*/
                 break;
 
             case 2:
@@ -142,11 +145,16 @@ public class DashboardCustomerActivity extends AppCompatActivity implements Frag
                 break;
 
             case 3:
-                fragment = new MessagesFragment();
-                title = getString(R.string.nav_item_view_shipment_history);
+                hideKeyboard();
+                startActivity(new Intent(DashboardCustomerActivity.this, ShipmentHistoryActivity.class));
+               /* fragment = new MessagesFragment();
+                title = getString(R.string.nav_item_view_shipment_history);*/
                 break;
 
             case 4:
+                hideKeyboard();
+                AppConstant.IS_FROM_CALCULATE_RATES = true;
+                AppConstant.IS_FROM_CREATE_SHIPMENT = false;
                 startActivity(new Intent(DashboardCustomerActivity.this, CheckRatesFromActivity.class));
                 break;
 

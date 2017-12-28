@@ -262,7 +262,8 @@ public class CheckRatesToActivity extends Activity implements View.OnClickListen
                                     hideKeyboard();
                                     startActivity(new Intent(CheckRatesToActivity.this, ShipmentDetailsCustomerActivity.class));
                                 } else {
-                                    Snackbar.make(editText_zip, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
+                                    JSONObject jsonObject = Json_response.getJSONObject(JSONConstant.ERROR_MESSAGES);
+                                    Snackbar.make(editText_zip, jsonObject.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
 
                                 }
                                 progressBar.dismiss();

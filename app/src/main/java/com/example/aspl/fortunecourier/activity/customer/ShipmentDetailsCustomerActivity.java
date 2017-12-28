@@ -32,6 +32,7 @@ import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
 import com.example.aspl.fortunecourier.utility.JSONConstant;
+import com.example.aspl.fortunecourier.utility.SessionManager;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import android.view.Window;
@@ -116,11 +117,14 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
     String strCarrierCode;
     String strDropoffType;
     String strDropOffDescription;
-    String strServiceType;
+    String strServiceType="";
+    String strServiceTypeDesc="";
+
     private ImageView img_info;
     String strDimensionalUnit = "IN";
     String strWeightUnit ="LB";
-    String strCurrencyUnit = "$";
+    String strCurrencyUnit = "USD";
+    private SessionManager mSessionManager;
 
 
     @Override
@@ -132,6 +136,7 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
 
     public void init() {
         cd = new ConnectionDetector(this);
+        mSessionManager = new SessionManager(this);
 
         arrayListCarriers =  new ArrayList<>();
         arrayListDropOffs = new ArrayList<>();
@@ -211,17 +216,6 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
         tv_package_details4 = (TextView) findViewById(R.id.tv_package_details4);
         tv_package_details5 = (TextView) findViewById(R.id.tv_package_details5);
 
-       /* textInput_weight1 = (TextInputLayout) findViewById(R.id.textInput_weight1);
-        textInput_weight2 = (TextInputLayout) findViewById(R.id.textInput_weight2);
-        textInput_weight3 = (TextInputLayout) findViewById(R.id.textInput_weight3);
-        textInput_weight4 = (TextInputLayout) findViewById(R.id.textInput_weight4);
-        textInput_weight5 = (TextInputLayout) findViewById(R.id.textInput_weight5);
-
-        textInput_declared_value1 = (TextInputLayout) findViewById(R.id.textInput_declared_value1);
-        textInput_declared_value2 = (TextInputLayout) findViewById(R.id.textInput_declared_value2);
-        textInput_declared_value3 = (TextInputLayout) findViewById(R.id.textInput_declared_value3);
-        textInput_declared_value4 = (TextInputLayout) findViewById(R.id.textInput_declared_value4);
-        textInput_declared_value5 = (TextInputLayout) findViewById(R.id.textInput_declared_value5);*/
 
         cb_identical = (CheckBox) findViewById(R.id.cb_identical);
         cb_identical.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -234,6 +228,15 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
                     hideLayout(linear_package3);
                     hideLayout(linear_package4);
                     hideLayout(linear_package5);
+                    //showPackageDetails(tv_package_details1,hashMapPackage1);
+                    hashMapPackage2.clear();
+                    hashMapPackage3.clear();
+                    hashMapPackage4.clear();
+                    hashMapPackage5.clear();
+                    dataMapOfPackages.remove(hashMapPackage2);
+                    dataMapOfPackages.remove(hashMapPackage3);
+                    dataMapOfPackages.remove(hashMapPackage4);
+                    dataMapOfPackages.remove(hashMapPackage5);
                 }
                 else {
                     tv_package1.setText(getResources().getString(R.string.lbl_package_1));
@@ -308,7 +311,7 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
 
         }else {
             if(cd.isConnectingToInternet()){
-                strCarrierCode = "";
+                strCarrierCode = "FedEX";
                 getServiceTypes();
             }else {
                 Snackbar.make(tv_first,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
@@ -319,21 +322,142 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
 
         scrollView = (ScrollView)findViewById(R.id.scrollView);
 
+        if(AppConstant.IS_FROM_CALCULATE_RATES && AppConstant.IS_FROM_CREATE_SHIPMENT){
+
+            Log.e("Harshada=>",mSessionManager.getStringData(SessionManager.KEY_SHIP_DATE));
+            editText_ship_date.setText(mSessionManager.getStringData(SessionManager.KEY_SHIP_DATE));
+            if(mSessionManager.getBooleanData(SessionManager.KEY_IS_IDENTICAL)){
+                cb_identical.setChecked(true);
+               // tv_first.performClick();
+                if (mSessionManager.getStringData(SessionManager.KEY_PACKAGE_COUNT).equalsIgnoreCase("1")){
+                    hashMapPackage1.putAll(AppConstant.hashMapPackage1);
+                    dataMapOfPackages.add(hashMapPackage1);
+                    tv_first.performClick();
+                }else if(mSessionManager.getStringData(SessionManager.KEY_PACKAGE_COUNT).equalsIgnoreCase("2")){
+                    hashMapPackage2.putAll(AppConstant.hashMapPackage2);
+                    dataMapOfPackages.add(hashMapPackage2);
+                    tv_second.performClick();
+
+                }else if(mSessionManager.getStringData(SessionManager.KEY_PACKAGE_COUNT).equalsIgnoreCase("3")){
+                    hashMapPackage3.putAll(AppConstant.hashMapPackage3);
+                    dataMapOfPackages.add(hashMapPackage3);
+                    tv_third.performClick();
+
+                }else if(mSessionManager.getStringData(SessionManager.KEY_PACKAGE_COUNT).equalsIgnoreCase("4")){
+                    hashMapPackage4.putAll(AppConstant.hashMapPackage4);
+                    dataMapOfPackages.add(hashMapPackage4);
+                    tv_fourth.performClick();
+                }else {
+                    hashMapPackage5.putAll(AppConstant.hashMapPackage5);
+                    dataMapOfPackages.add(hashMapPackage5);
+                    tv_fifth.performClick();
+                }
+
+                hashMapPackage1.putAll(AppConstant.hashMapPackage1);
+                dataMapOfPackages.add(hashMapPackage1);
+                tv_package1.setText("Packages");
+                linear_package1.setVisibility(View.VISIBLE);
+                hideLayout(linear_package2);
+                hideLayout(linear_package3);
+                hideLayout(linear_package4);
+                hideLayout(linear_package5);
+                showPackageDetails(tv_package_details1,hashMapPackage1);
+                hashMapPackage2.clear();
+                hashMapPackage3.clear();
+                hashMapPackage4.clear();
+                hashMapPackage5.clear();
 
 
-        /*arrayListOfPackages = Arrays.asList(getResources().getStringArray(R.array.no_of_packages));
+            }else {
+               cb_identical.setChecked(false);
+                if (mSessionManager.getStringData(SessionManager.KEY_PACKAGE_COUNT).equalsIgnoreCase("1")){
+                    hashMapPackage1.putAll(AppConstant.hashMapPackage1);
+                    dataMapOfPackages.add(hashMapPackage1);
+                    tv_first.performClick();
+                    showPackageDetails(tv_package_details1,hashMapPackage1);
 
-        spinner_no_of_packages = (Spinner) findViewById(R.id.spinner_no_of_packages);
-        spinner_no_of_packages.setOnItemSelectedListener(this);
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(ShipmentDetailsCustomerActivity.this,
-                android.R.layout.simple_spinner_item, arrayListOfPackages);
-        // set the view for the Drop down list
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // set the ArrayAdapter to the spinner
-        spinner_no_of_packages.setAdapter(dataAdapter);*/
+                }else if(mSessionManager.getStringData(SessionManager.KEY_PACKAGE_COUNT).equalsIgnoreCase("2")){
+                    hashMapPackage1.putAll(AppConstant.hashMapPackage1);
+                    dataMapOfPackages.add(hashMapPackage1);
+                    tv_first.performClick();
+                    showPackageDetails(tv_package_details1,hashMapPackage1);
 
-        // linear_dynamic = (LinearLayout) findViewById(R.id.linear_dynamic);
+                    hashMapPackage2.putAll(AppConstant.hashMapPackage2);
+                    dataMapOfPackages.add(hashMapPackage2);
+                    tv_second.performClick();
+                    showPackageDetails(tv_package_details2,hashMapPackage2);
+
+                }else if(mSessionManager.getStringData(SessionManager.KEY_PACKAGE_COUNT).equalsIgnoreCase("3")){
+
+                    hashMapPackage1.putAll(AppConstant.hashMapPackage1);
+                    dataMapOfPackages.add(hashMapPackage1);
+                    tv_first.performClick();
+                    showPackageDetails(tv_package_details1,hashMapPackage1);
+
+                    hashMapPackage2.putAll(AppConstant.hashMapPackage2);
+                    dataMapOfPackages.add(hashMapPackage2);
+                    tv_second.performClick();
+                    showPackageDetails(tv_package_details2,hashMapPackage2);
+
+                    hashMapPackage3.putAll(AppConstant.hashMapPackage3);
+                    dataMapOfPackages.add(hashMapPackage3);
+                    tv_third.performClick();
+                    showPackageDetails(tv_package_details3,hashMapPackage3);
+
+                }else if(mSessionManager.getStringData(SessionManager.KEY_PACKAGE_COUNT).equalsIgnoreCase("4")){
+
+                    hashMapPackage1.putAll(AppConstant.hashMapPackage1);
+                    dataMapOfPackages.add(hashMapPackage1);
+                    tv_first.performClick();
+                    showPackageDetails(tv_package_details1,hashMapPackage1);
+
+                    hashMapPackage2.putAll(AppConstant.hashMapPackage2);
+                    dataMapOfPackages.add(hashMapPackage2);
+                    tv_second.performClick();
+                    showPackageDetails(tv_package_details2,hashMapPackage2);
+
+                    hashMapPackage3.putAll(AppConstant.hashMapPackage3);
+                    dataMapOfPackages.add(hashMapPackage3);
+                    tv_third.performClick();
+                    showPackageDetails(tv_package_details3,hashMapPackage3);
+
+                    hashMapPackage4.putAll(AppConstant.hashMapPackage4);
+                    dataMapOfPackages.add(hashMapPackage4);
+                    tv_fourth.performClick();
+                    showPackageDetails(tv_package_details4,hashMapPackage4);
+
+                }else {
+                    hashMapPackage1.putAll(AppConstant.hashMapPackage1);
+                    dataMapOfPackages.add(hashMapPackage1);
+                    tv_first.performClick();
+                    showPackageDetails(tv_package_details1,hashMapPackage1);
+
+                    hashMapPackage2.putAll(AppConstant.hashMapPackage2);
+                    dataMapOfPackages.add(hashMapPackage2);
+                    tv_second.performClick();
+                    showPackageDetails(tv_package_details2,hashMapPackage2);
+
+                    hashMapPackage3.putAll(AppConstant.hashMapPackage3);
+                    dataMapOfPackages.add(hashMapPackage3);
+                    tv_third.performClick();
+                    showPackageDetails(tv_package_details3,hashMapPackage3);
+
+                    hashMapPackage4.putAll(AppConstant.hashMapPackage4);
+                    dataMapOfPackages.add(hashMapPackage4);
+                    tv_fourth.performClick();
+                    showPackageDetails(tv_package_details4,hashMapPackage4);
+
+
+                    hashMapPackage5.putAll(AppConstant.hashMapPackage5);
+                    dataMapOfPackages.add(hashMapPackage5);
+                    tv_fifth.performClick();
+                    showPackageDetails(tv_package_details5,hashMapPackage5);
+
+                }
+            }
+        }
+
 
     }
 
@@ -602,11 +726,49 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
             } else {
                 textInput_ship_date.setErrorEnabled(false);
                 AppConstant.SHIPMENT_DATE = editText_ship_date.getText().toString().trim();
+
+                mSessionManager.putStringData(SessionManager.KEY_SHIP_DATE,editText_ship_date.getText().toString().trim());
+                mSessionManager.putStringData(SessionManager.KEY_CARRIER_CODE,strCarrierCode);
+                mSessionManager.putStringData(SessionManager.KEY_SERVICE_TYPE,strServiceType);
+                mSessionManager.putStringData(SessionManager.KEY_SERVICE_TYPE_NAME,strServiceTypeDesc);
+
+                mSessionManager.putStringData(SessionManager.KEY_PICKUP_DROP,strDropoffType);
+                mSessionManager.putStringData(SessionManager.KEY_PICKUP_DROP_NAME,strDropOffDescription);
+
+                mSessionManager.putStringData(SessionManager.KEY_PACKAGE_TYPE,strPackageType);
+                mSessionManager.putStringData(SessionManager.KEY_PACKAGE_TYPE_NAME,strPackageName);
+
+                mSessionManager.putStringData(SessionManager.KEY_PACKAGE_COUNT,strTextViewNo);
+                if(cb_identical.isChecked()){
+                    mSessionManager.putBooleanData(SessionManager.KEY_IS_IDENTICAL,true);
+                }else {
+                    mSessionManager.putBooleanData(SessionManager.KEY_IS_IDENTICAL,false);
+                }
+
                 getCheckRatesDetails();
             }
         }else {
             textInput_ship_date.setErrorEnabled(false);
             AppConstant.SHIPMENT_DATE = editText_ship_date.getText().toString().trim();
+
+            mSessionManager.putStringData(SessionManager.KEY_SHIP_DATE,editText_ship_date.getText().toString().trim());
+            mSessionManager.putStringData(SessionManager.KEY_CARRIER_CODE,strCarrierCode);
+            mSessionManager.putStringData(SessionManager.KEY_SERVICE_TYPE,strServiceType);
+            mSessionManager.putStringData(SessionManager.KEY_SERVICE_TYPE_NAME,strServiceTypeDesc);
+
+            mSessionManager.putStringData(SessionManager.KEY_PICKUP_DROP,strDropoffType);
+            mSessionManager.putStringData(SessionManager.KEY_PICKUP_DROP_NAME,strDropOffDescription);
+
+            mSessionManager.putStringData(SessionManager.KEY_PACKAGE_TYPE,strPackageType);
+            mSessionManager.putStringData(SessionManager.KEY_PACKAGE_TYPE_NAME,strPackageName);
+
+            mSessionManager.putStringData(SessionManager.KEY_PACKAGE_COUNT,strTextViewNo);
+            if(cb_identical.isChecked()){
+                mSessionManager.putBooleanData(SessionManager.KEY_IS_IDENTICAL,true);
+            }else {
+                mSessionManager.putBooleanData(SessionManager.KEY_IS_IDENTICAL,false);
+            }
+
             getCheckRatesDetails();
         }
 
@@ -665,8 +827,7 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
                                     ratesArrayList.clear();
 
                                 }else {
-
-                                    JSONObject jsonObject = Json_response.getJSONObject("error_messages");
+                                    JSONObject jsonObject = Json_response.getJSONObject(JSONConstant.ERROR_MESSAGES);
                                     Snackbar.make(spinner_carrier,jsonObject.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_SHORT).show();
                                 }
                                 progressBar.dismiss();
@@ -695,24 +856,28 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
                     params.put(JSONConstant.TO_C_ZIPCODE,AppConstant.T_C_ZIPCODE);
                     params.put(JSONConstant.PACKAGECOUNT,strTextViewNo);
                     params.put(JSONConstant.SERVICESHIPDATE,editText_ship_date.getText().toString());
-                    params.put("PackagingType",strPackageType);
+                    params.put(JSONConstant.PACKAGING_TYPE,strPackageType);
 
                     if (strCarrierCode != null &&!strCarrierCode.equalsIgnoreCase("UPS")){
-                        params.put("service_type",strServiceType);
+                        params.put(JSONConstant.SERVICE_TYPE,strServiceType);
                     }
 
-                    params.put("DropoffType",strDropoffType);
-                    params.put("PackagingTypeDescription",strPackageName);
-                    params.put("DropoffTypeDescription",strDropOffDescription);
+                    params.put(JSONConstant.DROP_OFF_TYPE,strDropoffType);
+                    params.put(JSONConstant.PACKAGING_TYPE_DESCRIPTION,strPackageName);
+                    params.put(JSONConstant.DROPOFF_TYPE_DESCRIPTION,strDropOffDescription);
 
                     if(cb_identical.isChecked()){
-                        params.put("is_identical","1");
+                        params.put(JSONConstant.IS_IDENTICAL,"1");
                     }else {
-                        params.put("is_identical","0");
+                        params.put(JSONConstant.IS_IDENTICAL,"0");
                     }
                     //
                     //params.put("cr_carrier_code","FDXE");
-                    params.put("cr_carrier_code",strCarrierCode);
+                    params.put(JSONConstant.CR_CARRIER_CODE,strCarrierCode);
+
+                    AppConstant.noOfPackages.addAll(dataMapOfPackages);
+                    //AppConstant.noOfPackages.removeAll(dataMapOfPackages);
+
                     try {
                         List<JSONObject> jsonObj = new ArrayList<JSONObject>();
 
@@ -727,18 +892,18 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
                         jsonObject.put("Packages",test);
 
                         System.out.println(jsonObject.toString());
-                        params.put("Packages",test.toString());
+                        params.put(JSONConstant.PACKAGES,test.toString());
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
-                    params.put("from_c_state","");
-                    params.put("from_c_address_line1","");
-                    params.put("from_c_city","");
-                    params.put("to_c_state","");
-                    params.put("to_c_address_line1","");
-                    params.put("to_c_city","");
+                    params.put(JSONConstant.FROM_C_STATE,"");
+                    params.put(JSONConstant.FROM_C_ADDRESS_LINE1,"");
+                    params.put(JSONConstant.FROM_C_CITY,"");
+                    params.put(JSONConstant.TO_C_STATE,"");
+                    params.put(JSONConstant.TO_C_ADDRESS_LINE1,"");
+                    params.put(JSONConstant.TO_C_CITY,"");
 
                     System.out.println("hi harshada"+params.toString());
 
@@ -827,6 +992,22 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
                                 spinner_carrier.setAdapter(dataAdapter);
 
                                 progressBar.dismiss();
+
+                                if(AppConstant.IS_FROM_CALCULATE_RATES && AppConstant.IS_FROM_CREATE_SHIPMENT){
+
+                                    Log.e("Harshada","->"+mSessionManager.getStringData(SessionManager.KEY_CARRIER_CODE));
+                                    for (int i = 0;i<arrayListCarriers.size();i++) {
+                                        System.out.println(arrayListCarriers.get(i).getCr_code()+"satte name ->"+ mSessionManager.getStringData(SessionManager.KEY_CARRIER_CODE));
+                                        if (arrayListCarriers.get(i).getCr_code().equalsIgnoreCase(mSessionManager.getStringData(SessionManager.KEY_CARRIER_CODE))) {
+                                            spinner_carrier.setItemOnPosition(i);
+
+                                        }
+                                    }
+                                }
+
+
+
+
                                 //getServiceTypes();
 
                             } catch (JSONException e) {
@@ -908,6 +1089,19 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
                                 arrayListDropOffs = new ArrayList<>();
                                 packageTypeList = new ArrayList<>();
                                 packageNameList = new ArrayList<>();
+
+                                if(AppConstant.IS_FROM_CALCULATE_RATES && AppConstant.IS_FROM_CREATE_SHIPMENT){
+
+                                    Log.e("Harshada","->"+mSessionManager.getStringData(SessionManager.KEY_SERVICE_TYPE));
+                                    for (int i = 0;i<arrayListServiceTypes.size();i++) {
+                                        System.out.println(arrayListServiceTypes.get(i).getServiceType()+"satte name ->"+ mSessionManager.getStringData(SessionManager.KEY_SERVICE_TYPE));
+                                        if (arrayListServiceTypes.get(i).getServiceType().equalsIgnoreCase(mSessionManager.getStringData(SessionManager.KEY_SERVICE_TYPE))) {
+                                            spinner_service_type.setItemOnPosition(i);
+
+                                        }
+                                    }
+                                }
+
 
                                 getDropOff();
 
@@ -991,6 +1185,19 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
                                 // set the ArrayAdapter to the spinner
                                 spinner_pickup_drop.setAdapter(dataAdapter);
 
+                                if(AppConstant.IS_FROM_CALCULATE_RATES && AppConstant.IS_FROM_CREATE_SHIPMENT){
+
+                                    Log.e("Harshada","->"+mSessionManager.getStringData(SessionManager.KEY_PICKUP_DROP));
+                                    for (int i = 0;i<arrayListDropOffs.size();i++) {
+                                        System.out.println(arrayListDropOffs.get(i).getDropOffType()+"satte name ->"+ mSessionManager.getStringData(SessionManager.KEY_PICKUP_DROP));
+                                        if (arrayListDropOffs.get(i).getDropOffType().equalsIgnoreCase(mSessionManager.getStringData(SessionManager.KEY_PICKUP_DROP))) {
+                                            spinner_pickup_drop.setItemOnPosition(i);
+
+                                        }
+                                    }
+                                }
+
+
                                 //Log.e("harshada",strCarrierCode+"="+carrierCode);
                                 //progressBar.dismiss();
 
@@ -1071,6 +1278,18 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
                                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 // set the ArrayAdapter to the spinner
                                 spinner_package_type.setAdapter(dataAdapter);
+
+                                if(AppConstant.IS_FROM_CALCULATE_RATES && AppConstant.IS_FROM_CREATE_SHIPMENT){
+
+                                    Log.e("Harshada","->"+mSessionManager.getStringData(SessionManager.KEY_PACKAGE_TYPE));
+                                    for (int i = 0;i<packageTypeList.size();i++) {
+                                        System.out.println(packageTypeList.get(i)+"satte name ->"+ mSessionManager.getStringData(SessionManager.KEY_PACKAGE_TYPE));
+                                        if (packageTypeList.get(i).equalsIgnoreCase(mSessionManager.getStringData(SessionManager.KEY_PACKAGE_TYPE))) {
+                                            spinner_package_type.setItemOnPosition(i);
+
+                                        }
+                                    }
+                                }
 
                                 progressBar.dismiss();
 
@@ -1234,8 +1453,8 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position==0){
-                    tv_currency_unit.setText(getResources().getString(R.string.lbl_currency_unit_$));
-                    strCurrencyUnit="$";
+                    tv_currency_unit.setText(getResources().getString(R.string.lbl_currency_unit_usd));
+                    strCurrencyUnit="USD";
                 }else if(position==1){
                     tv_currency_unit.setText(getResources().getString(R.string.lbl_currency_unit_inr));
                     strCurrencyUnit="INR";
@@ -1271,13 +1490,13 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
         }
 
 
-        if(strCurrencyUnit.equalsIgnoreCase("$")){
+        if(strCurrencyUnit.equalsIgnoreCase("USD")){
             spinner_currency.setSelection(0);
             if(!tv_title.getText().toString().trim().equalsIgnoreCase(getResources().getString(R.string.lbl_package_1))){
                 tv_currency_unit.setVisibility(View.VISIBLE);
-                tv_currency_unit.setText(getResources().getString(R.string.lbl_currency_unit_$));
+                tv_currency_unit.setText(getResources().getString(R.string.lbl_currency_unit_usd));
             }
-            strCurrencyUnit = "$";
+            strCurrencyUnit = "USD";
         }else  if(strCurrencyUnit.equalsIgnoreCase("INR")){
             spinner_currency.setSelection(1);
             if(!tv_title.getText().toString().trim().equalsIgnoreCase(getResources().getString(R.string.lbl_package_1))){
@@ -1335,13 +1554,13 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
                     tv_package_dimension.setText(getResources().getString(R.string.lbl_package_dimension_in));
                 }
 
-                if(hashMap.get(AppConstant.HM_CURRENCY_UNIT).toString().equalsIgnoreCase(getResources().getString(R.string.lbl_currency_unit_$))){
+                if(hashMap.get(AppConstant.HM_CURRENCY_UNIT).toString().equalsIgnoreCase(getResources().getString(R.string.lbl_currency_unit_usd))){
                     spinner_currency.setSelection(0);
                     if(!tv_title.getText().toString().trim().equalsIgnoreCase(getResources().getString(R.string.lbl_package_1))){
                         tv_currency_unit.setVisibility(View.VISIBLE);
-                        tv_currency_unit.setText(getResources().getString(R.string.lbl_currency_unit_$));
+                        tv_currency_unit.setText(getResources().getString(R.string.lbl_currency_unit_usd));
                     }
-                    strCurrencyUnit = "$";
+                    strCurrencyUnit = "USD";
                 }else  if(hashMap.get(AppConstant.HM_CURRENCY_UNIT).toString().equalsIgnoreCase(getResources().getString(R.string.lbl_currency_unit_inr))){
                     spinner_currency.setSelection(1);
                     if(!tv_title.getText().toString().trim().equalsIgnoreCase(getResources().getString(R.string.lbl_package_1))){
@@ -1393,13 +1612,13 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
                 }
 
 
-                if(hashMap.get(AppConstant.HM_CURRENCY_UNIT).toString().equalsIgnoreCase(getResources().getString(R.string.lbl_currency_unit_$))){
+                if(hashMap.get(AppConstant.HM_CURRENCY_UNIT).toString().equalsIgnoreCase(getResources().getString(R.string.lbl_currency_unit_usd))){
                     spinner_currency.setSelection(0);
                     if(!tv_title.getText().toString().trim().equalsIgnoreCase(getResources().getString(R.string.lbl_package_1))){
                         tv_currency_unit.setVisibility(View.VISIBLE);
-                        tv_currency_unit.setText(getResources().getString(R.string.lbl_currency_unit_$));
+                        tv_currency_unit.setText(getResources().getString(R.string.lbl_currency_unit_usd));
                     }
-                    strCurrencyUnit = "$";
+                    strCurrencyUnit = "USD";
                 }else  if(hashMap.get(AppConstant.HM_CURRENCY_UNIT).toString().equalsIgnoreCase(getResources().getString(R.string.lbl_currency_unit_inr))){
                     spinner_currency.setSelection(1);
                     if(!tv_title.getText().toString().trim().equalsIgnoreCase(getResources().getString(R.string.lbl_package_1))){
@@ -1519,7 +1738,7 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
                         hashMap.put(AppConstant.HM_PACKAGE_NO, titleShow);
                         hashMap.put(AppConstant.HM_WEIGHT, editText_weight.getText().toString().trim());
                         hashMap.put(AppConstant.HM_WEIGHT_UNIT, strWeightUnit);
-                         hashMap.put(AppConstant.HM_CURRENCY_UNIT,strCurrencyUnit);
+                        hashMap.put(AppConstant.HM_CURRENCY_UNIT,strCurrencyUnit);
                         hashMap.put(AppConstant.HM_DECLARED_VALUE, editText_declared_value.getText().toString().trim());
                         hashMap.put(AppConstant.HM_PACKAGE_DESC, editText_package_description.getText().toString().trim());
                         //11Dec  hashMap.put(AppConstant.HM_DIMENSIONAL_UNIT, "IN");
@@ -1537,6 +1756,7 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
 
                 if(titleShow.equalsIgnoreCase(getResources().getString(R.string.lbl_package_1))){
                     hashMapPackage1.putAll(hashMap);
+                    AppConstant.hashMapPackage1.putAll(hashMap);
                     if(dataMapOfPackages.contains(hashMapPackage1)){
                         dataMapOfPackages.set(0,hashMapPackage1);
                     }else {
@@ -1544,6 +1764,8 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
                     }
                 }else if(titleShow.equalsIgnoreCase(getResources().getString(R.string.lbl_package_2))){
                     hashMapPackage2.putAll(hashMap);
+                    AppConstant.hashMapPackage2.putAll(hashMap);
+
                     if(dataMapOfPackages.contains(hashMapPackage2)){
                         dataMapOfPackages.set(1,hashMapPackage2);
                     }else {
@@ -1552,6 +1774,8 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
 
                 }else if(titleShow.equalsIgnoreCase(getResources().getString(R.string.lbl_package_3))){
                     hashMapPackage3.putAll(hashMap);
+                    AppConstant.hashMapPackage3.putAll(hashMap);
+
                     if(dataMapOfPackages.contains(hashMapPackage3)){
                         dataMapOfPackages.set(2,hashMapPackage3);
                     }else {
@@ -1560,6 +1784,8 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
 
                 }else if(titleShow.equalsIgnoreCase(getResources().getString(R.string.lbl_package_4))){
                     hashMapPackage4.putAll(hashMap);
+                    AppConstant.hashMapPackage4.putAll(hashMap);
+
                     if(dataMapOfPackages.contains(hashMapPackage4)){
                         dataMapOfPackages.set(3,hashMapPackage4);
                     }else {
@@ -1568,6 +1794,8 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
 
                 }else if(titleShow.equalsIgnoreCase(getResources().getString(R.string.lbl_package_5))){
                     hashMapPackage5.putAll(hashMap);
+                    AppConstant.hashMapPackage5.putAll(hashMap);
+
                     if(dataMapOfPackages.contains(hashMapPackage5)){
                         dataMapOfPackages.set(4,hashMapPackage5);
                     }else {
@@ -1627,6 +1855,7 @@ public class ShipmentDetailsCustomerActivity extends Activity implements DatePic
                 //11Dec strServiceType = arrayListServiceTypes.get(position).getServiceType();
                 //Toast.makeText(ShipmentDetailsCustomerActivity.this,spinner_carrier.getSelectedItemPosition(),Toast.LENGTH_SHORT).show();
                 strServiceType = arrayListServiceTypes.get(position).getServiceType();
+                strServiceTypeDesc = arrayListServiceTypes.get(position).getServiceText();
 
                      /* if(position==0){
                      strServiceType="";In Parcel details popup can you add a currency symbol based on source country. Say USA - $ , India - INR.

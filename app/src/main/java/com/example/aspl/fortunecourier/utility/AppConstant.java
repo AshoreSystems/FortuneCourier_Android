@@ -1,5 +1,8 @@
 package com.example.aspl.fortunecourier.utility;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Created by aspl on 10/11/17.
  */
@@ -42,5 +45,15 @@ public class AppConstant {
     public static  String HM_DIMENSIONAL_UNIT = "DimensionUnit";
     public static  String HM_PACKAGE_DESC = "HM_PACKAGE_DESC";
     public static String SPINNER_TITLE = "Select Country";
+    public static boolean IS_FROM_CALCULATE_RATES = false;
+    public static boolean IS_FROM_CREATE_SHIPMENT = false;
+
+    public static HashMap<String,String> hashMapPackage1 = new HashMap<>();
+    public static HashMap<String,String> hashMapPackage2 = new HashMap<>();
+    public static HashMap<String,String> hashMapPackage3 = new HashMap<>();
+    public static HashMap<String,String> hashMapPackage4 = new HashMap<>();
+    public static HashMap<String,String> hashMapPackage5 = new HashMap<>();
+
+    public static ArrayList<HashMap<String, String>> noOfPackages = new ArrayList<>();
 
 }

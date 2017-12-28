@@ -37,6 +37,9 @@
     <string name="url_get_from_countries">get_from_countries</string>
     <string name="url_get_to_countries">get_to_countries</string>
     <string name="url_dashboard_content">dashboard_content</string>
+    <string name="url_create_shipment">create_shipment</string>
+    <string name="url_view_shipment_history">view_shipment_history</string>
+    <string name="url_view_shipment_details">view_shipment_details</string>
 
     <!--Login Screen -->
 
@@ -70,6 +73,8 @@
     <string name="btn_register">Register</string>
     <string name="lbl_terms_conditions">I agree to the <a href="...">Terms &amp; Conditions</a></string>
     <string name="btn_next">Next</string>
+    <string name="btn_track_now">Track Now</string>
+
     <string name="btn_get_quick_quote">Get Quick Quote</string>
     <string name="btn_get_detailed_quote">Get Detailed Quote</string>
 
@@ -89,14 +94,16 @@ I agree to the <a href="...">terms and conditions
     <string name="lbl_forgot_password">Forgot Your Password?</string>
 
     <!--Update Profile-->
-    <string name="hint_addressline1">Addressline1</string>
-    <string name="hint_addressline2">Addressline2</string>
+    <string name="hint_addressline1">Address Line1</string>
+    <string name="hint_addressline2">Address Line2</string>
     <string name="lbl_country">Country</string>
     <string name="hint_zip">Zip</string>
     <string name="lbl_state">State</string>
     <string name="lbl_city">City</string>
     <string name="lbl_zip">Zip</string>
     <string name="hint_contact_name">Contact Name</string>
+    <string name="hint_company_name">Company Name</string>
+
     <string name="hint_address">Address</string>
     <string name="hint_ship_date">Ship Date</string>
 
@@ -117,9 +124,12 @@ I agree to the <a href="...">terms and conditions
     <string name="lbl_enter_message">Enter Message</string>
     <string name="lbl_add_screenshots">Add Screenshots:- </string>
     <string name="btn_send_message">Send Message</string>
+    <string name="btn_proceed">Proceed</string>
 
     <string name="err_msg_internet">Internet Connection is not available.</string>
     <string name="err_msg_name">Enter at least 3 characters</string>
+    <string name="err_msg_addressline1">Address Line 1 is mandatory</string>
+
     <string name="err_msg_email">Enter valid email address</string>
     <string name="err_msg_phonenumber">Enter Valid Mobile Number</string>
     <string name="err_msg_password">Enter between 7 and 10 alphanumeric characters</string>
@@ -136,7 +146,7 @@ I agree to the <a href="...">terms and conditions
     <string name="err_msg_enter_message">Enter Message</string>
     <string name="err_msg_server">Error in server side</string>
     <string name="err_msg_select_country">Please select country</string>
-    <string name="err_msg_select_state">Please select city</string>
+    <string name="err_msg_select_state">Please select state</string>
 
     <string name="err_msg_package_info">Enter Package Information</string>
 
@@ -188,8 +198,8 @@ I agree to the <a href="...">terms and conditions
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_dashboard</item>
         <item>@string/nav_item_generate_shipment</item>
-        <item>@string/nav_item_view_shipment_history</item>
         <item>@string/nav_item_track_shipment</item>
+        <item>@string/nav_item_view_shipment_history</item>
         <item>@string/nav_item_calculate_rates</item>
         <item>@string/nav_item_update_profile</item>
         <item>@string/nav_item_change_password</item>
@@ -205,8 +215,8 @@ I agree to the <a href="...">terms and conditions
     <string-array name="nav_drawer_labels_for_set_password">
         <item>@string/nav_item_dashboard</item>
         <item>@string/nav_item_generate_shipment</item>
-        <item>@string/nav_item_view_shipment_history</item>
         <item>@string/nav_item_track_shipment</item>
+        <item>@string/nav_item_view_shipment_history</item>
         <item>@string/nav_item_calculate_rates</item>
         <item>@string/nav_item_update_profile</item>
         <item>@string/nav_item_set_password</item>
@@ -232,7 +242,7 @@ I agree to the <a href="...">terms and conditions
     </string-array>
 
     <string-array name="array_currency_unit">
-        <item>$</item>
+        <item>USD</item>
         <item>INR</item>
         <item>CAD</item>
 
@@ -284,7 +294,7 @@ I agree to the <a href="...">terms and conditions
     <string name="lbl_weight_unit_lbs">LBS</string>
     <string name="lbl_dimensional_unit_cm">CM</string>
     <string name="lbl_dimensional_unit_inch">IN</string>
-    <string name="lbl_currency_unit_$">$</string>
+    <string name="lbl_currency_unit_usd">USD</string>
     <string name="lbl_currency_unit_inr">INR</string>
     <string name="lbl_currency_unit_cad">CAD</string>
 
@@ -313,7 +323,8 @@ I agree to the <a href="...">terms and conditions
     <string name="lbl_header_package_and_shipment">Package &amp; Shipment Details</string>
     <string name="lbl_header_rate_and_transit">Rate &amp; Transit</string>
     <string name="lbl_header_shipment_history">Shipment History</string>
-
+    <string name="lbl_header_shipment_details">Shipment Details</string>
+    <string name="btn_proceed_to_payment">Proceed to Payment</string>
 
 
 </resources>
