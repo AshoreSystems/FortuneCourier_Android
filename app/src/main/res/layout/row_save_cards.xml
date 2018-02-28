@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/size_5"
+    android:orientation="horizontal">
+
+    <RadioButton
+        android:id="@+id/rb_select"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_card_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_17"
+            android:text="hi"
+            android:textColor="@color/colorBlack" />
+
+       <LinearLayout
+           android:id="@+id/ll_cvv"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:visibility="gone"
+           android:orientation="horizontal">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textStyle="bold"
+               android:textSize="@dimen/text_17"
+               android:text="Enter Cvv : "
+               android:textColor="@color/colorBlack" />
+           <EditText
+               android:id="@+id/editText_cvv"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="@drawable/add_image_border"
+               android:padding="@dimen/size_10"
+               android:textSize="@dimen/text_16"/>
+
+       </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

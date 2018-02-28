@@ -12,7 +12,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,11 +25,15 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -38,10 +41,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.R;
+import com.example.aspl.fortunecourier.activity.associate.CreateShipmentFromAssociateActivity;
+import com.example.aspl.fortunecourier.activity.associate.DashboardAssociateActivity;
+import com.example.aspl.fortunecourier.activity.associate.TrackShipmentAssociateActivity;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.fragment.FragmentDrawerCustomer;
-import com.example.aspl.fortunecourier.fragment.FriendsFragment;
-import com.example.aspl.fortunecourier.fragment.HomeFragment;
-import com.example.aspl.fortunecourier.fragment.MessagesFragment;
+import com.example.aspl.fortunecourier.fragment.HomeCustomerFragment;
 import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
@@ -74,6 +79,10 @@ public class DashboardCustomerActivity extends AppCompatActivity implements Frag
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(AppConstant.IS_FROM_OUTSIDE){
+            startActivity(new Intent(DashboardCustomerActivity.this,CreateShipmentFromCustomerActivity.class));
+            finish();
+        }
         setContentView(R.layout.activity_dashboard_customer);
         init();
     }
@@ -82,10 +91,16 @@ public class DashboardCustomerActivity extends AppCompatActivity implements Frag
         mSessionManager = new SessionManager(DashboardCustomerActivity.this);
         cd = new ConnectionDetector(DashboardCustomerActivity.this);
 
+        AppConstant.IS_CUSTOMER_LOG_IN = true;
+
+        //AppConstant.IS_FROM_OUTSIDE = false;
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //mToolbar.setTitleTextColor(Color.parseColor("#dfaa35"));
         // mToolbar.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
 
@@ -97,6 +112,7 @@ public class DashboardCustomerActivity extends AppCompatActivity implements Frag
 
         // display the first navigation drawer view on app launch
         displayView(0);
+        hideKeyboard();
     }
 
     private void getIMEINumber(){
@@ -127,35 +143,43 @@ public class DashboardCustomerActivity extends AppCompatActivity implements Frag
         String title = getString(R.string.app_name);
         switch (position) {
             case 0:
-                fragment = new HomeFragment();
+                fragment = new HomeCustomerFragment();
                 title = getString(R.string.nav_item_dashboard);
                 break;
 
             case 1:
                 hideKeyboard();
-                AppConstant.IS_FROM_CALCULATE_RATES =false;
-                startActivity(new Intent(DashboardCustomerActivity.this,CreateShipmentFromActivity.class));
+
+                //AppConstant.IS_FROM_CALCULATE_RATES =false;
+                mSessionManager.putBooleanData(SessionManager.KEY_IS_FROM_CALCULATE_RATES,false);
+
+                // uncomment below lines on 5th Jan 2018
+                AppConstant.IS_FROM_CREATE_SHIPMENT = true;
+
+                startActivity(new Intent(DashboardCustomerActivity.this,CreateShipmentFromCustomerActivity.class));
               /*  fragment = new FriendsFragment();
                 title = getString(R.string.nav_item_generate_shipment);*/
                 break;
 
             case 2:
-                fragment = new MessagesFragment();
-                title = getString(R.string.nav_item_track_shipment);
+                hideKeyboard();
+                startActivity(new Intent(DashboardCustomerActivity.this, TrackShipmentCustomerActivity.class));
+
                 break;
 
             case 3:
                 hideKeyboard();
-                startActivity(new Intent(DashboardCustomerActivity.this, ShipmentHistoryActivity.class));
+                startActivity(new Intent(DashboardCustomerActivity.this, ShipmentHistoryCustomerActivity.class));
                /* fragment = new MessagesFragment();
                 title = getString(R.string.nav_item_view_shipment_history);*/
                 break;
 
             case 4:
                 hideKeyboard();
-                AppConstant.IS_FROM_CALCULATE_RATES = true;
+                //AppConstant.IS_FROM_CALCULATE_RATES = true;
+                mSessionManager.putBooleanData(SessionManager.KEY_IS_FROM_CALCULATE_RATES,true);
                 AppConstant.IS_FROM_CREATE_SHIPMENT = false;
-                startActivity(new Intent(DashboardCustomerActivity.this, CheckRatesFromActivity.class));
+                startActivity(new Intent(DashboardCustomerActivity.this, CheckRatesFromCustomerActivity.class));
                 break;
 
             case 5:
@@ -182,13 +206,19 @@ public class DashboardCustomerActivity extends AppCompatActivity implements Frag
                 break;
 
             case 8:
-                shareTextUrl();
+                startActivity(new Intent(DashboardCustomerActivity.this, ChangePincodeCustomerActivity.class));
+
+                //shareTextUrl();
                 break;
 
             case 9:
+                shareTextUrl();
                 break;
 
             case 10:
+                break;
+
+            case 11:
                 startActivity(new Intent(DashboardCustomerActivity.this,ContactUsCustomerActivity.class));
 
                /* if(cd.isConnectingToInternet()){
@@ -198,11 +228,13 @@ public class DashboardCustomerActivity extends AppCompatActivity implements Frag
                 }*/
                 break;
 
-            case 11:
+            case 12:
                 if(cd.isConnectingToInternet()){
                     showDialogOnLogout(DashboardCustomerActivity.this);
                 }else {
-                    Snackbar.make(mToolbar,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(DashboardCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(mToolbar,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -307,8 +339,10 @@ public class DashboardCustomerActivity extends AppCompatActivity implements Frag
                                     //Snackbar.make(mToolbar,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
                                 } else {
                                     mSessionManager.clearAllData();
-                                    Snackbar.make(mToolbar,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
-                                    thread.start();
+                                    Toast.makeText(DashboardCustomerActivity.this,Json_response.getString(JSONConstant.MESSAGE),Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    //Snackbar.make(mToolbar,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
+                                    //thread.start();
                                 }
                                 progressBar.dismiss();
 
@@ -338,9 +372,9 @@ public class DashboardCustomerActivity extends AppCompatActivity implements Frag
                     params.put(JSONConstant.C_ID, mSessionManager.getStringData(SessionManager.KEY_C_ID));
                     params.put(JSONConstant.CDT_DEVICE_ID, mSessionManager.getStringData(SessionManager.KEY_CDT_DEVICE_ID));
                     params.put(JSONConstant.CDT_DEVICE_TYPE, "android");
-                    params.put(JSONConstant.CDT_DEVICE_TOKEN, "kjdkjf");
+                    //params.put(JSONConstant.CDT_DEVICE_TOKEN, "kjdkjf");
 
-                   // params.put(JSONConstant.CDT_DEVICE_TOKEN, mSessionManager.getStringData(SessionManager.KEY_CDT_DEVICE_TOKEN));
+                   params.put(JSONConstant.CDT_DEVICE_TOKEN, mSessionManager.getStringData(SessionManager.KEY_CDT_DEVICE_TOKEN));
 
                     return params;
                 }
@@ -422,6 +456,28 @@ public class DashboardCustomerActivity extends AppCompatActivity implements Frag
             }
         }
     };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Take appropriate action for each action item click
+        switch (item.getItemId()) {
+
+            case R.id.action_notification:
+                Toast.makeText(DashboardCustomerActivity.this,"Notification",Toast.LENGTH_SHORT).show();
+                // startActivity(new Intent(DashboardAssociateActivity.this,Notification));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 }
 

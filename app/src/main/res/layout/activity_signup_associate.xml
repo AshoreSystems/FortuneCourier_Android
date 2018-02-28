@@ -23,8 +23,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_30_dp"
-            android:layout_marginRight="@dimen/size_30_dp"
+            android:layout_marginLeft="@dimen/size_30"
+            android:layout_marginRight="@dimen/size_30"
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
@@ -141,14 +141,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:text="@string/lbl_select_country" />
+                android:layout_marginTop="@dimen/size_10"
+                android:text="@string/hint_select_country" />
 
             <com.example.aspl.fortunecourier.customspinner.SearchableSpinner
                 android:id="@+id/spinner_country"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
+                android:layout_margin="@dimen/size_10"
                 style="@android:style/Widget.Holo.Light.Spinner"
                 app:hintText="@string/lbl_select_country">
 
@@ -166,14 +166,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:text="@string/lbl_select_state" />
+                android:layout_marginTop="@dimen/size_10"
+                android:text="@string/hint_select_state" />
 
             <com.example.aspl.fortunecourier.customspinner.SearchableSpinner
                 android:id="@+id/spinner_state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
+                android:layout_margin="@dimen/size_10"
                 style="@android:style/Widget.Holo.Light.Spinner"
                 app:hintText="@string/lbl_select_state">
             </com.example.aspl.fortunecourier.customspinner.SearchableSpinner>
@@ -199,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:button="@drawable/drawable_checkbox"
                     android:checked="false"
-                    android:textSize="@dimen/text_size" />
+                    android:textSize="@dimen/text_15" />
 
                 <TextView
                     android:id="@+id/tv_terms_and_condition"
@@ -207,7 +207,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lbl_terms_conditions"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/text_size" />
+                    android:textSize="@dimen/text_15" />
             </LinearLayout>
 
 
@@ -215,21 +215,21 @@
                 android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
+                android:layout_margin="@dimen/size_10"
                 android:background="@drawable/drawable_btn"
                 android:text="@string/btn_register"
                 android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/header_size" />
+                android:textSize="@dimen/text_20" />
 
             <TextView
                 android:id="@+id/tv_existing_user"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/scrollview_bottom_margin"
+                android:layout_marginBottom="@dimen/size_60"
                 android:gravity="center_horizontal"
                 android:text="@string/lbl_existing_customer"
-                android:textSize="@dimen/text_size" />
+                android:textSize="@dimen/text_15" />
 
         </LinearLayout>
     </ScrollView>

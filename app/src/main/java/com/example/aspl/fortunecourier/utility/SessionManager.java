@@ -1,8 +1,12 @@
 package com.example.aspl.fortunecourier.utility;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
+import com.example.aspl.fortunecourier.activity.customer.CommodityDetailsCustomerActivity;
+import com.example.aspl.fortunecourier.activity.customer.ShipmentDetailsCustomerActivity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -91,18 +95,45 @@ public class SessionManager {
 	public static final String KEY_PACKAGE_COUNT= "KEY_PACKAGE_COUNT";
 	public static final String KEY_IS_IDENTICAL = "KEY_IS_IDENTICAL";
 
+	public static final String KEY_CONTAINER_TYPE = "KEY_CONTAINER_TYPE";
+	public static final String KEY_SHAPE = "KEY_SHAPE";
+
+	public static final String KEY_SIZES = "KEY_SIZES";
+
 	public static final String KEY_DELIVERY_TIMESTAMP = "KEY_DELIVERY_TIMESTAMP";
 	public static final String KEY_DELIVERY_DATE = "KEY_DELIVERY_DATE";
 
 	public static final String KEY_SELECTED_SERVICE_DESCRIPTION = "KEY_SELECTED_SERVICE_DESCRIPTION";
+	public static final String KEY_SELECTED_SERVICE_TYPE = "KEY_SELECTED_SERVICE_TYPE";
+
 	public static final String KEY_AMOUNT = "KEY_AMOUNT";
+	public static final String KEY_CS_TAX1 = "KEY_CS_TAX1";
+	public static final String KEY_CS_TAX2 = "KEY_CS_TAX2";
+	public static final String KEY_BASE_AMOUNT = "KEY_BASE_AMOUNT";
+	public static final String KEY_SURCHARGE = "KEY_SURCHARGE";
+	public static final String KEY_ADMISSION_COMMISSION = "KEY_ADMISSION_COMMISSION";
+
+
+
 	public static final String KEY_MASTER_TRACKING_NO = "KEY_SELECTED_SERVICE_DESCRIPTION";
 	public static final String KEY_SHIPMENT_ID = "KEY_SHIPMENT_ID";
+	public static final String KEY_CURRENCY_UNIT ="KEY_CURRENCY_UNIT";
+	public static final String KEY_CUSTOM_VALUE = "KEY_CUSTOM_VALUE";
+	public static final String KEY_CUSTOM_DESC = "KEY_CUSTOM_DESC";
 
 	/*
 	public static final String KEY_ADT_DEVICE_ID = "KEY_ADT_DEVICE_ID";
 	public static final String KEY_ADT_DEVICE_TOKEN = "KEY_ADT_DEVICE_TOKEN";*/
 	public static final String KEY_A_PASSWORD = "KEY_A_PASSWORD";
+	public static final String KEY_SHIPMENT_PURPOSE = "KEY_SHIPMENT_PURPOSE";
+	public static final String KEY_PACKAGE_CONTENTS = "KEY_PACKAGE_CONTENTS";
+
+	public static final String KEY_TOTAL_SHIPMENT_WEIGHT = "KEY_TOTAL_SHIPMENT_WEIGHT";
+	public static final String KEY_TOTAL_SHIPMENT_WEIGHT_UNIT="KEY_TOTAL_SHIPMENT_WEIGHT_UNIT";
+	public static final String KEY_TOTAL_CARRIAGE_VALUE = "KEY_TOTAL_CARRIAGE_VALUE";
+	public static final String KEY_TOTAL_CARRIAGE_VALUE_UNIT = "KEY_TOTAL_CARRIAGE_VALUE_UNIT";
+	public static final String KEY_COLLECTION_FEES ="KEY_COLLECTION_FEES";
+	public static final String KEY_IS_FROM_CALCULATE_RATES ="KEY_IS_FROM_CALCULATE_RATES";
 
 
 	// Constructor
@@ -248,4 +279,7 @@ public class SessionManager {
 		editor.clear();
 		editor.commit();
 	}
+
+
+
 }

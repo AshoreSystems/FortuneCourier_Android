@@ -12,7 +12,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,11 +25,16 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -39,11 +43,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.R;
 
-import com.example.aspl.fortunecourier.activity.customer.CheckRatesFromActivity;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.fragment.FragmentDrawerAssociate;
-import com.example.aspl.fortunecourier.fragment.FriendsFragment;
-import com.example.aspl.fortunecourier.fragment.HomeFragment;
-import com.example.aspl.fortunecourier.fragment.MessagesFragment;
+import com.example.aspl.fortunecourier.fragment.HomeAssociateFragment;
 import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
@@ -84,7 +86,18 @@ public class DashboardAssociateActivity extends AppCompatActivity implements Fra
         mSessionManager = new SessionManager(DashboardAssociateActivity.this);
         cd = new ConnectionDetector(DashboardAssociateActivity.this);
 
+        /*AppConstant.IS_CUSTOMER_LOG_IN = true;*/
+
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+      /*  ImageView imageView = (ImageView) mToolbar.findViewById(R.id.icon);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(DashboardAssociateActivity.this,"hi",Toast.LENGTH_SHORT).show();
+            }
+        });*/
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -99,35 +112,9 @@ public class DashboardAssociateActivity extends AppCompatActivity implements Fra
 
         // display the first navigation drawer view on app launch
         displayView(0);
+
+        hideKeyboard();
     }
-
-
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }*/
-
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        if(id == R.id.action_search){
-            Toast.makeText(getApplicationContext(), "Search action is selected!", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
 
     private void getIMEINumber(){
 
@@ -138,8 +125,6 @@ public class DashboardAssociateActivity extends AppCompatActivity implements Fra
                 TelephonyManager mngr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
                 IMEI_Number_Holder = mngr.getDeviceId();
                 mSessionManager.putStringData(SessionManager.KEY_CDT_DEVICE_ID,IMEI_Number_Holder);
-
-
             }
         } else {
             TelephonyManager mngr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
@@ -174,31 +159,55 @@ public class DashboardAssociateActivity extends AppCompatActivity implements Fra
         String title = getString(R.string.app_name);
         switch (position) {
             case 0:
-                fragment = new HomeFragment();
+                fragment = new HomeAssociateFragment();
                 title = getString(R.string.nav_item_dashboard);
                 break;
             case 1:
-                fragment = new FriendsFragment();
-                title = getString(R.string.nav_item_generate_shipment);
-                break;
-            case 2:
-                fragment = new MessagesFragment();
-                title = getString(R.string.nav_item_track_shipment);
-                break;
-            case 3:
-                fragment = new MessagesFragment();
-                title = getString(R.string.nav_item_view_shipment_history);
+                hideKeyboard();
+                //AppConstant.IS_FROM_CALCULATE_RATES =false;
+                mSessionManager.putBooleanData(SessionManager.KEY_IS_FROM_CALCULATE_RATES,false);
+
+                // uncomment below lines on 5th Jan 2018
+                AppConstant.IS_FROM_CREATE_SHIPMENT = true;
+
+                startActivity(new Intent(DashboardAssociateActivity.this,CreateShipmentFromAssociateActivity.class));
 
                 break;
-            case 4:
-                startActivity(new Intent(DashboardAssociateActivity.this, CheckRatesFromActivity.class));
+            case 2:
+                hideKeyboard();
+                startActivity(new Intent(DashboardAssociateActivity.this, TrackShipmentAssociateActivity.class));
+
+              /*  fragment = new MessagesFragment();
+                title = getString(R.string.nav_item_track_shipment);*/
                 break;
+            case 3:
+                hideKeyboard();
+                startActivity(new Intent(DashboardAssociateActivity.this, ShipmentHistoryAssociateActivity.class));
+               /* fragment = new MessagesFragment();
+                title = getString(R.string.nav_item_view_shipment_history);*/
+                break;
+
+            case 4:
+                hideKeyboard();
+                //AppConstant.IS_FROM_CALCULATE_RATES = true;
+                mSessionManager.putBooleanData(SessionManager.KEY_IS_FROM_CALCULATE_RATES,true);
+                AppConstant.IS_FROM_CREATE_SHIPMENT = false;
+                startActivity(new Intent(DashboardAssociateActivity.this, CheckRatesFromAssociateActivity.class));
+                break;
+           /* case 4:
+                startActivity(new Intent(DashboardAssociateActivity.this, CheckRatesFromCustomerActivity.class));
+                break;*/
+
             case 5:
+                startActivity(new Intent(DashboardAssociateActivity.this, MyCommissionActivity.class));
+                break;
+
+            case 6:
                 startActivity(new Intent(DashboardAssociateActivity.this, UpdateProfileAssociateActivity.class));
                 break;
               /*  fragment = new MessagesFragment();
                 title = getString(R.string.nav_item_logout);*/
-            case 6:
+            case 7:
 
                 startActivity(new Intent(DashboardAssociateActivity.this, ChangePasswordAssociateActivity.class));
 
@@ -209,26 +218,32 @@ public class DashboardAssociateActivity extends AppCompatActivity implements Fra
                 //title = getString(R.string.nav_item_logout);
                 break;
 
-            case 7:
+            case 8:
                 startActivity(new Intent(DashboardAssociateActivity.this, ChangePhoneNoAssociateActivity.class));
                 break;
 
-            case 8:
-                shareTextUrl();
-                break;
-
             case 9:
+                startActivity(new Intent(DashboardAssociateActivity.this, ChangePincodeAssociateActivity.class));
                 break;
 
             case 10:
-                startActivity(new Intent(DashboardAssociateActivity.this, ContactUsAssociateActivity.class));
+                shareTextUrl();
                 break;
 
             case 11:
+                break;
+
+            case 12:
+                startActivity(new Intent(DashboardAssociateActivity.this, ContactUsAssociateActivity.class));
+                break;
+
+            case 13:
                 if(cd.isConnectingToInternet()){
                     showDialogOnLogout(DashboardAssociateActivity.this);
                 }else {
-                    Snackbar.make(mToolbar,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(DashboardAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(mToolbar,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -245,7 +260,7 @@ public class DashboardAssociateActivity extends AppCompatActivity implements Fra
             textView.setText(title);
             textView.setTextSize(20);
             textView.setTypeface(null, Typeface.BOLD);
-            textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             textView.setGravity(Gravity.CENTER);
             textView.setTextColor(Color.parseColor("#dfaa35"));
             getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -333,8 +348,10 @@ public class DashboardAssociateActivity extends AppCompatActivity implements Fra
                                     //Snackbar.make(mToolbar,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
                                 } else {
                                     mSessionManager.clearAllData();
-                                    Snackbar.make(mToolbar,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
-                                    thread.start();
+                                    Toast.makeText(DashboardAssociateActivity.this,Json_response.getString(JSONConstant.MESSAGE),Toast.LENGTH_SHORT).show();
+                                    finish();
+                                   /* Snackbar.make(mToolbar,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
+                                    thread.start();*/
                                     //Snackbar.make(mToolbar,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
                                 }
                                 progressBar.dismiss();
@@ -365,9 +382,9 @@ public class DashboardAssociateActivity extends AppCompatActivity implements Fra
                     params.put(JSONConstant.A_ID, mSessionManager.getStringData(SessionManager.KEY_A_ID));
                     params.put(JSONConstant.ADT_DEVICE_ID, mSessionManager.getStringData(SessionManager.KEY_CDT_DEVICE_ID));
                     params.put(JSONConstant.ADT_DEVICE_TYPE, "android");
-                    params.put(JSONConstant.ADT_DEVICE_TOKEN, "lkf");
+                   // params.put(JSONConstant.ADT_DEVICE_TOKEN, "lkf");
 
-                    //params.put(JSONConstant.ADT_DEVICE_TOKEN, mSessionManager.getStringData(SessionManager.KEY_CDT_DEVICE_TOKEN));
+                    params.put(JSONConstant.ADT_DEVICE_TOKEN, mSessionManager.getStringData(SessionManager.KEY_CDT_DEVICE_TOKEN));
 
                     return params;
                 }
@@ -398,7 +415,14 @@ public class DashboardAssociateActivity extends AppCompatActivity implements Fra
     private void shareTextUrl() {
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("text/plain");
-        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            share.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+        } else {
+            share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+
+        }*/
+
+        share.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
         // Add data to the intent, the receiving app will decide
         // what to do with it.
         share.putExtra(Intent.EXTRA_SUBJECT, "Title Of The Post");
@@ -450,6 +474,28 @@ public class DashboardAssociateActivity extends AppCompatActivity implements Fra
             }
         }
     };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Take appropriate action for each action item click
+        switch (item.getItemId()) {
+
+            case R.id.action_notification:
+                Toast.makeText(DashboardAssociateActivity.this,"Notification",Toast.LENGTH_SHORT).show();
+                // startActivity(new Intent(DashboardAssociateActivity.this,Notification));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 }
 

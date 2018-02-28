@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/bg">
+    <include
+        android:visibility="invisible"
+        android:id="@+id/header_layout_back"
+        layout="@layout/header_back"/>
+    <include layout="@layout/header"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/size_30"
+            android:layout_marginRight="@dimen/size_30"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_enter_new_pincode"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_enter_pincode"
+                android:layout_margin="@dimen/size_10"/>
+
+            <com.chaos.view.PinView
+                android:id="@+id/pinView_pincode"
+                style="@style/PinWidget.PinView"
+                android:hint="Hint."
+                android:textSize="@dimen/text_17"
+                android:cursorVisible="true"
+                app:lineColor="@drawable/textview_selector"
+                android:state_selected="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberPassword"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/colorAccent"
+                app:itemCount="6"
+                app:viewType="line"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_re_enter_pincode"
+                android:layout_margin="@dimen/size_10"/>
+            <com.chaos.view.PinView
+                android:id="@+id/pinView_re_enter_pincode"
+                style="@style/PinWidget.PinView"
+                android:hint="Hint."
+                android:textSize="@dimen/text_17"
+                android:cursorVisible="true"
+                app:lineColor="@drawable/textview_selector"
+                android:state_selected="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberPassword"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/colorAccent"
+                app:itemCount="6"
+                app:viewType="line"/>
+
+            <Button
+                android:id="@+id/btn_register"
+                android:textColor="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_20"
+                android:layout_marginTop="@dimen/size_16"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginRight="@dimen/size_30"
+                android:background="@drawable/drawable_btn"
+                android:textAllCaps="false"
+                android:text="@string/btn_register"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+

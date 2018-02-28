@@ -18,11 +18,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Base64;
 import android.util.Log;
@@ -34,6 +35,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -42,15 +44,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.BuildConfig;
 import com.example.aspl.fortunecourier.R;
-import com.example.aspl.fortunecourier.activity.customer.UpdateProfileCustomerActivity;
+import com.example.aspl.fortunecourier.activity.customer.CheckRateScreenCustomerActivity;
+import com.example.aspl.fortunecourier.activity.customer.CreateShipmentToCustomerActivity;
 import com.example.aspl.fortunecourier.customspinner.SearchableSpinner;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.model.Country;
+import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
 import com.example.aspl.fortunecourier.utility.JSONConstant;
 import com.example.aspl.fortunecourier.utility.RoundedImageView;
 import com.example.aspl.fortunecourier.utility.SessionManager;
-import com.example.aspl.fortunecourier.utility.UpdateDrawerObeserver;
+import com.example.aspl.fortunecourier.utility.VolleyResponseListener;
+import com.example.aspl.fortunecourier.utility.VolleyUtils;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -71,7 +77,7 @@ import java.util.Map;
  * Created by aspl on 6/12/17.
  */
 
-public class UpdateProfileAssociateActivity  extends Activity implements View.OnClickListener,AdapterView.OnItemSelectedListener {
+public class UpdateProfileAssociateActivity  extends Activity implements View.OnClickListener,AdapterView.OnItemSelectedListener,TextWatcher {
 
     private TextInputLayout textInput_firstName, textInput_lastName, textInput_phoneNumber, textInput_email,textInput_addressline1,textInput_addressline2, textInput_zip,textInput_business_name, textInput_password,textInput_confirm_password,textInput_city;
     private EditText editText_firstName, editText_lastName,editText_email,editText_addressline1,editText_addressline2, editText_zip,editText_phoneNumber,  editText_business_name, editText_password, editText_confirm_password,editText_city;
@@ -89,7 +95,7 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
     ArrayList<String> countries;
     ArrayList<String> states;
     private RoundedImageView img_profile_pic;
-    private String strCountryName, strStateName, strCityName,strCountryCode,strAssociateCountryCode,strAssociateStateName;
+    private String strCountryName, strStateName, strCityName,strCountryCode;//,strAssociateStateName;
     private static final int TAKE_PHOTO=1;
     private static final int CHOOSE_FROM_GALLERY=2;
 
@@ -127,6 +133,8 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
         editText_addressline1 = (EditText) findViewById(R.id.editText_addressline1);
         editText_addressline2 = (EditText) findViewById(R.id.editText_addressline2);
         editText_zip = (EditText) findViewById(R.id.editText_zip);
+        //editText_zip.addTextChangedListener(this);
+
         editText_city = (EditText) findViewById(R.id.editText_city);
         editText_business_name = (EditText) findViewById(R.id.editText_business_name);
 
@@ -160,7 +168,9 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
         if(cd.isConnectingToInternet()){
             getCustomerDetails();
         }else {
-            Snackbar.make(spinner_city,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+            customDialogForHelp.show();
+           // Snackbar.make(spinner_city,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
         }
 
     }
@@ -200,11 +210,21 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
             textInput_addressline1.setError(getResources().getString(R.string.err_msg_name));
             requestFocus(editText_addressline1);
             textInput_business_name.setErrorEnabled(false);
+        } else if(spinner_country.getSelectedItemPosition()==-1){
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_select_country));
+            customDialogForHelp.show();
+            // Snackbar.make(editText_zip,getResources().getString(R.string.err_msg_select_country),Snackbar.LENGTH_SHORT).show();
+            textInput_addressline1.setErrorEnabled(false);
         } else if (editText_zip.getText().toString().trim().isEmpty()) {
             textInput_zip.setError(getResources().getString(R.string.err_msg_zip));
             requestFocus(editText_zip);
-            textInput_addressline1.setErrorEnabled(false);
-        }else if (editText_city.getText().toString().trim().isEmpty() || editText_city.getText().toString().trim().length() < 3) {
+        }else if(spinner_state.getSelectedItemPosition()==-1){
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_select_state));
+            customDialogForHelp.show();
+            // Snackbar.make(editText_zip,getResources().getString(R.string.err_msg_select_country),Snackbar.LENGTH_SHORT).show();
+            textInput_zip.setErrorEnabled(false);
+        }
+        else if (editText_city.getText().toString().trim().isEmpty() || editText_city.getText().toString().trim().length() < 3) {
             textInput_city.setError(getResources().getString(R.string.err_msg_name));
             requestFocus(editText_city);
             textInput_zip.setErrorEnabled(false);
@@ -227,10 +247,13 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
             case R.id.spinner_country:
                 strCountryName = spinner_country.getItemAtPosition(position).toString();
                 strCountryCode = arrayListCountries.get(position).getCountry_code();
+
                 if(cd.isConnectingToInternet()){
                     getAllStates(arrayListCountries.get(position).getCountry_code());
                 }else {
-                    Snackbar.make(spinner_city,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(spinner_city,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -264,7 +287,9 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
                 if(cd.isConnectingToInternet()){
                     validateAndUpdateProfile();
                 }else {
-                    Snackbar.make(spinner_city,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(spinner_city,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.img_profile_pic:
@@ -302,12 +327,7 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
     public void getAllCountries() {
 
         try {
-            progressBar = new ProgressDialog(UpdateProfileAssociateActivity.this);
-            progressBar.setCancelable(true);
-            progressBar.setMessage("Authenticating ...");
-            progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressBar.setIndeterminate(true);
-            progressBar.show();
+           showProgressDialog();
 
             String URL = getResources().getString(R.string.url_domain_associate) + getResources().getString(R.string.url_get_countries);
 
@@ -347,7 +367,7 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
                                     spinner_country.setAdapter(dataAdapter);
                                    for (int i = 0;i<arrayListCountries.size();i++) {
 
-                                       if (arrayListCountries.get(i).getCountry_code().equalsIgnoreCase(strAssociateCountryCode)) {
+                                       if (arrayListCountries.get(i).getCountry_code().equalsIgnoreCase(strCountryCode)) {
                                            //spinner_country.setSelection(i);
                                            spinner_country.setItemOnPosition(i);
                                            //spinner_country.setItemOnPosition(dataAdapter.getItem(dataAdapter.getPosition(countries.get(i)) ),i);
@@ -357,11 +377,11 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
                                    }
 
                                 }
-                                progressBar.dismiss();
+                                closeProgressBar();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                progressBar.dismiss();
+                                closeProgressBar();
                             }
                         }
                     },
@@ -370,7 +390,7 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             System.out.println("==Volley Error=" + error);
-                            progressBar.dismiss();
+                            closeProgressBar();
                         }
                     }) {
 
@@ -392,12 +412,7 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
     public void getAllStates(final String country_code) {
 
         try {
-            progressBar = new ProgressDialog(UpdateProfileAssociateActivity.this);
-            progressBar.setCancelable(true);
-            progressBar.setMessage("Authenticating ...");
-            progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressBar.setIndeterminate(true);
-            progressBar.show();
+          showProgressDialog();
 
             String URL = getResources().getString(R.string.url_domain_associate) + getResources().getString(R.string.url_get_states);
 
@@ -430,7 +445,7 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
 
                                 for (int i = 0;i<states.size();i++) {
 
-                                    if (states.get(i).equalsIgnoreCase(strAssociateStateName)) {
+                                    if (states.get(i).equalsIgnoreCase(strStateName)) {
                                         //spinner_state.setSelection(i);
                                         //spinner_state.setItemOnPosition(dataAdapter.getItem(dataAdapter.getPosition(states.get(i)) ),i);
                                         spinner_state.setItemOnPosition(i);
@@ -438,11 +453,11 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
                                         //getAllStates(arrayListCountries.get(i).getCountry_code());
                                     }
                                 }
-                                progressBar.dismiss();
+                                closeProgressBar();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                progressBar.dismiss();
+                                closeProgressBar();
                             }
                         }
                     },
@@ -451,7 +466,7 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             System.out.println("==Volley Error=" + error);
-                            progressBar.dismiss();
+                            closeProgressBar();
                         }
                     }) {
 
@@ -482,13 +497,7 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
     public void getCustomerDetails() {
 
         try {
-            progressBar = new ProgressDialog(UpdateProfileAssociateActivity.this);
-            progressBar.setCancelable(true);
-            progressBar.setMessage("Authenticating ...");
-            progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressBar.setIndeterminate(true);
-            progressBar.show();
-
+           showProgressDialog();
             String URL = getResources().getString(R.string.url_domain_associate) + getResources().getString(R.string.url_get_associate_details);
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
@@ -506,15 +515,16 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
                                     editText_business_name.setText(Json_response.getString(JSONConstant.A_BUSINESS_NAME));
                                     editText_addressline1.setText(Json_response.getString(JSONConstant.A_ADDRESS_LINE1));
                                     editText_addressline2.setText(Json_response.getString(JSONConstant.A_ADDRESS_LINE2));
-                                    editText_zip.setText(Json_response.getString(JSONConstant.A_ZIPCODE));
+                                    strCountryCode = Json_response.getString(JSONConstant.A_COUNTRY_CODE);
+
                                     editText_city.setText(Json_response.getString(JSONConstant.A_CITY));
-                                    strAssociateCountryCode = Json_response.getString(JSONConstant.A_COUNTRY_CODE);
-                                    strAssociateStateName= Json_response.getString(JSONConstant.A_STATE);
+                                    strStateName= Json_response.getString(JSONConstant.A_STATE);
                                     System.out.println("Image ->"+Json_response.getString(JSONConstant.A_PROFILE_PIC));
 
                                     mSessionManager.putStringData(SessionManager.KEY_A_FIRST_NAME,Json_response.getString(JSONConstant.A_FIRST_NAME));
                                     mSessionManager.putStringData(SessionManager.KEY_A_LAST_NAME,Json_response.getString(JSONConstant.A_LAST_NAME));
                                     mSessionManager.putStringData(SessionManager.KEY_A_PROFILE_URL,Json_response.getString(JSONConstant.A_PROFILE_PIC));
+                                    editText_zip.setText(Json_response.getString(JSONConstant.A_ZIPCODE));
 
                                     // editText_city.setText(Json_response.getString(JSONConstant.A_CITY));
                                     Picasso.with(UpdateProfileAssociateActivity.this)
@@ -523,16 +533,16 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
                                             .resize(120, 120)
                                             .into(img_profile_pic);
 
-                                    progressBar.dismiss();
+                                    closeProgressBar();
                                     getAllCountries();
                                 }else {
 
                                 }
-                                progressBar.dismiss();
+                                closeProgressBar();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                progressBar.dismiss();
+                                closeProgressBar();
                             }
                         }
                     },
@@ -541,7 +551,7 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             System.out.println("==Volley Error=" + error);
-                            progressBar.dismiss();
+                            closeProgressBar();
                         }
                     }) {
 
@@ -572,12 +582,7 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
 
     public void sendCustomerDetails(){
         try {
-            progressBar = new ProgressDialog(UpdateProfileAssociateActivity.this);
-            progressBar.setCancelable(true);
-            progressBar.setMessage("Authenticating ...");
-            progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressBar.setIndeterminate(true);
-            progressBar.show();
+           showProgressDialog();
 
             String URL = getResources().getString(R.string.url_domain_associate) + getResources().getString(R.string.url_update_associate_profile);
 
@@ -595,21 +600,22 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
                                     mSessionManager.putStringData(SessionManager.KEY_A_LAST_NAME,editText_lastName.getText().toString().trim());
                                     mSessionManager.putStringData(SessionManager.KEY_A_PROFILE_URL,Json_response.getString(JSONConstant.A_PROFILE_PIC));
                                     //UpdateDrawerObeserver.getInstance().updateValue(getApplicationContext());
-
-                                    Snackbar.make(btn_edit_profile_pic,getResources().getString(R.string.msg_update_profile),Snackbar.LENGTH_SHORT).show();
-
-                                    progressBar.dismiss();
-                                    thread.start();
+                                    //Snackbar.make(btn_edit_profile_pic,getResources().getString(R.string.msg_update_profile),Snackbar.LENGTH_SHORT).show();
+                                    closeProgressBar();
+                                    Toast.makeText(getApplicationContext(),getResources().getString(R.string.msg_update_profile),Toast.LENGTH_SHORT).show();
+                                     finish();
+                                  /*  progressBar.dismiss();
+                                    thread.start();*/
 
                                     // getAllCountries();
                                 }else {
 
                                 }
-                                progressBar.dismiss();
+                                closeProgressBar();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                progressBar.dismiss();
+                                closeProgressBar();
                             }
                         }
                     },
@@ -618,7 +624,7 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             System.out.println("==Volley Error=" + error);
-                            progressBar.dismiss();
+                            closeProgressBar();
                         }
                     }) {
 
@@ -797,7 +803,9 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
                         cd.show();*/
                     }
                 } catch (Exception e) {
-                    Snackbar.make(editText_city,"Failed to load",Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_failed_to_load));
+                    customDialogForHelp.show();
+                  //  Snackbar.make(editText_city,"Failed to load",Snackbar.LENGTH_SHORT).show();
                   /*  Toast toast = Toast.makeText(this, getResources().getString(R.string.failed_to_load), Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();*/
@@ -941,5 +949,111 @@ public class UpdateProfileAssociateActivity  extends Activity implements View.On
         }
     };
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (cd.isConnectingToInternet()) {
+                if (s.length() == 5) {
+                   /* if (strCountryCode!=null&&(strCountryCode.equalsIgnoreCase("US")||strCountryCode.equalsIgnoreCase("USA"))) {
+                        getZipcodeDetails(strCountryCode, editText_zip.getText().toString());
+                    }*/
+                 /* if (spinner_country.getSelectedItemPosition() == -1) {
+                        Snackbar.make(spinner_country, getResources().getString(R.string.err_msg_select_country), Toast.LENGTH_SHORT).show();
+                    }
+                  else */
+                  if (strCountryCode.equalsIgnoreCase("US")) {
+                        getZipcodeDetails(strCountryCode, editText_zip.getText().toString());
+                    }
+                }
+            } else {
+                CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                customDialogForHelp.show();
+                //Snackbar.make(spinner_city, getResources().getString(R.string.err_msg_internet), Snackbar.LENGTH_SHORT).show();
+            }
+
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+
+    private void getZipcodeDetails(String strCountryCode,String strZipcode){
+        hideKeyboard();
+        showProgressDialog();
+        String URL = getResources().getString(R.string.url_domain_associate) + getResources().getString(R.string.url_zipcode_lookup);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(JSONConstant.A_COUNTRY_CODE,strCountryCode);
+        params.put(JSONConstant.A_ZIPCODE,strZipcode);
+
+
+        System.out.println("=>"+params.toString());
+
+        VolleyUtils.POST_METHOD(UpdateProfileAssociateActivity.this, URL, params, new VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+                closeProgressBar();
+            }
+
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("==Volley Response===>>" + response.toString());
+
+                try {
+                    JSONObject Json_response = new JSONObject(response.toString());
+                    if(Json_response.getString(JSONConstant.STATUS).equalsIgnoreCase(JSONConstant.SUCCESS)) {
+                        closeProgressBar();
+
+                        editText_city.setText(Json_response.getString(JSONConstant.A_CITY));
+                        //String strState = Json_response.getString(JSONConstant.A_STATE);
+                        for (int i = 0;i<states.size();i++) {
+                            if (states.get(i).equalsIgnoreCase(Json_response.getString(JSONConstant.A_STATE))) {
+                                spinner_state.setItemOnPosition(i);
+                            }
+                        }
+                    }else {
+                        closeProgressBar();
+
+                        JSONObject jsonObject = Json_response.getJSONObject(JSONConstant.ERROR_MESSAGES);
+                        if (jsonObject.has(JSONConstant.MESSAGE)) {
+                            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileAssociateActivity.this,getResources().getString(R.string.app_name),jsonObject.getString(JSONConstant.MESSAGE));
+                            customDialogForHelp.show();
+                            //Snackbar.make(btn_get_details,jsonObject.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+                    closeProgressBar();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    closeProgressBar();
+                }
+            }
+        });
+    }
+
+    private void closeProgressBar()
+    {
+        if (progressBar != null) {
+            progressBar.dismiss();
+            progressBar = null;
+        }
+    }
+
+    public void showProgressDialog()
+    {
+        progressBar = new ProgressDialog(UpdateProfileAssociateActivity.this);
+        progressBar.setCancelable(true);
+        progressBar.setMessage("Authenticating ...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setIndeterminate(true);
+        progressBar.setCancelable(false);
+        progressBar.setCanceledOnTouchOutside(false);
+        progressBar.show();
+    }
 }
 

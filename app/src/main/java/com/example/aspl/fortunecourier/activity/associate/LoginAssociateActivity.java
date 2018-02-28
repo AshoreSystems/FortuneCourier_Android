@@ -7,13 +7,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -29,16 +29,23 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.aspl.fortunecourier.DBHelper.DBInfo;
 import com.example.aspl.fortunecourier.R;
 import com.example.aspl.fortunecourier.activity.customer.LandingCustomerActivity;
 import com.example.aspl.fortunecourier.activity.customer.LoginCustomerActivity;
 import com.example.aspl.fortunecourier.dialog.CustomDialogClass;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
+import com.example.aspl.fortunecourier.model.Commission;
+import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
 import com.example.aspl.fortunecourier.utility.JSONConstant;
 import com.example.aspl.fortunecourier.utility.SessionManager;
+import com.example.aspl.fortunecourier.utility.VolleyResponseListener;
+import com.example.aspl.fortunecourier.utility.VolleyUtils;
 import com.facebook.FacebookSdk;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -129,6 +136,7 @@ public class LoginAssociateActivity extends AppCompatActivity implements View.On
             checkbox_remember_me.setChecked(true);
             checkbox_terms_conditions.setChecked(true);
         }
+        getInfoDescription();
     }
 
 
@@ -142,7 +150,9 @@ public class LoginAssociateActivity extends AppCompatActivity implements View.On
                 if(cd.isConnectingToInternet()){
                     validateAndSubmit();
                 }else {
-                    Snackbar.make(btn_login,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(LoginAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(btn_login,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -167,7 +177,9 @@ public class LoginAssociateActivity extends AppCompatActivity implements View.On
                 if(cd.isConnectingToInternet()){
                    showTermsAndConditions();
                 }else {
-                    Snackbar.make(tv_terms_and_condition,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(LoginAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(tv_terms_and_condition,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -194,8 +206,9 @@ public class LoginAssociateActivity extends AppCompatActivity implements View.On
             requestFocus(editText_password);
 
         } else if(!checkbox_terms_conditions.isChecked()){
-            Snackbar.make(checkbox_terms_conditions,getResources().getString(R.string.err_msg_terms_and_condition),Snackbar.LENGTH_SHORT).show();
-
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(LoginAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_terms_and_condition));
+            customDialogForHelp.show();
+            //Snackbar.make(checkbox_terms_conditions,getResources().getString(R.string.err_msg_terms_and_condition),Snackbar.LENGTH_SHORT).show();
         }else {
             textInput_password.setErrorEnabled(false);
             getUserLoginValidation();
@@ -234,15 +247,19 @@ public class LoginAssociateActivity extends AppCompatActivity implements View.On
                                         mSessionManager.putBooleanData(SessionManager.KEY_IS_A_REMEMBERED,true);
                                         mSessionManager.putStringData(SessionManager.KEY_A_EMAIL,editText_email.getText().toString().trim());
                                         mSessionManager.putStringData(SessionManager.KEY_A_PASSWORD,editText_password.getText().toString().trim());
-
                                    }else {
                                         mSessionManager.putBooleanData(SessionManager.KEY_IS_A_REMEMBERED,false);
                                    }
 
                                    mSessionManager.putIntData(SessionManager.KEY_WHICH_USER,2);
-                                   startActivity(new Intent(LoginAssociateActivity.this, DashboardAssociateActivity.class));
+                                   Intent i = new Intent(LoginAssociateActivity.this, DashboardAssociateActivity.class);
+                                   i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                   i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                   startActivity(i);
                                 } else {
-                                   Snackbar.make(editText_email, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
+                                   CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(LoginAssociateActivity.this,getResources().getString(R.string.app_name),Json_response.getString(JSONConstant.MESSAGE));
+                                   customDialogForHelp.show();
+                                  // Snackbar.make(editText_email, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
                                 }
                                 progressBar.dismiss();
 
@@ -268,8 +285,8 @@ public class LoginAssociateActivity extends AppCompatActivity implements View.On
                     params.put(JSONConstant.A_PASSWORD, editText_password.getText().toString().trim());
                     params.put(JSONConstant.ADT_DEVICE_TYPE, "android");
                     params.put(JSONConstant.ADT_DEVICE_ID,IMEI_Number_Holder);
-                    params.put(JSONConstant.ADT_DEVICE_TOKEN,"KEY_CDT_DEVICE_TOKEN");
-                   // params.put(JSONConstant.ADT_DEVICE_TOKEN, mSessionManager.getStringData(SessionManager.KEY_CDT_DEVICE_TOKEN));
+                    //params.put(JSONConstant.ADT_DEVICE_TOKEN,"KEY_CDT_DEVICE_TOKEN");
+                    params.put(JSONConstant.ADT_DEVICE_TOKEN, mSessionManager.getStringData(SessionManager.KEY_CDT_DEVICE_TOKEN));
                     return params;
                 }
 
@@ -353,7 +370,6 @@ public class LoginAssociateActivity extends AppCompatActivity implements View.On
                                      CustomDialogClass customDialogClass = new CustomDialogClass(LoginAssociateActivity.this,jsonResponsePageContent.getString(JSONConstant.PAGENAME),jsonResponsePageContent.getString(JSONConstant.PAGECONTENT));
                                      customDialogClass.show();
                                  }
-
                                 progressBar.dismiss();
 
                             } catch (JSONException e) {
@@ -371,19 +387,6 @@ public class LoginAssociateActivity extends AppCompatActivity implements View.On
                         }
                     }) {
 
-              /*  @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put(JSONConstant.C_FACEBOOK_ID,fb_id);
-                    params.put(JSONConstant.C_FIRST_NAME, f_name);
-                    params.put(JSONConstant.C_LAST_NAME, l_name);
-                    params.put(JSONConstant.C_EMAIL_ADDRESS, email);
-                    params.put(JSONConstant.C_PROFILE_PIC,profile_url);
-
-                    return params;
-                }*/
-
                 @Override
                 public String getBodyContentType() {
                     // TODO Auto-generated method stub
@@ -392,7 +395,6 @@ public class LoginAssociateActivity extends AppCompatActivity implements View.On
 
             };
 
-            // Adding JsonObject request to request queue
             AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
 
         } catch (Exception e) {
@@ -405,6 +407,64 @@ public class LoginAssociateActivity extends AppCompatActivity implements View.On
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    private void getInfoDescription(){
+        showProgressBar();
+        String URL = getResources().getString(R.string.url_domain_associate) + getResources().getString(R.string.url_get_help_text);
+
+        VolleyUtils.GET_METHOD(LoginAssociateActivity.this, URL, new VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+                closeProgressBar();
+            }
+
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("==Volley Response===>>" + response.toString());
+
+                try {
+                    JSONObject Json_response = new JSONObject(response.toString());
+                    if(Json_response.getString(JSONConstant.STATUS).equalsIgnoreCase(JSONConstant.SUCCESS)) {
+                        JSONArray jsonArray = (JSONArray) Json_response.get("help_text");
+                        DBInfo dbInfo = new DBInfo(LoginAssociateActivity.this);
+                        for(int i = 0; i< jsonArray.length() ; i++ ){
+                            JSONObject jsonObjectRate = jsonArray.getJSONObject(i);
+                            dbInfo.addOrUpdateHelpText(jsonObjectRate.getString("screen_name"),jsonObjectRate.getString("screen_content"));
+                        }
+
+                    }else {
+                        JSONObject jsonObject = Json_response.getJSONObject(JSONConstant.ERROR_MESSAGES);
+
+                        if (jsonObject.has(JSONConstant.MESSAGE)) {
+                            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(LoginAssociateActivity.this,getResources().getString(R.string.app_name),jsonObject.getString(JSONConstant.MESSAGE));
+                            customDialogForHelp.show();
+                        }
+                    }
+                    closeProgressBar();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    closeProgressBar();
+
+                }
+            }
+        });
+    }
+
+    private void showProgressBar(){
+    progressBar = new ProgressDialog(LoginAssociateActivity.this);
+    progressBar.setCancelable(true);
+    progressBar.setMessage("Authenticating ...");
+    progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+    progressBar.setIndeterminate(true);
+    progressBar.show();
+}
+
+    private void closeProgressBar(){
+        if (progressBar != null) {
+            progressBar.dismiss();
+            progressBar = null;
         }
     }
 }

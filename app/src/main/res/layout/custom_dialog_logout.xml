@@ -11,8 +11,9 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|center_vertical"
         android:text=""
+        android:visibility="gone"
         android:textColor="@color/colorYellow"
-        android:textSize="18dp">
+        android:textSize="@dimen/text_18">
     </TextView>
 
     <LinearLayout
@@ -34,10 +35,11 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:padding="5dp"
+                android:padding="@dimen/size_5"
                 android:text="message"
-                android:textColor="@color/colorYellow"
-                android:textSize="15dp"/>
+                android:layout_margin="@dimen/size_10"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/text_16"/>
 
         </ScrollView>
 
@@ -48,6 +50,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:visibility="gone"
             android:background="@android:color/black"/>
 
     </LinearLayout>
@@ -66,9 +69,10 @@
             android:layout_height="40dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/drawable_btn"
-            android:text="Ok"
-            android:textColor="@color/colorYellow"
-            android:textSize="15dp" />
+            android:text="@string/btn_ok"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_16" />
 
         <Button
             android:id="@+id/btn_cancel"
@@ -76,9 +80,10 @@
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/drawable_btn"
-            android:text="cancel"
-            android:textColor="@color/colorYellow"
-            android:textSize="15dp" />
+            android:text="@string/btn_cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_16" />
     </LinearLayout>
 
 </LinearLayout>

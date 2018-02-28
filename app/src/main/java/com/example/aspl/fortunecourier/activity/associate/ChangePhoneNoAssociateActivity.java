@@ -5,14 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -21,7 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.R;
-import com.example.aspl.fortunecourier.activity.customer.OTPVerificationCustomerActivity;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
@@ -40,7 +38,6 @@ import java.util.Map;
  */
 
 public class ChangePhoneNoAssociateActivity extends Activity implements View.OnClickListener{
-    private TextView tv_title;
     private ConnectionDetector cd;
     private SessionManager mSessionManager;
     private Button btn_submit;
@@ -78,7 +75,7 @@ public class ChangePhoneNoAssociateActivity extends Activity implements View.OnC
 
     }
 
-    public void validateAndSubmit() {
+    private void validateAndSubmit() {
         hideKeyboard();
         if (editText_old_phonenumber.getText().toString().trim().isEmpty() || editText_old_phonenumber.getText().toString().trim().length() != 10) {
             textInput_old_phonenumber.setError(getResources().getString(R.string.err_msg_phonenumber));
@@ -114,7 +111,8 @@ public class ChangePhoneNoAssociateActivity extends Activity implements View.OnC
                             try {
                                 JSONObject Json_response = new JSONObject(response);
                                 if (Json_response.getString(JSONConstant.STATUS).equalsIgnoreCase(JSONConstant.SUCCESS)) {
-                                    Snackbar.make(btn_submit,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
+                                   // Snackbar.make(btn_submit,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
+                                    Toast.makeText(ChangePhoneNoAssociateActivity.this,Json_response.getString(JSONConstant.MESSAGE),Toast.LENGTH_SHORT).show();
                                     mSessionManager.putStringData(SessionManager.KEY_A_ID,Json_response.getString(JSONConstant.A_ID));
                                     mSessionManager.putStringData(SessionManager.KEY_A_PHONE_NO, editText_new_phonenumber.getText().toString().trim());
                                     mSessionManager.putStringData(SessionManager.KEY_A_DIALLING_CODE, "+"+ccp_new_phonenumber.getFullNumber());
@@ -134,7 +132,11 @@ public class ChangePhoneNoAssociateActivity extends Activity implements View.OnC
                                     }
 
                                     if (jsonObject.has(JSONConstant.MESSAGE)) {
-                                        Snackbar.make(textInput_new_phonenumber,jsonObject.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
+                                        Toast.makeText(ChangePhoneNoAssociateActivity.this,jsonObject.getString(JSONConstant.MESSAGE),Toast.LENGTH_SHORT).show();
+
+                                        CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(ChangePhoneNoAssociateActivity.this,getResources().getString(R.string.app_name),jsonObject.getString(JSONConstant.MESSAGE));
+                                        customDialogForHelp.show();
+                                        //Snackbar.make(textInput_new_phonenumber,jsonObject.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
                                     }
 
                                 }
@@ -197,7 +199,9 @@ public class ChangePhoneNoAssociateActivity extends Activity implements View.OnC
                 if(cd.isConnectingToInternet()){
                     validateAndSubmit();
                 }else {
-                    Snackbar.make(btn_submit,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(ChangePhoneNoAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(btn_submit,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -210,7 +214,7 @@ public class ChangePhoneNoAssociateActivity extends Activity implements View.OnC
         }
 
     }
-    public void hideKeyboard(){
+    private void hideKeyboard(){
         View view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);

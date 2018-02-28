@@ -5,13 +5,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -19,6 +19,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.R;
+import com.example.aspl.fortunecourier.activity.associate.ResetPasswordAssociateActivity;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
@@ -94,7 +96,9 @@ public class ResetPasswordCustomerActivity extends Activity implements View.OnCl
                 if(cd.isConnectingToInternet()){
                     validateAndSubmit();
                 }else {
-                    Snackbar.make(btn_submit,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(ResetPasswordCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(btn_submit,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -135,8 +139,10 @@ public class ResetPasswordCustomerActivity extends Activity implements View.OnCl
                                 JSONObject Json_response = new JSONObject(response);
                                 String status = Json_response.getString(JSONConstant.STATUS);
                                 if (status.equalsIgnoreCase(JSONConstant.SUCCESS)) {
-                                    Snackbar.make(btn_submit, getResources().getString(R.string.msg_password_change), Snackbar.LENGTH_SHORT).show();
-                                    thread.start();
+                                    Toast.makeText(ResetPasswordCustomerActivity.this,getResources().getString(R.string.msg_password_change),Toast.LENGTH_SHORT).show();
+                                    finish();
+                                  /*  Snackbar.make(btn_submit, getResources().getString(R.string.msg_password_change), Snackbar.LENGTH_SHORT).show();
+                                    thread.start();*/
                                 } else {
 
                                 }

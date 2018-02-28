@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical">
+
+    <TextView
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:text="Please enter PIN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+  <!--  <com.example.aspl.fortunecourier.utility.PinEntryEditText
+        android:id="@+id/txt_pin_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="false"
+        android:inputType="numberPassword"
+        android:maxLength="6"
+        android:textIsSelectable="false"
+        android:textSize="20sp" />
+-->
+
+
+    <com.chaos.view.PinView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:padding="@dimen/size_5"
+        android:cursorVisible="false"
+        app:lineColor="@drawable/textview_selector"
+        android:state_selected="true"
+        android:textColor="@color/colorAccent"
+        app:itemCount="6"
+        app:viewType="line" />
+
+
+
+
+<!--
+  <com.example.aspl.fortunecourier.utility.PinEntryEditText
+        android:id="@+id/txt_pin_entry1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="false"
+        android:inputType="numberPassword"
+        android:maxLength="6"
+
+        android:textIsSelectable="false"
+        android:textSize="20sp"
+
+        />
+
+    <com.example.aspl.fortunecourier.utility.PinEntryEditText
+        android:id="@+id/txt_pin_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="false"
+    android:digits="1234567890"
+    android:inputType="numberPassword"
+    android:maxLength="6"
+    android:textIsSelectable="false"
+    android:textSize="20sp"
+    app:pinCharacterMask="*"
+    app:pinTextBottomPadding="@dimen/size_5"
+    app:pinLineStroke="2dp"
+    app:pinLineStrokeSelected="4dp"
+    app:pinBackgroundIsSquare="false"
+    app:pinLineColors="@color/colorRed" />-->
+
+    <!--
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:hint="Regular EditText"/>-->
+
+    <!--<com.chaos.view.PinView
+        android:id="@+id/secondPinView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/secondLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/size_5"
+        app:itemCount="5"
+        android:inputType="numberPassword"
+        android:textColor="@color/colorRed"
+        app:lineColor="@color/colorRed"
+        app:itemRadius="@dimen/pv_pin_view_item_radius" />
+-->
+
+
+ <com.chaos.view.PinView
+        android:id="@+id/pinView"
+        style="@style/PinWidget.PinView"
+        android:hint="Hint."
+        android:textSize="@dimen/text_17"
+        android:cursorVisible="false"
+        app:lineColor="@drawable/textview_selector"
+        android:state_selected="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/size_10"
+        android:textColor="@color/colorAccent"
+        app:itemCount="6"
+        app:viewType="line"/>
+    <Button
+        android:id="@+id/btn_show_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show"/>
+</LinearLayout>

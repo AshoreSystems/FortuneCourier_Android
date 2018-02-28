@@ -12,7 +12,39 @@ import java.util.ArrayList;
 public class Rates implements Parcelable{
     private String serviceType, amount, serviceDescription, deliveryTimestamp;
     private String cs_tax1,cs_tax2,cs_surcharge,cs_tax1_title,cs_tax2_title,cs_surcharge_title;
-    private String deliveryDate, baseAmount;
+    private String deliveryDate;
+    private String baseAmount;
+    private String containerType;
+
+    public String getAdmin_commission() {
+        return admin_commission;
+    }
+
+    public void setAdmin_commission(String admin_commission) {
+        this.admin_commission = admin_commission;
+    }
+
+    private String admin_commission;
+
+    public String getContainerType() {
+        return containerType;
+    }
+
+    public void setContainerType(String containerType) {
+        this.containerType = containerType;
+    }
+
+    public ArrayList<Rates> getRatesArrayList() {
+        return ratesArrayList;
+    }
+
+    public void setRatesArrayList(ArrayList<Rates> ratesArrayList) {
+        this.ratesArrayList = ratesArrayList;
+    }
+
+    public static Creator<Rates> getCREATOR() {
+        return CREATOR;
+    }
 
     private ArrayList<Rates> ratesArrayList;
 
@@ -93,6 +125,8 @@ public class Rates implements Parcelable{
         cs_tax2_title = in.readString();
         cs_surcharge = in.readString();
         cs_surcharge_title = in.readString();
+        admin_commission = in.readString();
+        containerType = in.readString();
         ratesArrayList = in.createTypedArrayList(Rates.CREATOR);
     }
 
@@ -140,7 +174,7 @@ public class Rates implements Parcelable{
         this.deliveryTimestamp = deliveryTimestamp;
     }
 
-    public Rates(String serviceType, String amount, String serviceDescription, String deliveryDate,String deliveryTimestamp,String baseAmount,String cs_tax1,String cs_tax1_title,String cs_tax2, String cs_tax2_title,String cs_surcharge,String cs_surcharge_title) {
+    public Rates(String serviceType, String amount, String serviceDescription, String deliveryDate,String deliveryTimestamp,String baseAmount,String cs_tax1,String cs_tax1_title,String cs_tax2, String cs_tax2_title,String cs_surcharge,String cs_surcharge_title,String admin_commission, String containerType) {
         this.serviceType = serviceType;
         this.amount = amount;
         this.serviceDescription = serviceDescription;
@@ -153,6 +187,8 @@ public class Rates implements Parcelable{
         this.cs_tax2_title = cs_tax2_title;
         this.cs_surcharge = cs_surcharge;
         this.cs_surcharge_title = cs_surcharge_title;
+        this.admin_commission = admin_commission;
+        this.containerType = containerType;
     }
 
     @Override
@@ -174,6 +210,8 @@ public class Rates implements Parcelable{
         dest.writeString(cs_tax2_title);
         dest.writeString(cs_surcharge);
         dest.writeString(cs_surcharge_title);
+        dest.writeString(admin_commission);
+        dest.writeString(containerType);
         dest.writeTypedList(ratesArrayList);
     }
 }

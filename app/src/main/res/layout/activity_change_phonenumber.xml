@@ -25,8 +25,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_margin"
-            android:layout_marginRight="@dimen/activity_margin">
+            android:layout_marginLeft="@dimen/size_16"
+            android:layout_marginRight="@dimen/size_16">
 
             <com.hbb20.CountryCodePicker
                 android:id="@+id/ccp_old_phonenumber"
@@ -55,7 +55,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_margin">
+            android:layout_margin="@dimen/size_16">
 
             <com.hbb20.CountryCodePicker
                 android:id="@+id/ccp_new_phonenumber"
@@ -86,9 +86,9 @@
                 android:textColor="@color/colorWhite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/header_size"
-                android:layout_marginLeft="@dimen/size_30_dp"
-                android:layout_marginRight="@dimen/size_30_dp"
+                android:textSize="@dimen/text_20"
+                android:layout_marginLeft="@dimen/size_30"
+                android:layout_marginRight="@dimen/size_30"
                 android:background="@drawable/drawable_btn"
                 android:textAllCaps="false"
                 android:text="@string/btn_submit"/>

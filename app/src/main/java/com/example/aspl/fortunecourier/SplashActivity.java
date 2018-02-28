@@ -102,6 +102,8 @@ public class SplashActivity extends Activity {
                             startActivity(i);
                         } else {
                             Intent i = new Intent(SplashActivity.this, DashboardCustomerActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);
                         }
                     }else {
@@ -114,8 +116,13 @@ public class SplashActivity extends Activity {
                             Intent i = new Intent(SplashActivity.this, LoginAssociateActivity.class);
                             startActivity(i);
                         } else {
+
                             Intent i = new Intent(SplashActivity.this, DashboardAssociateActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);
+                           /* Intent i = new Intent(SplashActivity.this, DashboardAssociateActivity.class);
+                            startActivity(i);*/
                         }
                     }else {
                         Intent i = new Intent(SplashActivity.this, LandingCustomerActivity.class);

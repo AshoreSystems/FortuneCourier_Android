@@ -4,24 +4,24 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    android:padding="@dimen/edittext_margin">
+    android:padding="@dimen/size_5">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
+        android:layout_margin="@dimen/size_10"
         android:gravity="center_horizontal|center_vertical"
         android:text="Title"
         android:textColor="@android:color/black"
-        android:textSize="@dimen/header_size"
+        android:textSize="@dimen/text_20"
         android:textStyle="bold"></TextView>
 
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/edittext_margin"
+        android:layout_margin="@dimen/size_5"
         android:layout_weight="1">
 
         <TextView
@@ -29,10 +29,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:padding="@dimen/edittext_margin"
+            android:padding="@dimen/size_5"
             android:text="message"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size" />
+            android:textSize="@dimen/text_15" />
     </ScrollView>
 
     <LinearLayout
@@ -45,11 +45,11 @@
             android:id="@+id/btn_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
+            android:layout_margin="@dimen/size_10"
             android:background="@drawable/drawable_btn"
             android:text="Ok"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/text_size" />
+            android:textSize="@dimen/text_15" />
 
     </LinearLayout>
 

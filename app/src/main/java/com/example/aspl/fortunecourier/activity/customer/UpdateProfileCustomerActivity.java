@@ -18,11 +18,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Base64;
 import android.util.Log;
@@ -44,13 +45,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.*;
 import com.example.aspl.fortunecourier.R;
+import com.example.aspl.fortunecourier.activity.associate.UpdateProfileAssociateActivity;
 import com.example.aspl.fortunecourier.customspinner.SearchableSpinner;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.model.Country;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
 import com.example.aspl.fortunecourier.utility.JSONConstant;
 import com.example.aspl.fortunecourier.utility.RoundedImageView;
 import com.example.aspl.fortunecourier.utility.SessionManager;
+import com.example.aspl.fortunecourier.utility.VolleyResponseListener;
+import com.example.aspl.fortunecourier.utility.VolleyUtils;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -73,7 +78,7 @@ import java.util.Map;
  * Created by aspl on 15/11/17.
  */
 
-public class UpdateProfileCustomerActivity extends Activity implements View.OnClickListener,AdapterView.OnItemSelectedListener {
+public class UpdateProfileCustomerActivity extends Activity implements View.OnClickListener,AdapterView.OnItemSelectedListener,TextWatcher {
 
     private TextInputLayout textInput_firstName, textInput_lastName, textInput_phoneNumber, textInput_email,textInput_addressline1,textInput_addressline2, textInput_zip,textInput_business_name, textInput_password,textInput_confirm_password,textInput_city;
     private EditText editText_firstName, editText_lastName,editText_email,editText_addressline1,editText_addressline2, editText_zip,editText_phoneNumber,  editText_business_name, editText_password, editText_confirm_password,editText_city;
@@ -90,9 +95,10 @@ public class UpdateProfileCustomerActivity extends Activity implements View.OnCl
     List<String> countries;
     ArrayList<String> states;
     private RoundedImageView img_profile_pic;
-    private String strCountryName, strStateName, strCityName,strCountryCode,strCustomerCode,strCustomerStateName;
+    private String strCountryName, strStateName, strCityName,strCountryCode,strCustomerCode,strCustomerStateName,strZipcode;
     private static final int TAKE_PHOTO=1;
     private static final int CHOOSE_FROM_GALLERY=2;
+    private static final int  MEGABYTE = 1024 * 1024;
 
 
     @Override
@@ -126,6 +132,7 @@ public class UpdateProfileCustomerActivity extends Activity implements View.OnCl
         editText_addressline1 = (EditText) findViewById(R.id.editText_addressline1);
         editText_addressline2 = (EditText) findViewById(R.id.editText_addressline2);
         editText_zip = (EditText) findViewById(R.id.editText_zip);
+        //editText_zip.addTextChangedListener(this);
         editText_city = (EditText) findViewById(R.id.editText_city);
 
         img_profile_pic = (RoundedImageView) findViewById(R.id.img_profile_pic);
@@ -156,7 +163,9 @@ public class UpdateProfileCustomerActivity extends Activity implements View.OnCl
         if(cd.isConnectingToInternet()){
             getCustomerDetails();
         }else {
-            Snackbar.make(spinner_city,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+            customDialogForHelp.show();
+            //Snackbar.make(spinner_city,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
         }
 
     }
@@ -192,19 +201,30 @@ public class UpdateProfileCustomerActivity extends Activity implements View.OnCl
             textInput_addressline1.setError(getResources().getString(R.string.err_msg_name));
             requestFocus(editText_addressline1);
             textInput_email.setErrorEnabled(false);
+        }else if(spinner_country.getSelectedItemPosition()==-1){
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_select_country));
+            customDialogForHelp.show();
+            // Snackbar.make(editText_zip,getResources().getString(R.string.err_msg_select_country),Snackbar.LENGTH_SHORT).show();
+            textInput_addressline1.setErrorEnabled(false);
         } else if (editText_zip.getText().toString().trim().isEmpty()) {
             textInput_zip.setError(getResources().getString(R.string.err_msg_zip));
             requestFocus(editText_zip);
-            textInput_addressline1.setErrorEnabled(false);
-        }else if (editText_city.getText().toString().trim().isEmpty() || editText_city.getText().toString().trim().length() < 3) {
-            textInput_city.setError(getResources().getString(R.string.err_msg_name));
-            requestFocus(editText_city);
+        }else if(spinner_state.getSelectedItemPosition()==-1){
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_select_state));
+            customDialogForHelp.show();
+            // Snackbar.make(editText_zip,getResources().getString(R.string.err_msg_select_country),Snackbar.LENGTH_SHORT).show();
             textInput_zip.setErrorEnabled(false);
-        } else if(spinner_country.getSelectedItemPosition()==-1){
-            Snackbar.make(textInput_business_name,getResources().getString(R.string.err_msg_select_country),Snackbar.LENGTH_SHORT).show();
+        }
+      /*  else if(spinner_country.getSelectedItemPosition()==-1){
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_select_country));
+            customDialogForHelp.show();
+            //Snackbar.make(textInput_business_name,getResources().getString(R.string.err_msg_select_country),Snackbar.LENGTH_SHORT).show();
         } else if(spinner_state.getSelectedItemPosition()==-1){
-            Snackbar.make(textInput_business_name,getResources().getString(R.string.err_msg_select_state),Snackbar.LENGTH_SHORT).show();
-        } else {
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_select_state));
+            customDialogForHelp.show();
+            //Snackbar.make(textInput_business_name,getResources().getString(R.string.err_msg_select_state),Snackbar.LENGTH_SHORT).show();
+        } */
+        else {
             textInput_city.setErrorEnabled(false);
             textInput_zip.setErrorEnabled(false);
             textInput_addressline1.setErrorEnabled(false);
@@ -227,7 +247,9 @@ public class UpdateProfileCustomerActivity extends Activity implements View.OnCl
                    strCountryCode = arrayListCountries.get(position).getCountry_code();*/
                    getAllStates(arrayListCountries.get(position).getCountry_code());
                }else {
-                   Snackbar.make(spinner_city,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                   CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                   customDialogForHelp.show();
+                   //Snackbar.make(spinner_city,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                }
                 break;
 
@@ -259,7 +281,9 @@ public class UpdateProfileCustomerActivity extends Activity implements View.OnCl
                 if(cd.isConnectingToInternet()){
                     validateAndUpdateProfile();
                 }else {
-                    Snackbar.make(spinner_city,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(spinner_city,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.img_profile_pic:
@@ -587,10 +611,11 @@ public class UpdateProfileCustomerActivity extends Activity implements View.OnCl
                                     mSessionManager.putStringData(SessionManager.KEY_C_LAST_NAME,editText_lastName.getText().toString().trim());
                                     mSessionManager.putStringData(SessionManager.KEY_C_PROFILE_URL,Json_response.getString(JSONConstant.C_PROFILE_PIC));
 
-                                    Snackbar.make(btn_edit_profile_pic,getResources().getString(R.string.msg_update_profile),Snackbar.LENGTH_SHORT).show();
+                                    //Snackbar.make(btn_edit_profile_pic,getResources().getString(R.string.msg_update_profile),Snackbar.LENGTH_SHORT).show();
                                     progressBar.dismiss();
-                                    thread.start();
-                                    //finish();
+                                    Toast.makeText(getApplicationContext(),getResources().getString(R.string.msg_update_profile),Toast.LENGTH_SHORT).show();
+                                    //thread.start();
+                                    finish();
                                 }else {
 
                                 }
@@ -769,7 +794,9 @@ public class UpdateProfileCustomerActivity extends Activity implements View.OnCl
                         cd.show();*/
                     }
                 } catch (Exception e) {
-                    Snackbar.make(editText_city,"Failed to load",Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_failed_to_load));
+                    customDialogForHelp.show();
+                    //Snackbar.make(editText_city,"Failed to load",Snackbar.LENGTH_SHORT).show();
                   /*  Toast toast = Toast.makeText(this, getResources().getString(R.string.failed_to_load), Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();*/
@@ -838,6 +865,34 @@ public class UpdateProfileCustomerActivity extends Activity implements View.OnCl
         builder.show();
     }
 
+    /*public void openCamerMethod(){
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+
+        String root_sd = Environment.getExternalStorageDirectory().toString();
+        File direct = new File(root_sd + "/FortuneCourier_pic");
+
+        if (!direct.exists()) {
+            if (!direct.mkdir()){
+                Log.d("ok", "FortuneCourier_pic folder not created");
+            }else{
+                Log.d("ok", "FortuneCourier_pic folder created");
+            }
+        }
+        Date d = new Date();
+        CharSequence s = DateFormat.format("MM-dd-yy-hh-mm-ss",d.getTime());
+
+	*//*	File photo = new File(Environment.getExternalStorageDirectory()
+				+ "/FortuneCourier_pic/"+ s.toString() + ".jpg");*//*
+
+        File f_img =  new File(Environment.getExternalStorageDirectory()
+                + "/FortuneCourier_pic/"+ s.toString() + ".jpg");
+        Uri mesgUri1 = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID+".provider", f_img);
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, mesgUri1);
+        imageUri = f_img;
+        startActivityForResult(intent, TAKE_PHOTO);
+    }*/
+
     public void openCamerMethod(){
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 
@@ -855,11 +910,11 @@ public class UpdateProfileCustomerActivity extends Activity implements View.OnCl
         CharSequence s = DateFormat.format("MM-dd-yy-hh-mm-ss",d.getTime());
 
 	/*	File photo = new File(Environment.getExternalStorageDirectory()
-				+ "/FortuneCourier_pic/"+ s.toString() + ".jpg");*/
+				+ "/REMFIT_pic/"+ s.toString() + ".jpg");*/
 
         File f_img =  new File(Environment.getExternalStorageDirectory()
                 + "/FortuneCourier_pic/"+ s.toString() + ".jpg");
-        Uri mesgUri1 = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID+".provider", f_img);
+        Uri mesgUri1 = FileProvider.getUriForFile(UpdateProfileCustomerActivity.this, BuildConfig.APPLICATION_ID+".provider", f_img);
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, mesgUri1);
         imageUri = f_img;
@@ -913,109 +968,88 @@ public class UpdateProfileCustomerActivity extends Activity implements View.OnCl
         }
     };
 
-   /* private TextWatcher getTextWatcher(final EditText editText) {
-        return new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (cd.isConnectingToInternet()) {
+            if (s.length() == 5) {
+              /*  if (spinner_country.getSelectedItemPosition() == -1) {
+                    Snackbar.make(spinner_country, getResources().getString(R.string.err_msg_select_country), Toast.LENGTH_SHORT).show();
+                } else */
+                if (strCountryCode.equalsIgnoreCase("US")) {
+                    getZipcodeDetails(strCountryCode, editText_zip.getText().toString());
+                }
+            }
+        } else {
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+            customDialogForHelp.show();
+            //Snackbar.make(spinner_city, getResources().getString(R.string.err_msg_internet), Snackbar.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+    private void getZipcodeDetails(String strCountryCode,String strZipcode){
+        hideKeyboard();
+        progressBar = new ProgressDialog(UpdateProfileCustomerActivity.this);
+        progressBar.setCancelable(true);
+        progressBar.setMessage("Authenticating ...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setIndeterminate(true);
+        progressBar.show();
+        String URL = getResources().getString(R.string.url_domain_customer) + getResources().getString(R.string.url_zipcode_lookup);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(JSONConstant.C_COUNTRY_CODE,strCountryCode);
+        params.put(JSONConstant.C_ZIPCODE,strZipcode);
+
+
+        System.out.println("=>"+params.toString());
+
+        VolleyUtils.POST_METHOD(UpdateProfileCustomerActivity.this, URL, params, new VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+                progressBar.dismiss();
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // do what you want with your EditText
-               if(editText.getText().length()==6){
-                   *//*Toast.makeText(UpdateProfileCustomerActivity.this,"Hi",Toast.LENGTH_SHORT).show();*//*
-                   if(cd.isConnectingToInternet()){
-                       getZipDetails();
-                   }else {
-                       Snackbar.make(editText_zip,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
-                   }
-               }
-            }
+            public void onResponse(Object response) {
+                System.out.println("==Volley Response===>>" + response.toString());
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        };
-    }*/
-
-    /*public void getZipDetails() {
-
-        try {
-            progressBar = new ProgressDialog(UpdateProfileCustomerActivity.this);
-            progressBar.setCancelable(true);
-            progressBar.setMessage("Authenticating ...");
-            progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressBar.setIndeterminate(true);
-            progressBar.show();
-
-            //String URL = getResources().getString(R.string.url_domain) + getResources().getString(R.string.url_get_customer_details);
-            String URL = "http://maps.googleapis.com/maps/api/geocode/json?components=country:"+strCountryCode+"|postal_code:"+editText_zip.getText().toString().trim()+"&key=";
-
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            states = new ArrayList<>();
-                            System.out.println("==Volley Response===>>" + response);
-                            try {
-                                JSONObject Json_response = new JSONObject(response);
-                              *//*  if(Json_response.getString(JSONConstant.STATUS).equalsIgnoreCase(JSONConstant.SUCCESS)){
-                                    editText_firstName.setText(Json_response.getString(JSONConstant.C_FIRST_NAME));
-                                    editText_lastName.setText(Json_response.getString(JSONConstant.C_LAST_NAME));
-                                    editText_email.setText(Json_response.getString(JSONConstant.C_EMAIL_ADDRESS));
-                                    Picasso.with(UpdateProfileCustomerActivity.this)
-                                            .load(Json_response.getString(JSONConstant.C_PROFILE_PIC)) //extract as User instance method
-                                            //.transform(new CropCircleTransformation())
-                                            .resize(120, 120)
-                                            .into(img_profile_pic);
-
-                                    progressBar.dismiss();
-                                    getAllCountries();
-                                }else {
-
-                                }*//*
-                                progressBar.dismiss();
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                progressBar.dismiss();
+                try {
+                    JSONObject Json_response = new JSONObject(response.toString());
+                    if(Json_response.getString(JSONConstant.STATUS).equalsIgnoreCase(JSONConstant.SUCCESS)) {
+                        editText_city.setText(Json_response.getString(JSONConstant.C_CITY));
+                        //String strState = Json_response.getString(JSONConstant.A_STATE);
+                        for (int i = 0;i<states.size();i++) {
+                            if (states.get(i).equalsIgnoreCase(Json_response.getString(JSONConstant.C_STATE))) {
+                                spinner_state.setItemOnPosition(i);
                             }
                         }
-                    },
-                    new Response.ErrorListener() {
-
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            System.out.println("==Volley Error=" + error);
-                            progressBar.dismiss();
+                    }else {
+                        JSONObject jsonObject = Json_response.getJSONObject(JSONConstant.ERROR_MESSAGES);
+                        if (jsonObject.has(JSONConstant.MESSAGE)) {
+                            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(UpdateProfileCustomerActivity.this,getResources().getString(R.string.app_name),jsonObject.getString(JSONConstant.MESSAGE));
+                            customDialogForHelp.show();
+                            //Snackbar.make(btn_get_details,jsonObject.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
                         }
-                    }) {
-
-               *//* @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put(JSONConstant.C_ID,mSessionManager.getStringData(SessionManager.KEY_C_ID));
-
-                    return params;
-                }*//*
-
-                @Override
-                public String getBodyContentType() {
-                    // TODO Auto-generated method stub
-                    return "application/x-www-form-urlencoded";
+                    }
+                    progressBar.dismiss();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    progressBar.dismiss();
                 }
-            };
+            }
+        });
+    }
 
-            // Adding JsonObject request to request queue
-            AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
 
 

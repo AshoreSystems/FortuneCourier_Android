@@ -42,7 +42,7 @@ protected void onDraw(Canvas canvas) {
 		        return; 
 		    }
 		    Bitmap b =  ((BitmapDrawable)drawable).getBitmap() ;
-		    Bitmap bitmap = b.copy(Config.ARGB_8888, true);
+	        Bitmap bitmap = b.copy(Config.ARGB_8888, true);
 	
 		    int w = getWidth(), h = getHeight();
 	

@@ -37,6 +37,9 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
+                    android:layout_marginLeft="@dimen/size_16"
+                    android:layout_marginRight="@dimen/size_16"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -44,7 +47,8 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/ll_flash_view"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/left_btn"
@@ -52,24 +56,35 @@
                         android:padding="10dp">
 
                         <ImageView
+                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@mipmap/icon_bell" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/tv_flash_message"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/text_margin"
-                            android:text="50"
-                            android:textColor="@color/colorRed" />
+                            android:singleLine="true"
+                            android:ellipsize="marquee"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:scrollHorizontally="true"
+                            android:paddingLeft="@dimen/size_10"
+                            android:paddingRight="@dimen/size_10"
+                            android:focusable="true"
+                            android:textColor="@color/colorRed"
+                            android:focusableInTouchMode="true"
+                            android:text="@string/info"
+                            android:freezesText="true" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/edittext_margin"
-                        android:layout_marginRight="@dimen/edittext_margin"
+                        android:layout_marginLeft="@dimen/size_5"
+                        android:layout_marginRight="@dimen/size_5"
                         android:background="@drawable/middle_btn"
                         android:orientation="horizontal"
                         android:padding="10dp">
@@ -82,12 +97,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/text_margin"
+                            android:layout_marginLeft="@dimen/size_10"
                             android:text="50"
                             android:textColor="@color/colorRed" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -103,7 +119,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/text_margin"
+                            android:layout_marginLeft="@dimen/size_10"
                             android:text="50"
                             android:textColor="@color/colorRed" />
                     </LinearLayout>
@@ -115,7 +131,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/activity_margin"
+        android:layout_margin="@dimen/size_16"
         android:layout_weight="0.5"
         android:fillViewport="true">
 
@@ -129,14 +145,14 @@
                 android:id="@+id/ll_generate_shipment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/size_16"
                 android:background="@drawable/drawable_rectangular_view"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
-                    android:layout_margin="@dimen/activity_margin"
+                    android:layout_width="@dimen/size_30"
+                    android:layout_height="@dimen/size_30"
+                    android:layout_margin="@dimen/size_16"
                     android:adjustViewBounds="true"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_orderlist"
@@ -146,23 +162,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="@dimen/activity_margin"
+                    android:layout_margin="@dimen/size_16"
                     android:text="@string/nav_item_generate_shipment"
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_track_shipment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/size_16"
                 android:background="@drawable/drawable_rectangular_view"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
-                    android:layout_margin="@dimen/activity_margin"
+                    android:layout_width="@dimen/size_30"
+                    android:layout_height="@dimen/size_30"
+                    android:layout_margin="@dimen/size_16"
                     android:adjustViewBounds="true"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_track"
@@ -172,7 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="@dimen/activity_margin"
+                    android:layout_margin="@dimen/size_16"
                     android:text="@string/nav_item_track_shipment"
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold" />
@@ -182,14 +199,14 @@
                 android:id="@+id/ll_view_shipment_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/size_16"
                 android:background="@drawable/drawable_rectangular_view"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
-                    android:layout_margin="@dimen/activity_margin"
+                    android:layout_width="@dimen/size_30"
+                    android:layout_height="@dimen/size_30"
+                    android:layout_margin="@dimen/size_16"
                     android:adjustViewBounds="true"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_history"
@@ -199,7 +216,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="@dimen/activity_margin"
+                    android:layout_margin="@dimen/size_16"
                     android:text="@string/nav_item_view_shipment_history"
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold" />
@@ -209,14 +226,14 @@
                 android:id="@+id/ll_calculate_rates"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/size_16"
                 android:background="@drawable/drawable_rectangular_view"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
-                    android:layout_margin="@dimen/activity_margin"
+                    android:layout_width="@dimen/size_30"
+                    android:layout_height="@dimen/size_30"
+                    android:layout_margin="@dimen/size_16"
                     android:adjustViewBounds="true"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_calculate"
@@ -226,7 +243,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="@dimen/activity_margin"
+                    android:layout_margin="@dimen/size_16"
                     android:text="@string/nav_item_calculate_rates"
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold" />

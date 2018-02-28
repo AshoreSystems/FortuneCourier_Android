@@ -43,7 +43,7 @@ public class CustomDialogForHelp  extends Dialog implements View.OnClickListener
 
         tv_message=(TextView)findViewById(R.id.tv_message);
         tv_message.setText(messageShow);
-        tv_message.setGravity(Gravity.FILL_HORIZONTAL);
+        //tv_message.setGravity(Gravity.FILL_HORIZONTAL);
 
         btn_ok.setOnClickListener(this);
     }

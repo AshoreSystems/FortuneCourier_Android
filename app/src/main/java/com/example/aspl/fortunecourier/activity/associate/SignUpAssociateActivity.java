@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -17,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -26,9 +24,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.R;
-import com.example.aspl.fortunecourier.activity.customer.CreateShipmentFromActivity;
+import com.example.aspl.fortunecourier.activity.customer.SignUpCustomerActivity;
 import com.example.aspl.fortunecourier.customspinner.SearchableSpinner;
 import com.example.aspl.fortunecourier.dialog.CustomDialogClass;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.model.Country;
 import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
@@ -138,7 +137,9 @@ public class SignUpAssociateActivity extends AppCompatActivity implements View.O
         if(cd.isConnectingToInternet()){
             getAllCountries();
         }else {
-            Snackbar.make(btn_register,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+           // Snackbar.make(btn_register,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(SignUpAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+            customDialogForHelp.show();
         }
     }
 
@@ -151,7 +152,9 @@ public class SignUpAssociateActivity extends AppCompatActivity implements View.O
                 if (cd.isConnectingToInternet()){
                     validateAndSubmit();
                 }else {
-                    Snackbar.make(btn_register,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(SignUpAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                   // Snackbar.make(btn_register,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -164,7 +167,9 @@ public class SignUpAssociateActivity extends AppCompatActivity implements View.O
                 if (cd.isConnectingToInternet()){
                     showTermsAndConditions();
                 }else {
-                    Snackbar.make(btn_register,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(SignUpAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(btn_register,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.header_layout_back:
@@ -212,11 +217,17 @@ public class SignUpAssociateActivity extends AppCompatActivity implements View.O
             requestFocus(editText_confirm_password);
             textInput_password.setErrorEnabled(false);
         } else if(spinner_country.getSelectedItemPosition()==-1){
-            Snackbar.make(textInput_business_name,getResources().getString(R.string.err_msg_select_country),Snackbar.LENGTH_SHORT).show();
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(SignUpAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_select_country));
+            customDialogForHelp.show();
+           // Snackbar.make(textInput_business_name,getResources().getString(R.string.err_msg_select_country),Snackbar.LENGTH_SHORT).show();
         } else if(spinner_state.getSelectedItemPosition()==-1){
-            Snackbar.make(textInput_business_name,getResources().getString(R.string.err_msg_select_state),Snackbar.LENGTH_SHORT).show();
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(SignUpAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_select_state));
+            customDialogForHelp.show();
+           // Snackbar.make(textInput_business_name,getResources().getString(R.string.err_msg_select_state),Snackbar.LENGTH_SHORT).show();
         }else if( !checkbox_terms_conditions.isChecked()){
-            Snackbar.make(checkbox_terms_conditions,getResources().getString(R.string.err_msg_terms_and_condition),Snackbar.LENGTH_SHORT).show();
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(SignUpAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_terms_and_condition));
+            customDialogForHelp.show();
+            //Snackbar.make(checkbox_terms_conditions,getResources().getString(R.string.err_msg_terms_and_condition),Snackbar.LENGTH_SHORT).show();
         } else {
             textInput_confirm_password.setErrorEnabled(false);
             textInput_firstName.setErrorEnabled(false);
@@ -304,8 +315,10 @@ public class SignUpAssociateActivity extends AppCompatActivity implements View.O
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             System.out.println("==Volley Error=" + error);
-                            Snackbar.make(btn_register,getResources().getString(R.string.err_msg_server),Snackbar.LENGTH_SHORT).show();
+                           // Snackbar.make(btn_register,getResources().getString(R.string.err_msg_server),Snackbar.LENGTH_SHORT).show();
                             progressBar.dismiss();
+                            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(SignUpAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_server));
+                            customDialogForHelp.show();
                         }
                     }) {
 
@@ -578,7 +591,9 @@ public class SignUpAssociateActivity extends AppCompatActivity implements View.O
                 if(cd.isConnectingToInternet()){
                     getAllStates(arrayListCountries.get(position).getCountry_code());
                 }else {
-                    Snackbar.make(btn_register,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(SignUpAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(btn_register,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
 
                 /*if(position==0){

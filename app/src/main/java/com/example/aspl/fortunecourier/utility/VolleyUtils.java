@@ -147,5 +147,35 @@ public class VolleyUtils {
         // Access the RequestQueue through singleton class.
         AppSingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
+
+    public static void GET_METHOD(Context context, String url, final VolleyResponseListener listener)
+    {
+
+        // Initialize a new StringRequest
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.GET,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        listener.onResponse(response);
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        listener.onError(error.toString());
+
+                    }
+                })
+
+        {
+
+        };
+
+        // Access the RequestQueue through singleton class.
+        AppSingleton.getInstance(context).addToRequestQueue(stringRequest);
+    }
 }
 

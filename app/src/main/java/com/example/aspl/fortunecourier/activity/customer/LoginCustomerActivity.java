@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -31,9 +30,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.R;
+import com.example.aspl.fortunecourier.SplashActivity;
 import com.example.aspl.fortunecourier.activity.associate.LoginAssociateActivity;
 import com.example.aspl.fortunecourier.activity.associate.SignUpAssociateActivity;
 import com.example.aspl.fortunecourier.dialog.CustomDialogClass;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
@@ -233,44 +234,53 @@ public class LoginCustomerActivity extends AppCompatActivity implements View.OnC
         switch (v.getId()){
 
             case R.id.btn_login:
+                hideKeyboard();
                 if(cd.isConnectingToInternet()){
                     //AppConstant.IS_USER_FROM_FACEBOOK_SIGNUP = false;
                     validateAndSubmit();
                 }else {
-                    Snackbar.make(btn_login,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(LoginCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(btn_login,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
 
             case R.id.tv_link_signup:
+                hideKeyboard();
                 startActivity(new Intent(LoginCustomerActivity.this,SignUpCustomerActivity.class));
                 break;
 
             case R.id.tv_forgot_password:
-                 startActivity(new Intent(LoginCustomerActivity.this,ForgotPasswordCustomerActivity.class));
+                hideKeyboard();
+
+                startActivity(new Intent(LoginCustomerActivity.this,ForgotPasswordCustomerActivity.class));
                 break;
 
             case R.id.btn_fb_login:
+                hideKeyboard();
                 AppConstant.IS_USER_FROM_FACEBOOK_SIGNUP = true;
-
                 try{
                     LoginManager.getInstance().logOut();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-
                 loginButton.performClick();
 
                 break;
 
             case R.id.tv_terms_and_condition:
+                hideKeyboard();
                 if(cd.isConnectingToInternet()){
                    showTermsAndConditions();
                 }else {
-                    Snackbar.make(tv_terms_and_condition,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(LoginCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(tv_terms_and_condition,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
 
             case R.id.tv_new_user:
+                hideKeyboard();
                 startActivity(new Intent(LoginCustomerActivity.this,SignUpCustomerActivity.class));
                 break;
 
@@ -278,8 +288,6 @@ public class LoginCustomerActivity extends AppCompatActivity implements View.OnC
                 hideKeyboard();
                 startActivity(new Intent(LoginCustomerActivity.this,LandingCustomerActivity.class));
                 finish();
-               /* hideKeyboard();
-                finish();*/
                 break;
         }
 
@@ -297,7 +305,9 @@ public class LoginCustomerActivity extends AppCompatActivity implements View.OnC
             requestFocus(editText_password);
 
         } else if(!checkbox_terms_conditions.isChecked()){
-            Snackbar.make(checkbox_terms_conditions,getResources().getString(R.string.err_msg_terms_and_condition),Snackbar.LENGTH_SHORT).show();
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(LoginCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_terms_and_condition));
+            customDialogForHelp.show();
+            //Snackbar.make(checkbox_terms_conditions,getResources().getString(R.string.err_msg_terms_and_condition),Snackbar.LENGTH_SHORT).show();
 
         }else {
             textInput_password.setErrorEnabled(false);
@@ -342,9 +352,20 @@ public class LoginCustomerActivity extends AppCompatActivity implements View.OnC
                                    }
 
                                    mSessionManager.putIntData(SessionManager.KEY_WHICH_USER,1);
-                                   startActivity(new Intent(LoginCustomerActivity.this, DashboardCustomerActivity.class));
+                                   if(AppConstant.IS_FROM_OUTSIDE){
+                                       Intent i = new Intent(LoginCustomerActivity.this, DashboardCustomerActivity.class);
+                                       startActivity(i);
+                                       finish();
+                                   }else {
+                                       Intent i = new Intent(LoginCustomerActivity.this, DashboardCustomerActivity.class);
+                                       i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                       i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                       startActivity(i);
+                                   }
                                 } else {
-                                   Snackbar.make(editText_email, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
+                                   CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(LoginCustomerActivity.this,getResources().getString(R.string.app_name),Json_response.getString(JSONConstant.MESSAGE));
+                                   customDialogForHelp.show();
+                                  // Snackbar.make(editText_email, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
                                 }
                                 progressBar.dismiss();
 
@@ -370,9 +391,9 @@ public class LoginCustomerActivity extends AppCompatActivity implements View.OnC
                     params.put(JSONConstant.C_PASSWORD, editText_password.getText().toString().trim());
                     params.put(JSONConstant.CDT_DEVICE_TYPE, "android");
                     params.put(JSONConstant.CDT_DEVICE_ID,IMEI_Number_Holder);
-                    params.put(JSONConstant.CDT_DEVICE_TOKEN, "kjdkjf");
+                    //params.put(JSONConstant.CDT_DEVICE_TOKEN, "kjdkjf");
 
-                    //params.put(JSONConstant.CDT_DEVICE_TOKEN, mSessionManager.getStringData(SessionManager.KEY_CDT_DEVICE_TOKEN));
+                    params.put(JSONConstant.CDT_DEVICE_TOKEN, mSessionManager.getStringData(SessionManager.KEY_CDT_DEVICE_TOKEN));
 
                     return params;
                 }
@@ -444,7 +465,18 @@ public class LoginCustomerActivity extends AppCompatActivity implements View.OnC
                                     mSessionManager.putStringData(SessionManager.KEY_C_PROFILE_URL,profile_url);*/
 
                                     mSessionManager.putIntData(SessionManager.KEY_WHICH_USER,1);
-                                    startActivity(new Intent(LoginCustomerActivity.this, DashboardCustomerActivity.class));
+
+                                    if(AppConstant.IS_FROM_OUTSIDE){
+                                        Intent i = new Intent(LoginCustomerActivity.this, DashboardCustomerActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                    }else {
+                                        Intent i = new Intent(LoginCustomerActivity.this, DashboardCustomerActivity.class);
+                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(i);
+                                    }
+
                                 }
 
 
@@ -497,6 +529,7 @@ public class LoginCustomerActivity extends AppCompatActivity implements View.OnC
                     params.put(JSONConstant.C_LAST_NAME, l_name);
                     params.put(JSONConstant.C_EMAIL_ADDRESS, email);
                     params.put(JSONConstant.C_PROFILE_PIC,profile_url);
+                    params.put("device_type","a");
                     return params;
                 }
 
@@ -643,8 +676,7 @@ public class LoginCustomerActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    public void hideKeyboard(){
-
+    private void hideKeyboard(){
         View view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);

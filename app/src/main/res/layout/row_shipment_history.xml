@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/edittext_margin"
+        android:padding="@dimen/size_5"
         android:background="@color/background_color_black">
 
         <TextView
@@ -19,7 +19,7 @@
             android:layout_centerInParent="true"
             android:text="3154315126"
             android:textColor="@color/colorWhite"
-            android:textSize="18sp" />
+            android:textSize="@dimen/text_17" />
 
         <ImageView
             android:id="@+id/img_delet"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/colorWhite"
-        android:padding="@dimen/edittext_margin">
+        android:padding="@dimen/size_5">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -55,6 +55,17 @@
 
             <TextView
                 android:id="@+id/tv_ship_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12/11/1017"
+                android:textColor="@color/colorBlack" />
+            <TextView
+                android:id="@+id/tv_from_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack" />
+            <TextView
+                android:id="@+id/tv_from_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="12/11/1017"
@@ -111,7 +122,20 @@
                 android:layout_height="wrap_content"
                 android:text="12/11/1017"
                 android:textColor="@color/colorBlack" />
+            <TextView
+                android:id="@+id/tv_to_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack" />
+            <TextView
+                android:id="@+id/tv_to_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12/11/1017"
+                android:textColor="@color/colorBlack" />
+
 
         </LinearLayout>
+
     </RelativeLayout>
 </LinearLayout>

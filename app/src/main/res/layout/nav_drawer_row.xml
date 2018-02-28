@@ -8,9 +8,9 @@
     android:clickable="true">
     <ImageView
         android:id="@+id/img_icon"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
-        android:layout_margin="@dimen/text_margin"
+        android:layout_width="@dimen/size_30"
+        android:layout_height="@dimen/size_30"
+        android:layout_margin="@dimen/size_10"
         tools:ignore="ContentDescription"
         android:src="@drawable/ic_calculate"/>
 
@@ -18,8 +18,8 @@
         android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/edittext_margin"
-        android:textSize="@dimen/text_size"
+        android:padding="@dimen/size_5"
+        android:textSize="@dimen/text_15"
         android:textColor="@android:color/black" />
 
 </LinearLayout>

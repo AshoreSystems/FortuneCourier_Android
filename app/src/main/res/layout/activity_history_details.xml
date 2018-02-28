@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/lbl_header_shipment_details"
-            android:textSize="@dimen/header_size"
+            android:textSize="@dimen/text_20"
             android:textStyle="bold" />
 
         <ImageView
@@ -29,7 +29,7 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_gravity="end"
-            android:layout_margin="@dimen/edittext_margin"
+            android:layout_margin="@dimen/size_5"
             android:src="@drawable/ic_info" />
     </RelativeLayout>
 
@@ -46,11 +46,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
 
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -62,7 +62,6 @@
                     android:id="@+id/tv_ship_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12/11/1017"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
@@ -70,10 +69,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="horizontal"
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -92,19 +91,19 @@
                         android:id="@+id/tv_tracking_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="12111017"
                         android:textColor="@color/colorBlack" />
 
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/btn_next"
+                    android:id="@+id/btn_track_now"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
                     android:background="@drawable/drawable_btn"
                     android:text="@string/btn_track_now"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorWhite" />
             </RelativeLayout>
 
@@ -112,11 +111,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
 
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -128,14 +127,12 @@
                     android:id="@+id/tv_from_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Manual R Pebbles"
                     android:textColor="@color/colorBlack" />
 
                 <TextView
                     android:id="@+id/tv_from_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="102 Arlington Heights, iilions"
                     android:textColor="@color/colorYellow" />
 
             </LinearLayout>
@@ -143,11 +140,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
 
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -159,24 +156,22 @@
                     android:id="@+id/tv_to_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Harshada Borse"
                     android:textColor="@color/colorBlack" />
 
                 <TextView
                     android:id="@+id/tv_to_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="102 Arlington Heights, iilions"
                     android:textColor="@color/colorYellow" />
 
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -188,7 +183,6 @@
                     android:id="@+id/tv_carrier"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="FedEx"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
@@ -197,10 +191,10 @@
                 android:id="@+id/ll_service_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -212,30 +206,53 @@
                     android:id="@+id/tv_service_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="FedEx"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
 
+
             <LinearLayout
+                android:id="@+id/ll_special_service"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
-                android:padding="@dimen/edittext_margin">
+                android:visibility="gone"
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pickup Drop"
+                    android:text="Special Services"
+                    android:textColor="@color/colorRed" />
+
+                <TextView
+                    android:id="@+id/tv_special_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_pickup_drop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_5"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:padding="@dimen/size_5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_pickup_drop"
                     android:textColor="@color/colorRed" />
 
                 <TextView
                     android:id="@+id/tv_pickup_drop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pickup Drop"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
@@ -243,10 +260,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -258,7 +275,6 @@
                     android:id="@+id/tv_package_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Your Package"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
@@ -267,11 +283,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
 
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -283,7 +299,6 @@
                     android:id="@+id/tv_no_of_packages"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
@@ -291,87 +306,135 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
 
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Weight"
+                    android:visibility="gone"
                     android:textColor="@color/colorRed" />
 
                 <TextView
                     android:id="@+id/tv_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10.00 lb/ 5.2 kg"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
 
-            <!-- <LinearLayout
+            <LinearLayout
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:layout_margin="@dimen/edittext_margin"
+                 android:layout_margin="@dimen/size_5"
                  android:background="@color/colorWhite"
                  android:orientation="vertical"
 
-                 android:padding="@dimen/edittext_margin">
+                 android:padding="@dimen/size_5">
 
                  <TextView
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:text="Dimension"
+                     android:text="@string/lbl_status"
                      android:textColor="@color/colorRed" />
 
                  <TextView
-                     android:id="@+id/tv_dimension"
+                     android:id="@+id/tv_status"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:text="10cmx20cm"
                      android:textColor="@color/colorBlack" />
 
-             </LinearLayout>-->
+             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_delivery_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
-
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Selected Service"
+                    android:text="@string/lbl_delivery_date"
                     android:textColor="@color/colorRed" />
 
                 <TextView
-                    android:id="@+id/tv_selected_service"
+                    android:id="@+id/tv_delivery_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_customs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_5"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:padding="@dimen/size_5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_customs_details"
+                    android:textColor="@color/colorRed" />
+
+                <TextView
+                    android:id="@+id/tv_customs_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorBlack" />
                 <TextView
-                    android:id="@+id/tv_timestamp"
+                    android:id="@+id/tv_customs_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="102 Arlington Heights, iilions"
                     android:textColor="@color/colorYellow" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_collection_fees"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
-                android:orientation="vertical"
-                android:padding="@dimen/edittext_margin">
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:padding="@dimen/size_5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Collection Fees"
+                    android:textColor="@color/colorRed" />
+
+                <TextView
+                    android:id="@+id/tv_collection_fees"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_5"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal"
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -381,19 +444,21 @@
 
                 <TextView
                     android:id="@+id/tv_total_amount"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="right"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
 
             <Button
-                android:id="@+id/btn_proceed_to_payment"
+                android:id="@+id/btn_download_label"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/activity_margin"
+                android:layout_margin="@dimen/size_16"
                 android:background="@drawable/drawable_btn"
-                android:text="@string/btn_proceed_to_payment"
+                android:text="@string/btn_download"
                 android:textAllCaps="false"
                 android:layout_gravity="bottom"
                 android:textColor="@color/colorWhite" />

@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.view.WindowManager;
@@ -22,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.R;
 import com.example.aspl.fortunecourier.activity.customer.OTPVerificationCustomerActivity;
 import com.example.aspl.fortunecourier.activity.customer.SetPhoneNumberCustomerActivity;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
@@ -115,7 +115,9 @@ public class SetPhoneNumberAssociateActivity extends Activity implements View.On
                                     mSessionManager.putStringData(SessionManager.KEY_A_DIALLING_CODE, "+"+ccp.getFullNumber());
                                     startActivity(new Intent(SetPhoneNumberAssociateActivity.this, OTPVerificationAssociateActivity.class).putExtra(AppConstant.SIGNUP_OR_FORGOT_OTP,"FACEBOOK OTP"));
                                 } else {
-                                    Snackbar.make(btn_submit,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
+                                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(SetPhoneNumberAssociateActivity.this,getResources().getString(R.string.app_name),Json_response.getString(JSONConstant.MESSAGE));
+                                    customDialogForHelp.show();
+                                    //Snackbar.make(btn_submit,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
                                 }
                                 progressBar.dismiss();
 
@@ -176,7 +178,9 @@ public class SetPhoneNumberAssociateActivity extends Activity implements View.On
                 if(cd.isConnectingToInternet()){
                     validateAndSubmit();
                 }else {
-                    Snackbar.make(btn_submit,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(SetPhoneNumberAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(btn_submit,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
 

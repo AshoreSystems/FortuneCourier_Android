@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FortuneCourier</string>
+    <string name="app_name">Fortune Courier</string>
 
     <!--URL-->
     <string name="url_domain_customer">http://server.ashoresystems.com/~sivs/customerapis/</string>
@@ -40,6 +40,31 @@
     <string name="url_create_shipment">create_shipment</string>
     <string name="url_view_shipment_history">view_shipment_history</string>
     <string name="url_view_shipment_details">view_shipment_details</string>
+    <string name="url_fetch_contianer_type">fetch_contianer_type</string>
+    <string name="url_fetch_package_size">fetch_package_size</string>
+    <string name="url_track_shipment">track_shipment</string>
+    <string name="url_get_special_services">get_special_services</string>
+    <string name="url_check_special_services">check_special_services</string>
+    <string name="url_zipcode_lookup">zipcode_lookup</string>
+    <string name="url_fetch_pickup_rate">fetch_pickup_rate</string>
+    <string name="url_pay">pay</string>
+    <string name="url_apply_coupon_code">apply_coupon_code</string>
+    <string name="url_get_saved_cards">get_saved_cards</string>
+    <string name="url_get_associate_commissions">get_associate_commissions</string>
+    <string name="url_get_associate_monthly_commission">get_associate_monthly_commission</string>
+    <string name="url_get_help_text">get_help_text</string>
+    <string name="url_fetch_fedex_commodity_quantity_units">fetch_fedex_commodity_quantity_units</string>
+    <string name="url_fetch_fedex_shipment_purpose">fetch_fedex_shipment_purpose</string>
+    <string name="url_set_pin">set_pin</string>
+    <string name="url_verify_pin">verify_pin</string>
+    <string name="url_change_pin">change_pin</string>
+    <string name="url_forgot_pin">forgot_pin</string>
+    <string name="url_verify_reset_pin_otp">verify_reset_pin_otp</string>
+    <string name="url_resend_pin_otp">resend_pin_otp</string>
+    <string name="url_fetch_fedex_document_types">fetch_fedex_document_types</string>
+    <string name="url_verify_card">verify_card</string>
+    <string name="url_dashboard">dashboard</string>
+
 
     <!--Login Screen -->
 
@@ -57,26 +82,29 @@
     <string name="lbl_t_n_c">Terms &amp; Conditions</string>
     <!--Register Screen-->
 
-    <string name="hint_first_name">First Name</string>
-    <string name="hint_last_name">Last Name</string>
-    <string name="hint_phone_number">Phone Number</string>
-    <string name="hint_old_phone_number">Old Phone Number</string>
-    <string name="hint_new_phone_number">New Phone Number</string>
-    <string name="hint_email_address">Email Address</string>
-    <string name="hint_email_phonenumber">Email / Mobile Number</string>
+    <string name="hint_first_name">First Name*</string>
+    <string name="hint_last_name">Last Name*</string>
+    <string name="hint_phone_number">Phone Number*</string>
+    <string name="hint_old_phone_number">Old Phone Number*</string>
+    <string name="hint_new_phone_number">New Phone Number*</string>
+    <string name="hint_email_address">Email Address*</string>
+    <string name="lbl_email_address">Email Address</string>
 
-    <string name="hint_business_name">Business Name</string>
-    <string name="hint_password">Password</string>
-    <string name="hint_new_password">New Password</string>
-    <string name="hint_old_password">Old Password</string>
-    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="hint_email_phonenumber">Email / Mobile Number*</string>
+    <string name="hint_track_number">Enter Track ID*</string>
+
+    <string name="hint_business_name">Business Name*</string>
+    <string name="hint_password">Password*</string>
+    <string name="hint_new_password">New Password*</string>
+    <string name="hint_old_password">Old Password*</string>
+    <string name="hint_confirm_password">Confirm Password*</string>
     <string name="btn_register">Register</string>
     <string name="lbl_terms_conditions">I agree to the <a href="...">Terms &amp; Conditions</a></string>
     <string name="btn_next">Next</string>
     <string name="btn_track_now">Track Now</string>
 
     <string name="btn_get_quick_quote">Get Quick Quote</string>
-    <string name="btn_get_detailed_quote">Get Detailed Quote</string>
+    <string name="btn_special_services">Special Services ( optional )</string>
 
 
     <!--
@@ -94,23 +122,24 @@ I agree to the <a href="...">terms and conditions
     <string name="lbl_forgot_password">Forgot Your Password?</string>
 
     <!--Update Profile-->
-    <string name="hint_addressline1">Address Line1</string>
-    <string name="hint_addressline2">Address Line2</string>
-    <string name="lbl_country">Country</string>
-    <string name="hint_zip">Zip</string>
+    <string name="hint_addressline1">Address Line 1*</string>
+    <string name="hint_addressline2">Address Line 2</string>
+    <string name="lbl_country">Country*</string>
+    <string name="hint_zip">Zip*</string>
     <string name="lbl_state">State</string>
-    <string name="lbl_city">City</string>
-    <string name="lbl_zip">Zip</string>
-    <string name="hint_contact_name">Contact Name</string>
+    <string name="lbl_city">City*</string>
+    <string name="lbl_zip">Zip*</string>
+    <string name="hint_contact_name">Contact Name*</string>
     <string name="hint_company_name">Company Name</string>
 
     <string name="hint_address">Address</string>
-    <string name="hint_ship_date">Ship Date</string>
+    <string name="hint_ship_date">Ship Date*</string>
+    <string name="lbl_ship_date">Ship Date</string>
 
     <!--OTP Verification-->
     <string name="lbl_otp_verification">OTP Verification</string>
     <string name="lbl_resend_otp">Resend OTP</string>
-    <string name="hint_otp_code">OTP code</string>
+    <string name="hint_otp_code">OTP code*</string>
     <string name="btn_verify">Verify</string>
 
     <!--Forgot Password-->
@@ -121,7 +150,7 @@ I agree to the <a href="...">terms and conditions
     <string name="lbl_rates">Rates</string>
     <string name="lbl_delivery_dates_time">Delivery Dates/Time</string>
     <string name="lbl_describe_your_message">Describe your Message</string>
-    <string name="lbl_enter_message">Enter Message</string>
+    <string name="lbl_enter_message">Enter Message*</string>
     <string name="lbl_add_screenshots">Add Screenshots:- </string>
     <string name="btn_send_message">Send Message</string>
     <string name="btn_proceed">Proceed</string>
@@ -143,6 +172,8 @@ I agree to the <a href="...">terms and conditions
     <string name="err_msg_length">Enter Length</string>
     <string name="err_msg_width">Enter Width</string>
     <string name="err_msg_height">Enter Height</string>
+    <string name="err_msg_girth">Enter Girth</string>
+
     <string name="err_msg_enter_message">Enter Message</string>
     <string name="err_msg_server">Error in server side</string>
     <string name="err_msg_select_country">Please select country</string>
@@ -195,7 +226,7 @@ I agree to the <a href="...">terms and conditions
     <string name="fb_login_protocol_scheme">fb159085818168688</string>
 
     <!-- navigation drawer item labels  -->
-    <string-array name="nav_drawer_labels">
+    <string-array name="nav_drawer_labels_customer">
         <item>@string/nav_item_dashboard</item>
         <item>@string/nav_item_generate_shipment</item>
         <item>@string/nav_item_track_shipment</item>
@@ -204,6 +235,25 @@ I agree to the <a href="...">terms and conditions
         <item>@string/nav_item_update_profile</item>
         <item>@string/nav_item_change_password</item>
         <item>@string/nav_item_change_number</item>
+        <item>@string/nav_item_change_pincode</item>
+        <item>@string/nav_item_share_app</item>
+        <item>@string/nav_item_notifications</item>
+        <item>@string/nav_item_contact_us</item>
+        <item>@string/nav_item_logout</item>
+
+    </string-array>
+
+    <string-array name="nav_drawer_labels_associate">
+        <item>@string/nav_item_dashboard</item>
+        <item>@string/nav_item_generate_shipment</item>
+        <item>@string/nav_item_track_shipment</item>
+        <item>@string/nav_item_view_shipment_history</item>
+        <item>@string/nav_item_calculate_rates</item>
+        <item>@string/nav_item_my_commission</item>
+        <item>@string/nav_item_update_profile</item>
+        <item>@string/nav_item_change_password</item>
+        <item>@string/nav_item_change_number</item>
+        <item>@string/nav_item_change_pincode</item>
         <item>@string/nav_item_share_app</item>
         <item>@string/nav_item_notifications</item>
         <item>@string/nav_item_contact_us</item>
@@ -221,6 +271,7 @@ I agree to the <a href="...">terms and conditions
         <item>@string/nav_item_update_profile</item>
         <item>@string/nav_item_set_password</item>
         <item>@string/nav_item_change_number</item>
+        <item>@string/nav_item_change_pincode</item>
         <item>@string/nav_item_share_app</item>
         <item>@string/nav_item_notifications</item>
         <item>@string/nav_item_contact_us</item>
@@ -248,16 +299,24 @@ I agree to the <a href="...">terms and conditions
 
     </string-array>
 
+    <string-array name="array_customs_unit">
+        <item>As totals</item>
+        <item>Per unit</item>
+
+    </string-array>
+
 
     <string name="nav_item_dashboard">Dashboard</string>
     <string name="nav_item_generate_shipment">Generate Shipment Order</string>
     <string name="nav_item_track_shipment">Track Shipment</string>
     <string name="nav_item_view_shipment_history">View Shipment History</string>
     <string name="nav_item_calculate_rates">Calculate Rates</string>
+    <string name="nav_item_my_commission">My Commission</string>
     <string name="nav_item_update_profile">Update Profile</string>
     <string name="nav_item_change_password">Change Password</string>
     <string name="nav_item_set_password">Set Password</string>
     <string name="nav_item_change_number">Change Number</string>
+    <string name="nav_item_change_pincode">Change M-Pin</string>
     <string name="nav_item_share_app">Share App</string>
     <string name="nav_item_notifications">Notifications</string>
     <string name="nav_item_contact_us">Contact Us</string>
@@ -267,16 +326,30 @@ I agree to the <a href="...">terms and conditions
     <string name="logout_text">"Are you sure you want to logout from the app?"</string>
     <string name="logout">Logout</string>
     <string name="lbl_select_country">Select Country</string>
+    <string name="hint_select_country">Select Country*</string>
+
     <string name="lbl_select_state">Select State</string>
+    <string name="hint_select_state">Select State*</string>
+
     <string name="lbl_select_city">Select City</string>
     <string name="lbl_select_carrier">Select Carrier</string>
-    <string name="lbl_service_type">Service Type</string>
+    <string name="hint_select_carrier">Select Carrier*</string>
 
-    <string name="lbl_pickup_drop">Pickup Drop</string>
-    <string name="lbl_select_pickup_drop">Select Pickup Drop</string>
+    <string name="lbl_service_type">Service Type</string>
+    <string name="hint_service_type">Service Type*</string>
+
+
+    <string name="lbl_pickup_drop">Pickup or Drop Off</string>
+    <string name="hint_pickup_drop">Pickup or Drop Off*</string>
+
+    <string name="lbl_select_pickup_drop">Select Pickup or Drop Off</string>
 
     <string name="lbl_package_type">Package Type</string>
+    <string name="hint_package_type">Package Type*</string>
+
     <string name="lbl_select_package_type">Select Package Type</string>
+    <string name="lbl_select_container_type">Select Container Type</string>
+    <string name="lbl_select_sizes">Select Sizes</string>
 
     <string name="lbl_new_user"> New User ? Sign Up</string>
 
@@ -288,8 +361,10 @@ I agree to the <a href="...">terms and conditions
     <!--Create Shipment-->
     <string name="lbl_from">From</string>
     <string name="lbl_to">To</string>
-    <string name="hint_weight">Weight</string>
-    <string name="hint_declared_value">Declared Value (Per package)</string>
+    <string name="hint_weight">Weight*</string>
+    <string name="hint_declared_value">Declared Value*</string>
+    <string name="hint_customs_value">Customs Value*</string>
+
     <string name="lbl_weight_unit_kg">KG</string>
     <string name="lbl_weight_unit_lbs">LBS</string>
     <string name="lbl_dimensional_unit_cm">CM</string>
@@ -300,12 +375,17 @@ I agree to the <a href="...">terms and conditions
 
     <string name="lbl_currency">$</string>
     <string name="lbl_no_of_packages">No. of Packages</string>
-    <string name="lbl_package_dimension_cms">Package Dimension (cms)</string>
-    <string name="lbl_package_dimension_in">Package Dimension (In)</string>
-    <string name="hint_length">Length</string>
-    <string name="hint_height">Height</string>
-    <string name="hint_width">Width</string>
+    <string name="hint_no_of_packages">No. of Packages*</string>
+
+    <string name="lbl_package_dimension_cms">Package Dimension (cms)*</string>
+    <string name="lbl_package_dimension_in">Package Dimension (In)*</string>
+    <string name="hint_length">Length*</string>
+    <string name="hint_height">Height*</string>
+    <string name="hint_width">Width*</string>
+    <string name="hint_girth">Girth*</string>
     <string name="hint_package_description">Package Description</string>
+    <string name="hint_customs_description">Customs Description*</string>
+
     <string name="lbl_package_1">Package Details 1</string>
     <string name="lbl_package_2">Package Details 2</string>
     <string name="lbl_package_3">Package Details 3</string>
@@ -325,6 +405,101 @@ I agree to the <a href="...">terms and conditions
     <string name="lbl_header_shipment_history">Shipment History</string>
     <string name="lbl_header_shipment_details">Shipment Details</string>
     <string name="btn_proceed_to_payment">Proceed to Payment</string>
+    <string name="lbl_delivery_date">Delivery Date</string>
+    <string name="lbl_status">Status</string>
+    <string name="hint_name_on_card_holder">Name On Card Holder</string>
+    <string name="lbl_container_type">Container Type</string>
+    <string name="hint_container_type">Container Type*</string>
+
+    <string name="lbl_sizes">Sizes</string>
+    <string name="hint_sizes">Sizes*</string>
+
+    <string name="hint_no_of_skid">No. of skid*</string>
+    <string name="lbl_no_of_skid">No. of skid</string>
+
+    <string name="btn_get_details">Get Shipment Details</string>
+    <string name="lbl_header_track_shipment">Track Shipment</string>
+    <string name="lbl_select_service_type">Select Service Type</string>
+    <string name="err_msg_failed_to_load">Failed to load!</string>
+    <string name="err_msg_select_service">Please select delivery date</string>
+    <string name="lbl_total_commission">Total Commission</string>
+    <string name="lbl_special_service">Special Service</string>
+    <string name="lbl_header_summery">Summary</string>
+    <string name="lbl_size_limit">This package has a dimension measuring over 12\'\'</string>
+    <string name="lbl_checkbox_shapes">This package isn\'t standard, rectangular box.</string>
+    <string name="lbl_enter_details">Enter Card Details</string>
+    <string name="btn_pay">Pay</string>
+    <string name="hint_coupon_code">Coupon Code</string>
+    <string name="btn_apply">Apply</string>
+    <string name="publishable_key">pk_test_MNine3pkysCdzmjwhwWmqu3S</string>
+    <string name="lbl_save_card">Save this card details.</string>
+    <string name="lbl_header_payment">Payment</string>
+    <string name="btn_download">View Label</string>
+    <string name="btn_download_label_here">Click Here To View Label!</string>
+    <string name="btn_back_home">Back Home</string>
+    <string name="btn_close">Close</string>
+    <string name="msg_customs_value">Enter Customs Value</string>
+    <string name="msg_customs_desc">Enter Customs Description</string>
+    <string name="lbl_customs_details">Customs Details</string>
+    <string name="lbl_documents">Documents</string>
+    <string name="lbl_products_commodities">Products/Commodities</string>
+    <string name="lbl_package_contents">Package Contents*</string>
+    <string name="hint_shipment_purpose">Shipment Purpose*</string>
+    <string name="hint_document_desc">Document Description*</string>
+    <string name="lbl_document_desc">Document Description</string>
+    <string name="lbl_shipment_purpose">Shipment Purpose</string>
+    <string name="hint_total_customs_value">Total Customs Value*</string>
+    <string name="lbl_add_commodity">Add Commodity</string>
+    <string name="lbl_update_commodity">Update Commodity</string>
+
+    <string name="lbl_commodity_description">Commodity Description*</string>
+    <string name="lbl_unit_of_measures">Unit Of Measures*</string>
+    <string name="hint_unit_of_measures">Unit Of Measures</string>
+
+    <string name="hint_commodity_weight">Commodity Weight*</string>
+    <string name="lbl_country_of_manufacture">Country Of Manufacture*</string>
+    <string name="hint_country_of_manufacture">Country Of Manufacture</string>
+
+    <string name="lbl_harmonized_code">Harmonized Code</string>
+    <string name="lbl_expiration_date">Expiration Date</string>
+    <string name="lbl_export_licence_no">Export license No.</string>
+    <string name="lbl_quantity">Quantity*</string>
+    <string name="err_msg_enter_quantity">Enter Quanity</string>
+    <string name="err_msg_enter_customs_value">Enter Customs Value</string>
+    <string name="err_msg_enter_commodity_weight">Enter Commodity Weight</string>
+    <string name="err_msg_select_unit">Select Unit</string>
+    <string name="err_msg_select_manufacture">Select Manufacture</string>
+    <string name="err_msg_select_unit_of_measure">Select unit of measure</string>
+    <string name="lbl_customs_value">Customs Value :</string>
+    <string name="hint_commodity_description">Commodity Description : </string>
+    <string name="title_commodity_description">Commodity Description</string>
+
+    <string name="hint_quantity">Quantity :</string>
+    <string name="lbl_weight">Weight :</string>
+    <string name="btn_ok">Ok</string>
+    <string name="delete_commodity_text">Are you sure you want to delete this commodity?</string>
+    <string name="lbl_select_package_contents">Select Package Contents.</string>
+    <string name="lbl_disclaimer">Disclaimer!</string>
+    <string name="err_msg_commodity">Shipment weight or shipment declared value should not ne greater than customs weight or customs value.</string>
+    <string name="msg_select_commodity">Add Commodity First</string>
+
+    <string name="hint_no_of_quantity">No. of Quantity*</string>
+
+    <string name="err_msg_enter_no_of_skid">Enter No. of Skid</string>
+    <string name="err_msg_enter_no_of_quantity">Enter No. of Quantity</string>
+    <string name="err_msg_custom_weight">Customs Weight cannot be greater than shipment weight.</string>
+    <string name="err_msg_custom_value">Carriage Value cannot exceed Customs value.</string>
+    <string name="lbl_enter_pincode">Enter Pincode</string>
+    <string name="lbl_re_enter_pincode">Re-Enter Pincode</string>
+    <string name="err_msg_pincode">Enter 6 digit pincode</string>
+    <string name="err_msg_pincode_not_matched">Pincode not matched</string>
+    <string name="lbl_enter_new_pincode">Enter New Pincode</string>
+    <string name="lbl_enter_old_pincode">Enter Old Pincode</string>
+    <string name="lbl_forgot_pincode">Forgot Pincode ?</string>
+    <string name="lbl_header_verify_pincode">Verify PIN</string>
+    <string name="err_msg_payment">Please Enter card detail</string>
+    <string name="lbl_remove_coupon">Remove applied coupon</string>
+    <string name="hint_enter_cvv">Enter CVC</string>
 
 
 </resources>

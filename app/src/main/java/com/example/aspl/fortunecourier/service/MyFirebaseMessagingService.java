@@ -26,8 +26,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         //Displaying data in log
         //It is optional
         Log.d(TAG, "From: " + remoteMessage.getFrom());
+     /*   Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
-
+*/
         //Calling method to generate notification
         sendNotification(remoteMessage.getNotification().getBody());
     }
@@ -43,7 +44,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Firebase Push Notification")
+                .setContentTitle("Fortune Courior")
                 .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

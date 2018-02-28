@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FortuneCourier.iml" filepath="$PROJECT_DIR$/FortuneCourier.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pk-library/pk-library.iml" filepath="$PROJECT_DIR$/pk-library/pk-library.iml" />
     </modules>
   </component>
 </project>

@@ -9,7 +9,7 @@
         android:id="@+id/tv_version"
         android:gravity="center_horizontal|bottom"
         android:textColor="@android:color/white"
-        android:layout_margin="@dimen/edittext_margin"
-        android:textSize="@dimen/text_size"
+        android:layout_margin="@dimen/size_5"
+        android:textSize="@dimen/text_15"
         android:text="@string/lbl_version"/>
 </LinearLayout>

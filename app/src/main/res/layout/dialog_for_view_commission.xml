@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:padding="@dimen/size_5">
+
+
+ <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+     android:layout_weight="1"
+
+     android:layout_margin="@dimen/size_10"
+        android:id="@+id/list_commission">
+    </android.support.v7.widget.RecyclerView>
+    <Button
+        android:id="@+id/btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_10"
+        android:background="@drawable/drawable_btn"
+        android:text="@string/btn_close"
+        android:textAllCaps="false"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_15" />
+
+
+
+</LinearLayout>

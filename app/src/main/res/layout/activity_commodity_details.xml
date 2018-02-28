@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/header_layout_back"
+            layout="@layout/header_back" />
+
+        <TextView
+            android:id="@+id/tv_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/lbl_products_commodities"
+            android:textSize="@dimen/text_20"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/img_info"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/size_5"
+            android:src="@drawable/ic_info" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_5"
+        android:padding="@dimen/size_5"
+        android:background="@drawable/add_image_border"
+        android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_shipment_total_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_17"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/tv_total_carriage_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_17"
+        android:textStyle="bold" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_commodity_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_5"
+        android:padding="@dimen/size_5"
+        android:background="@drawable/add_image_border"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total Commodity Details "
+            android:textSize="@dimen/text_17"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_total_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_16"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_total_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_16"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_total_custom_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_16"
+            android:textStyle="bold" />
+        </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_commodity"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/size_5"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/size_10"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_add_commodity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/drawable_btn"
+            android:layout_alignParentLeft="true"
+            android:padding="@dimen/size_5"
+            android:layout_alignParentBottom="true"
+
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:text="@string/lbl_add_commodity"/>
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/drawable_btn"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:padding="@dimen/size_5"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:text="@string/btn_submit"/>
+    </RelativeLayout>
+
+</LinearLayout>

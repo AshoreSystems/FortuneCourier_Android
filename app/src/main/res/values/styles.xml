@@ -39,6 +39,12 @@
         <item name="colorControlActivated">@color/colorBlack</item>
     </style>
 
+    <style name="EditTextTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorYellow</item>
+        <item name="colorControlHighlight">@color/colorRed</item>
+    </style>
+
 
 
 </resources>

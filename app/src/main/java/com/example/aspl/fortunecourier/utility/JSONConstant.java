@@ -88,13 +88,34 @@ public class JSONConstant {
     public static final String FROM_C_STATE = "from_c_state";
     public static final String FROM_C_ZIPCODE = "from_c_zipcode";
     public static final String FROM_C_ADDRESS_LINE1 = "from_c_address_line1";
+    public static final String FROM_C_ADDRESS_LINE2 = "from_c_address_line2";
+
     public static final String FROM_C_CITY = "from_c_city";
+
+    public static final String FROM_A_COUNTRY_CODE = "from_a_country_code";
+    public static final String FROM_A_STATE = "from_a_state";
+    public static final String FROM_A_ZIPCODE = "from_a_zipcode";
+    public static final String FROM_A_ADDRESS_LINE1 = "from_a_address_line1";
+    public static final String FROM_A_ADDRESS_LINE2 = "from_a_address_line2";
+
+    public static final String FROM_A_CITY = "from_a_city";
+
 
     public static final String TO_C_COUNTRY_CODE = "to_c_country_code";
     public static final String TO_C_STATE = "to_c_state";
     public static final String TO_C_ZIPCODE = "to_c_zipcode";
     public static final String TO_C_ADDRESS_LINE1 = "to_c_address_line1";
+    public static final String TO_C_ADDRESS_LINE2 = "to_c_address_line2";
+
     public static final String TO_C_CITY = "to_c_city";
+
+    public static final String TO_A_COUNTRY_CODE = "to_a_country_code";
+    public static final String TO_A_STATE = "to_a_state";
+    public static final String TO_A_ZIPCODE = "to_a_zipcode";
+    public static final String TO_A_ADDRESS_LINE1 = "to_a_address_line1";
+    public static final String TO_A_ADDRESS_LINE2 = "to_a_address_line2";
+
+    public static final String TO_A_CITY = "to_a_city";
 
     public static final String TOTALINSUREDVALUE = "TotalInsuredValue";
     public static final String PACKAGECOUNT = "PackageCount";
@@ -103,6 +124,9 @@ public class JSONConstant {
     public static final String PACKAGING_TYPE="PackagingType";
     public static final String SERVICE_TYPE ="service_type";
     public static final String DROP_OFF_TYPE = "DropoffType";
+    public static final String CONTAINER = "Container";
+    public static final String SIZE = "size";
+
     //""""
     public static final String PACKAGING_TYPE_DESCRIPTION = "PackagingTypeDescription";
     public static final String DROPOFF_TYPE_DESCRIPTION = "DropoffTypeDescription";
@@ -116,10 +140,16 @@ public class JSONConstant {
     public static final String FROM_C_PHONE_NO = "from_c_phone_no";
     public static final String FROM_C_DIALLING_CODE = "from_c_dialling_code";
 
+    public static final String FROM_A_PHONE_NO = "from_a_phone_no";
+    public static final String FROM_A_DIALLING_CODE = "from_a_dialling_code";
+
     public static final String TO_CONTACT_NAME = "to_contact_name";
     public static final String TO_COMPANY_NAME = "to_company_name";
     public static final String TO_C_PHONE_NO = "to_c_phone_no";
     public static final String TO_C_DIALLING_CODE = "to_c_dialling_code";
+
+    public static final String TO_A_PHONE_NO = "to_a_phone_no";
+    public static final String TO_A_DIALLING_CODE = "to_a_dialling_code";
 
     public static final String SHIPMENT_ID = "shipment_id";
     public static final String MASTER_TRACKING_NO= "master_tracking_no";

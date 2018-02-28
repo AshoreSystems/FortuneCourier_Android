@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.R;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
@@ -113,11 +114,13 @@ public class ChangePhoneNoCustomerActivity extends Activity implements View.OnCl
                             try {
                                 JSONObject Json_response = new JSONObject(response);
                                 if (Json_response.getString(JSONConstant.STATUS).equalsIgnoreCase(JSONConstant.SUCCESS)) {
-                                    Snackbar.make(btn_submit,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
+                                    //Snackbar.make(btn_submit,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
                                     mSessionManager.putStringData(SessionManager.KEY_C_ID,Json_response.getString(JSONConstant.C_ID));
                                     mSessionManager.putStringData(SessionManager.KEY_C_PHONE_NO, editText_new_phonenumber.getText().toString().trim());
                                     mSessionManager.putStringData(SessionManager.KEY_C_DIALLING_CODE, "+"+ccp_new_phonenumber.getFullNumber());
-                                    thread.start();
+                                    Toast.makeText(ChangePhoneNoCustomerActivity.this,Json_response.getString(JSONConstant.MESSAGE),Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    //thread.start();
                                 } else {
                                     JSONObject jsonObject = Json_response.getJSONObject(JSONConstant.ERROR_MESSAGES);
                                     if (jsonObject.has(JSONConstant.C_PHONE_NO)) {
@@ -131,7 +134,9 @@ public class ChangePhoneNoCustomerActivity extends Activity implements View.OnCl
                                     }
 
                                     if (jsonObject.has(JSONConstant.MESSAGE)) {
-                                        Snackbar.make(textInput_old_phonenumber,jsonObject.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
+                                        CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(ChangePhoneNoCustomerActivity.this,getResources().getString(R.string.app_name),jsonObject.getString(JSONConstant.MESSAGE));
+                                        customDialogForHelp.show();
+                                        //Snackbar.make(textInput_old_phonenumber,jsonObject.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
                                     }
                                 }
                                 progressBar.dismiss();
@@ -193,7 +198,9 @@ public class ChangePhoneNoCustomerActivity extends Activity implements View.OnCl
                 if(cd.isConnectingToInternet()){
                     validateAndSubmit();
                 }else {
-                    Snackbar.make(btn_submit,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(ChangePhoneNoCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(btn_submit,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
 

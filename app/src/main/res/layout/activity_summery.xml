@@ -19,8 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/lbl_header_shipment_details"
-            android:textSize="@dimen/header_size"
+            android:text="@string/lbl_header_summery"
+            android:textSize="@dimen/text_20"
             android:textStyle="bold" />
 
         <ImageView
@@ -29,7 +29,7 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_gravity="end"
-            android:layout_margin="@dimen/edittext_margin"
+            android:layout_margin="@dimen/size_5"
             android:src="@drawable/ic_info" />
     </RelativeLayout>
 
@@ -46,11 +46,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
 
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -62,7 +62,6 @@
                     android:id="@+id/tv_ship_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12/11/1017"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
@@ -71,11 +70,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
 
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -87,14 +86,12 @@
                     android:id="@+id/tv_from_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Manual R Pebbles"
                     android:textColor="@color/colorBlack" />
 
                 <TextView
                     android:id="@+id/tv_from_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="102 Arlington Heights, iilions"
                     android:textColor="@color/colorYellow" />
 
             </LinearLayout>
@@ -102,11 +99,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
 
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -118,24 +115,22 @@
                     android:id="@+id/tv_to_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Harshada Borse"
                     android:textColor="@color/colorBlack" />
 
                 <TextView
                     android:id="@+id/tv_to_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="102 Arlington Heights, iilions"
                     android:textColor="@color/colorYellow" />
 
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -147,7 +142,6 @@
                     android:id="@+id/tv_carrier"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="FedEx"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
@@ -156,45 +150,68 @@
                 android:id="@+id/ll_service_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Service Type"
+                    android:text="@string/lbl_service_type"
                     android:textColor="@color/colorRed" />
 
                 <TextView
                     android:id="@+id/tv_service_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="FedEx"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_special_service"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
-                android:padding="@dimen/edittext_margin">
+                android:visibility="gone"
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pickup Drop"
+                    android:text="@string/lbl_special_service"
+                    android:textColor="@color/colorRed" />
+
+                <TextView
+                    android:id="@+id/tv_special_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_pickup_drop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_5"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:padding="@dimen/size_5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_pickup_drop"
                     android:textColor="@color/colorRed" />
 
                 <TextView
                     android:id="@+id/tv_pickup_drop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pickup Drop"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
@@ -202,22 +219,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Package Type"
+                    android:text="@string/lbl_package_type"
                     android:textColor="@color/colorRed" />
 
                 <TextView
                     android:id="@+id/tv_package_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Your Package"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
@@ -226,23 +242,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
 
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No. Of Packages"
+                    android:text="@string/lbl_no_of_packages"
                     android:textColor="@color/colorRed" />
 
                 <TextView
                     android:id="@+id/tv_no_of_packages"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
@@ -250,23 +265,23 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
 
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Weight"
+                    android:text="@string/hint_weight"
+                    android:visibility="gone"
                     android:textColor="@color/colorRed" />
 
                 <TextView
                     android:id="@+id/tv_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10.00 lb/ 5.2 kg"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
@@ -274,11 +289,11 @@
            <!-- <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
 
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -298,11 +313,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
 
-                android:padding="@dimen/edittext_margin">
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -319,18 +334,72 @@
                     android:id="@+id/tv_timestamp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="102 Arlington Heights, iilions"
                     android:textColor="@color/colorYellow" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_customs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_5"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+
+                android:padding="@dimen/size_5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_customs_details"
+                    android:textColor="@color/colorRed" />
+
+                <TextView
+                    android:id="@+id/tv_customs_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack" />
+                <TextView
+                    android:id="@+id/tv_customs_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorYellow" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_collection_fees"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_5"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:padding="@dimen/size_5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Collection Fees"
+                    android:textColor="@color/colorRed" />
+
+                <TextView
+                    android:id="@+id/tv_collection_fees"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/edittext_margin"
+                android:layout_margin="@dimen/size_5"
                 android:background="@color/colorWhite"
-                android:orientation="vertical"
-                android:padding="@dimen/edittext_margin">
+                android:orientation="horizontal"
+                android:padding="@dimen/size_5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -340,8 +409,10 @@
 
                 <TextView
                     android:id="@+id/tv_total_amount"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textStyle="bold"
                     android:textColor="@color/colorBlack" />
 
             </LinearLayout>
@@ -350,7 +421,7 @@
                 android:id="@+id/btn_proceed_to_payment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/activity_margin"
+                android:layout_margin="@dimen/size_16"
                 android:background="@drawable/drawable_btn"
                 android:text="@string/btn_proceed_to_payment"
                 android:textAllCaps="false"

@@ -19,8 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/lbl_header_package_and_shipment"
-            android:textSize="@dimen/header_size"
+            android:text="@string/nav_item_calculate_rates"
+            android:textSize="@dimen/text_20"
             android:textStyle="bold" />
 
         <ImageView
@@ -29,7 +29,7 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_gravity="end"
-            android:layout_margin="@dimen/edittext_margin"
+            android:layout_margin="@dimen/size_5"
             android:src="@drawable/ic_info" />
     </RelativeLayout>
 
@@ -49,7 +49,7 @@
                 android:id="@+id/textInput_ship_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin">
+                android:layout_margin="@dimen/size_10">
 
                 <EditText
                     android:id="@+id/editText_ship_date"
@@ -63,15 +63,15 @@
                 android:id="@+id/tv_select_carrier"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/text_margin"
-                android:text="@string/lbl_select_carrier"
+                android:layout_marginLeft="@dimen/size_10"
+                android:text="@string/hint_select_carrier"
                 android:visibility="gone" />
 
             <com.example.aspl.fortunecourier.customspinner.SearchableSpinner
                 android:id="@+id/spinner_carrier"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
+                android:layout_margin="@dimen/size_10"
                 android:visibility="gone"
                 style="@android:style/Widget.Holo.Light.Spinner"
 
@@ -85,7 +85,7 @@
                  style="@style/Widget.AppCompat.Spinner.Underlined"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:layout_margin="@dimen/text_margin"
+                 android:layout_margin="@dimen/size_10"
                  android:prompt="@string/lbl_select_carrier"
                  android:spinnerMode="dialog"
                  android:textColorHint="@android:color/black"
@@ -95,14 +95,14 @@
                 android:id="@+id/tv_service_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginLeft="@dimen/size_10"
                 android:text="@string/lbl_service_type" />
 
             <com.example.aspl.fortunecourier.customspinner.SearchableSpinner
                 android:id="@+id/spinner_service_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
+                android:layout_margin="@dimen/size_10"
                 style="@android:style/Widget.Holo.Light.Spinner"
 
                 app:hintText="@string/lbl_service_type">
@@ -115,64 +115,141 @@
                 style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
+                android:layout_margin="@dimen/size_10"
                 android:prompt="@string/lbl_service_type"
                 android:spinnerMode="dialog"
                 android:textColorHint="@android:color/black" />-->
 
             <TextView
+                android:id="@+id/tv_pickup_drop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/text_margin"
-
-                android:text="@string/lbl_pickup_drop" />
+                android:layout_marginLeft="@dimen/size_10"
+                android:text="@string/hint_pickup_drop" />
 
 
             <com.example.aspl.fortunecourier.customspinner.SearchableSpinner
                 android:id="@+id/spinner_pickup_drop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
+                android:layout_margin="@dimen/size_10"
                 style="@android:style/Widget.Holo.Light.Spinner"
-                app:hintText="@string/lbl_pickup_drop">
+                app:hintText="@string/lbl_select_pickup_drop">
 
             </com.example.aspl.fortunecourier.customspinner.SearchableSpinner>
 
 
-            <!--<Spinner
-                android:id="@+id/spinner_pickup_drop"
-                style="@style/Widget.AppCompat.Spinner.Underlined"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
-                android:prompt="@string/lbl_pickup_drop"
-                android:spinnerMode="dialog"
-                android:textColorHint="@android:color/black" />-->
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/text_margin"
-                android:text="@string/lbl_package_type" />
+                android:layout_marginLeft="@dimen/size_10"
+                android:text="@string/hint_package_type" />
 
 
             <com.example.aspl.fortunecourier.customspinner.SearchableSpinner
                 android:id="@+id/spinner_package_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
+                android:layout_margin="@dimen/size_10"
                 style="@android:style/Widget.Holo.Light.Spinner"
-
                 app:hintText="@string/lbl_package_type">
 
             </com.example.aspl.fortunecourier.customspinner.SearchableSpinner>
 
+            <TextView
+                android:id="@+id/tv_container_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_10"
+                android:visibility="gone"
+                android:text="@string/hint_container_type" />
+
+
+            <com.example.aspl.fortunecourier.customspinner.SearchableSpinner
+                android:id="@+id/spinner_container_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_10"
+                android:visibility="gone"
+                style="@android:style/Widget.Holo.Light.Spinner"
+                app:hintText="@string/lbl_container_type">
+
+            </com.example.aspl.fortunecourier.customspinner.SearchableSpinner>
+
+            <TextView
+                android:id="@+id/tv_sizes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_10"
+                android:visibility="gone"
+                android:text="@string/lbl_sizes" />
+
+
+            <com.example.aspl.fortunecourier.customspinner.SearchableSpinner
+                android:id="@+id/spinner_sizes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_10"
+                android:visibility="gone"
+                style="@android:style/Widget.Holo.Light.Spinner"
+                app:hintText="@string/lbl_sizes"/>
+
+
+            <LinearLayout
+                android:id="@+id/ll_sizes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_10"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/checkbox_sizes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/drawable_checkbox"
+                    android:checked="false"
+                    android:textSize="@dimen/text_15" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_size_limit"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_15" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_shapes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_10"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/checkbox_shapes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/drawable_checkbox"
+                    android:checked="false"
+                    android:textSize="@dimen/text_15" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_checkbox_shapes"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_15" />
+            </LinearLayout>
             <!-- <Spinner
                  android:id="@+id/spinner_package_type"
                  style="@style/Widget.AppCompat.Spinner.Underlined"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:layout_margin="@dimen/text_margin"
+                 android:layout_margin="@dimen/size_10"
                  android:prompt="@string/lbl_package_type"
                  android:spinnerMode="dialog"
                  android:textColorHint="@android:color/black" />-->
@@ -183,19 +260,159 @@
                  style="@style/Widget.AppCompat.Spinner.Underlined"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:layout_margin="@dimen/text_margin"
+                 android:layout_margin="@dimen/size_10"
                  android:prompt="@string/lbl_no_of_packages"
                  android:spinnerMode="dialog"
                  android:textColorHint="@android:color/black"
                  android:visibility="gone" />-->
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/ll_package_contents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
-                android:text="@string/lbl_no_of_packages" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_package_contents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_10"
+                    android:text="@string/lbl_package_contents" />
+                <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/size_10"
+                    android:id="@+id/rg_package_contents">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lbl_documents"
+                        android:id="@+id/rb_documents"
+                        android:textSize="@dimen/text_15"
+                        android:checked="false"
+                         />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lbl_products_commodities"
+                        android:id="@+id/rb_products_commodities"
+                        android:checked="false"
+                        android:textSize="@dimen/text_15" />
+                </RadioGroup>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_document_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_document_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_10"
+                android:text="@string/hint_document_desc" />
+
+
+            <com.example.aspl.fortunecourier.customspinner.SearchableSpinner
+                android:id="@+id/spinner_document_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_10"
+                style="@android:style/Widget.Holo.Light.Spinner"
+                app:hintText="@string/lbl_document_desc">
+
+            </com.example.aspl.fortunecourier.customspinner.SearchableSpinner>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_shipment_purpose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+
+                android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_shipment_purpose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_10"
+                android:text="@string/hint_shipment_purpose" />
+
+
+            <com.example.aspl.fortunecourier.customspinner.SearchableSpinner
+                android:id="@+id/spinner_shipment_purpose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_10"
+                style="@android:style/Widget.Holo.Light.Spinner"
+                app:hintText="@string/lbl_shipment_purpose">
+
+            </com.example.aspl.fortunecourier.customspinner.SearchableSpinner>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_customs_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/textInput_customs_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/size_5"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/editText_customs_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_customs_value"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1" />
+                </android.support.design.widget.TextInputLayout>
+
+                <com.example.aspl.fortunecourier.customspinner.SearchableSpinner
+                    android:id="@+id/spinner_customs_currency"
+                    style="@android:style/Widget.Holo.Light.Spinner"
+                    app:hintText="Currency"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/size_5"
+                    android:layout_weight="1"
+                    android:textColorHint="@android:color/black">
+
+                </com.example.aspl.fortunecourier.customspinner.SearchableSpinner>
+
+
+                        <!-- <Spinner
+                             android:id="@+id/spinner_customs_currency"
+                             style="@style/Widget.AppCompat.Spinner.Underlined"
+                             android:layout_width="match_parent"
+                             android:layout_height="match_parent"
+                             android:layout_gravity="center_vertical"
+                             android:layout_margin="@dimen/size_5"
+                             android:layout_weight="1"
+                             android:spinnerMode="dropdown"
+                             android:textColorHint="@android:color/black" />-->
+
+
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_no_of_packages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_10"
+                android:text="@string/hint_no_of_packages" />
 
             <LinearLayout
+                android:id="@+id/ll_no_of_packages"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -203,50 +420,50 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
+                    android:layout_margin="@dimen/size_10"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_first"
-                        android:layout_width="@dimen/size_30_dp"
-                        android:layout_height="@dimen/size_30_dp"
+                        android:layout_width="@dimen/size_30"
+                        android:layout_height="@dimen/size_30"
                         android:gravity="center"
                         android:text="@string/lbl_first"
                         android:textColor="@android:color/black" />
 
                     <TextView
                         android:id="@+id/tv_second"
-                        android:layout_width="@dimen/size_30_dp"
-                        android:layout_height="@dimen/size_30_dp"
-                        android:layout_marginLeft="@dimen/text_margin"
+                        android:layout_width="@dimen/size_30"
+                        android:layout_height="@dimen/size_30"
+                        android:layout_marginLeft="@dimen/size_10"
                         android:gravity="center"
                         android:text="@string/lbl_second"
                         android:textColor="@android:color/black" />
 
                     <TextView
                         android:id="@+id/tv_third"
-                        android:layout_width="@dimen/size_30_dp"
-                        android:layout_height="@dimen/size_30_dp"
-                        android:layout_marginLeft="@dimen/text_margin"
+                        android:layout_width="@dimen/size_30"
+                        android:layout_height="@dimen/size_30"
+                        android:layout_marginLeft="@dimen/size_10"
                         android:gravity="center"
                         android:text="@string/lbl_third"
                         android:textColor="@android:color/black" />
 
                     <TextView
                         android:id="@+id/tv_fourth"
-                        android:layout_width="@dimen/size_30_dp"
-                        android:layout_height="@dimen/size_30_dp"
-                        android:layout_marginLeft="@dimen/text_margin"
+                        android:layout_width="@dimen/size_30"
+                        android:layout_height="@dimen/size_30"
+                        android:layout_marginLeft="@dimen/size_10"
                         android:gravity="center"
                         android:text="@string/lbl_fourth"
                         android:textColor="@android:color/black" />
 
                     <TextView
                         android:id="@+id/tv_fifth"
-                        android:layout_width="@dimen/size_30_dp"
-                        android:layout_height="@dimen/size_30_dp"
-                        android:layout_marginLeft="@dimen/text_margin"
+                        android:layout_width="@dimen/size_30"
+                        android:layout_height="@dimen/size_30"
+                        android:layout_marginLeft="@dimen/size_10"
                         android:gravity="center"
                         android:text="@string/lbl_fifth"
                         android:textColor="@android:color/black" />
@@ -256,7 +473,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
+                    android:layout_margin="@dimen/size_10"
                     android:layout_weight="1.5"
                     android:gravity="end"
                     android:orientation="horizontal">
@@ -279,7 +496,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
+                    android:layout_margin="@dimen/size_10"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -288,7 +505,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lbl_package_1"
-                        android:textSize="@dimen/text_size"
+                        android:textSize="@dimen/text_15"
                         android:textStyle="bold" />
 
                     <TextView
@@ -303,12 +520,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
-                    android:layout_margin="@dimen/text_margin"
+                    android:layout_margin="@dimen/size_10"
                     android:gravity="center_vertical|end">
 
                     <ImageView
-                        android:layout_width="@dimen/size_30_dp"
-                        android:layout_height="@dimen/size_30_dp"
+                        android:layout_width="@dimen/size_30"
+                        android:layout_height="@dimen/size_30"
                         android:src="@drawable/edit_details" />
 
                 </LinearLayout>
@@ -325,7 +542,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_margin="@dimen/text_margin"
+                    android:layout_margin="@dimen/size_10"
                     android:orientation="vertical">
 
                     <TextView
@@ -333,7 +550,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lbl_package_2"
-                        android:textSize="@dimen/text_size"
+                        android:textSize="@dimen/text_15"
                         android:textStyle="bold" />
 
                     <TextView
@@ -348,12 +565,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
-                    android:layout_margin="@dimen/text_margin"
+                    android:layout_margin="@dimen/size_10"
                     android:gravity="center_vertical|end">
 
                     <ImageView
-                        android:layout_width="@dimen/size_30_dp"
-                        android:layout_height="@dimen/size_30_dp"
+                        android:layout_width="@dimen/size_30"
+                        android:layout_height="@dimen/size_30"
                         android:src="@drawable/edit_details" />
 
                 </LinearLayout>
@@ -370,8 +587,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
                     android:layout_weight="1"
+                    android:layout_margin="@dimen/size_10"
                     android:orientation="vertical">
 
                     <TextView
@@ -379,7 +596,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lbl_package_3"
-                        android:textSize="@dimen/text_size"
+                        android:textSize="@dimen/text_15"
                         android:textStyle="bold" />
 
                     <TextView
@@ -394,12 +611,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
-                    android:layout_margin="@dimen/text_margin"
+                    android:layout_margin="@dimen/size_10"
                     android:gravity="center_vertical|end">
 
                     <ImageView
-                        android:layout_width="@dimen/size_30_dp"
-                        android:layout_height="@dimen/size_30_dp"
+                        android:layout_width="@dimen/size_30"
+                        android:layout_height="@dimen/size_30"
                         android:src="@drawable/edit_details" />
 
                 </LinearLayout>
@@ -417,7 +634,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_margin="@dimen/text_margin"
+                    android:layout_margin="@dimen/size_10"
                     android:orientation="vertical">
 
                     <TextView
@@ -425,7 +642,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lbl_package_4"
-                        android:textSize="@dimen/text_size"
+                        android:textSize="@dimen/text_15"
                         android:textStyle="bold" />
 
                     <TextView
@@ -440,12 +657,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
-                    android:layout_margin="@dimen/text_margin"
+                    android:layout_margin="@dimen/size_10"
                     android:gravity="center_vertical|end">
 
                     <ImageView
-                        android:layout_width="@dimen/size_30_dp"
-                        android:layout_height="@dimen/size_30_dp"
+                        android:layout_width="@dimen/size_30"
+                        android:layout_height="@dimen/size_30"
                         android:src="@drawable/edit_details" />
 
                 </LinearLayout>
@@ -461,9 +678,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/size_10"
                     android:orientation="vertical">
 
                     <TextView
@@ -471,7 +688,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lbl_package_5"
-                        android:textSize="@dimen/text_size"
+                        android:textSize="@dimen/text_15"
                         android:textStyle="bold" />
 
                     <TextView
@@ -486,46 +703,72 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
-                    android:layout_margin="@dimen/text_margin"
+                    android:layout_margin="@dimen/size_10"
                     android:gravity="center_vertical|end">
 
                     <ImageView
-                        android:layout_width="@dimen/size_30_dp"
-                        android:layout_height="@dimen/size_30_dp"
+                        android:layout_width="@dimen/size_30"
+                        android:layout_height="@dimen/size_30"
                         android:src="@drawable/edit_details" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
+          <!--  <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_margin="@dimen/size_10"
+                android:orientation="horizontal">-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_10">
+            <TextView
+                android:id="@+id/tv_get_detailed_quote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:textSize="@dimen/text_17"
+                android:textColor="#0000ff"
+                android:text="@string/btn_special_services" />
+                <ImageView
+                    android:id="@+id/img_info_special_sevices"
+                    android:layout_width="@dimen/size_30"
+                    android:layout_height="@dimen/size_30"
+                    android:layout_gravity="right"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="@dimen/size_5"
+                    android:src="@drawable/ic_info" />
+            </RelativeLayout>
 
                 <Button
                     android:id="@+id/btn_get_quick_quote"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/edittext_margin"
-                    android:layout_weight="1"
                     android:background="@drawable/drawable_btn"
                     android:text="@string/btn_get_quick_quote"
+                    android:layout_margin="@dimen/size_10"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite" />
 
 
-                <Button
+               <!-- <Button
                     android:id="@+id/btn_get_detailed_quote"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/edittext_margin"
+                    android:layout_margin="@dimen/size_5"
                     android:layout_weight="1"
                     android:background="@drawable/drawable_btn"
                     android:text="@string/btn_get_detailed_quote"
                     android:textAllCaps="false"
-                    android:textColor="@color/colorWhite" />
-            </LinearLayout>
+                    android:textColor="@color/colorWhite" />-->
+           <!-- </LinearLayout>-->
+
+
 
         </LinearLayout>
     </ScrollView>

@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.R;
 import com.example.aspl.fortunecourier.dialog.CustomDialogClass;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
@@ -216,7 +216,8 @@ public class SignUpCustomerActivity extends Activity implements View.OnClickList
                 if (cd.isConnectingToInternet()){
                     validateAndSubmit();
                 }else {
-                    Snackbar.make(btn_register,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(SignUpCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
                 }
                 break;
 
@@ -232,7 +233,8 @@ public class SignUpCustomerActivity extends Activity implements View.OnClickList
                 if (cd.isConnectingToInternet()){
                     showTermsAndConditions();
                 }else {
-                    Snackbar.make(btn_register,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(SignUpCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
                 }
                 break;
             case R.id.header_layout_back:
@@ -291,7 +293,8 @@ public class SignUpCustomerActivity extends Activity implements View.OnClickList
             requestFocus(editText_confirm_password);
             textInput_password.setErrorEnabled(false);
         } else if( !checkbox_terms_conditions.isChecked()){
-            Snackbar.make(checkbox_terms_conditions,getResources().getString(R.string.err_msg_terms_and_condition),Snackbar.LENGTH_SHORT).show();
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(SignUpCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_terms_and_condition));
+            customDialogForHelp.show();
         } else {
             textInput_confirm_password.setErrorEnabled(false);
             textInput_firstName.setErrorEnabled(false);
@@ -389,8 +392,8 @@ public class SignUpCustomerActivity extends Activity implements View.OnClickList
                     params.put(JSONConstant.C_CONFIRM_PASSWORD, editText_confirm_password.getText().toString().trim());
                     params.put(JSONConstant.C_DIALLING_CODE, "+"+ccp.getFullNumber());
                     params.put(JSONConstant.CDT_DEVICE_ID, mSessionManager.getStringData(SessionManager.KEY_CDT_DEVICE_ID));
-                    params.put(JSONConstant.CDT_DEVICE_TOKEN, "kjdkjf");
-                    //params.put(JSONConstant.CDT_DEVICE_TOKEN, mSessionManager.getStringData(SessionManager.KEY_CDT_DEVICE_TOKEN));
+                    //params.put(JSONConstant.CDT_DEVICE_TOKEN, "kjdkjf");
+                    params.put(JSONConstant.CDT_DEVICE_TOKEN, mSessionManager.getStringData(SessionManager.KEY_CDT_DEVICE_TOKEN));
                     params.put(JSONConstant.CDT_DEVICE_TYPE, "android");
                     return params;
                 }
@@ -440,7 +443,6 @@ public class SignUpCustomerActivity extends Activity implements View.OnClickList
             progressBar.show();
 
             String URL = getResources().getString(R.string.url_domain_customer) + getResources().getString(R.string.url_terms_n_privacy);
-
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                     new Response.Listener<String>() {
@@ -512,8 +514,6 @@ public class SignUpCustomerActivity extends Activity implements View.OnClickList
                                 //Toast.makeText(LoginCustomerActivity.this,status,Toast.LENGTH_SHORT).show();
                                 mSessionManager.putStringData(SessionManager.KEY_C_ID,Json_response.getString(JSONConstant.C_ID));
                                 // if (Json_response.has(JSONConstant.C_PHONE_NO)) {
-
-
                                 if (Json_response.getString(JSONConstant.C_PHONE_NO).isEmpty()) {
                                     //mSessionManager.putStringData(SessionManager.KEY_C_ID,Json_response.getString(JSONConstant.C_ID));
                                     mSessionManager.putStringData(SessionManager.KEY_C_FIRST_NAME,f_name);
@@ -527,33 +527,45 @@ public class SignUpCustomerActivity extends Activity implements View.OnClickList
                                     mSessionManager.putStringData(SessionManager.KEY_C_LAST_NAME,l_name);
                                     mSessionManager.putIntData(SessionManager.KEY_WHICH_USER,1);
                                     mSessionManager.putStringData(SessionManager.KEY_C_PROFILE_URL,profile_url);
-                                    startActivity(new Intent(SignUpCustomerActivity.this, DashboardCustomerActivity.class));
+
+                                   /* if(AppConstant.IS_FROM_OUTSIDE){
+                                        Intent i = new Intent(SignUpCustomerActivity.this, OTPVerificationCustomerActivity.class);
+                                        i.putExtra(AppConstant.SIGNUP_OR_FORGOT_OTP,"FACEBOOK OTP");
+                                        startActivity(i);
+                                        finish();
+                                    }else {
+                                        Intent i = new Intent(SignUpCustomerActivity.this, OTPVerificationCustomerActivity.class);
+                                        //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        i.putExtra(AppConstant.SIGNUP_OR_FORGOT_OTP,"FACEBOOK OTP");
+                                        startActivity(i);
+                                    }*/
+
+                                    if(AppConstant.IS_FROM_OUTSIDE){
+                                        Intent i = new Intent(SignUpCustomerActivity.this, DashboardCustomerActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                    }else {
+                                        Intent i = new Intent(SignUpCustomerActivity.this, DashboardCustomerActivity.class);
+                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(i);
+                                    }
+
+
+
+                                  /*  if(AppConstant.IS_FROM_OUTSIDE){
+                                        Intent i = new Intent(SignUpCustomerActivity.this, DashboardCustomerActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                    }else {
+                                        Intent i = new Intent(SignUpCustomerActivity.this, DashboardCustomerActivity.class);
+                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(i);
+                                    }*/
                                 }
 
-
-                                /*if (status.equalsIgnoreCase(JSONConstant.SUCCESS)) {
-                                    mSessionManager.putStringData(SessionManager.KEY_C_ID,Json_response.getString(JSONConstant.C_ID));
-                                    mSessionManager.putStringData(SessionManager.KEY_FIRST_NAME,f_name);
-                                    mSessionManager.putStringData(SessionManager.KEY_LAST_NAME,l_name);
-                                    mSessionManager.putStringData(SessionManager.KEY_EMAIL,email);
-                                    mSessionManager.putStringData(SessionManager.KEY_FB_ID,fb_id);
-
-                                    startActivity(new Intent(LoginCustomerActivity.this, UpdateProfileCustomerActivity.class));
-
-                                    if(Json_response.getString("c_facebook_signed").equalsIgnoreCase("0")){
-                                        mSessionManager.putStringData(SessionManager.KEY_C_ID,Json_response.getString(JSONConstant.C_ID));
-                                        mSessionManager.putStringData(SessionManager.KEY_FIRST_NAME,f_name);
-                                        mSessionManager.putStringData(SessionManager.KEY_LAST_NAME,l_name);
-                                        mSessionManager.putStringData(SessionManager.KEY_EMAIL,email);
-                                        mSessionManager.putStringData(SessionManager.KEY_FB_ID,fb_id);
-                                        startActivity(new Intent(LoginCustomerActivity.this, UpdateProfileCustomerActivity.class));
-                                    }else {
-                                        mSessionManager.putStringData(SessionManager.KEY_C_ID,Json_response.getString(JSONConstant.C_ID));
-                                        startActivity(new Intent(LoginCustomerActivity.this, DashboardCustomerActivity.class));
-                                    }
-                                } else {
-                                    Snackbar.make(editText_email, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
-                                }*/
                                 progressBar.dismiss();
 
                             } catch (JSONException e) {
@@ -580,6 +592,7 @@ public class SignUpCustomerActivity extends Activity implements View.OnClickList
                     params.put(JSONConstant.C_LAST_NAME, l_name);
                     params.put(JSONConstant.C_EMAIL_ADDRESS, email);
                     params.put(JSONConstant.C_PROFILE_PIC,profile_url);
+                    params.put("device_type","a");
                     return params;
                 }
 
@@ -589,11 +602,6 @@ public class SignUpCustomerActivity extends Activity implements View.OnClickList
                     return "application/x-www-form-urlencoded";
                 }
 
-                /*@Override
-                public byte[] getBody() throws AuthFailureError{
-                    String your_string_json = jobj_data.toString(); // put your json
-                    return your_string_json.getBytes();
-                }*/
             };
 
             // Adding JsonObject request to request queue

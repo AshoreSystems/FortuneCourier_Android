@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg"
+   >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/header_layout_back"
+            layout="@layout/header_back" />
+
+        <TextView
+            android:id="@+id/tv_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/nav_item_my_commission"
+            android:textSize="@dimen/text_20"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/img_info"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/size_5"
+            android:src="@drawable/ic_info" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_margin="@dimen/size_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/size_60"
+            android:layout_height="@dimen/size_60"
+            android:layout_margin="@dimen/size_5"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/moneybag"/>
+
+        <LinearLayout
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_margin="@dimen/size_5"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_current_month_commission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:typeface="serif"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_17" />
+
+            <TextView
+                android:id="@+id/tv_total_commission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="@dimen/size_5"
+                android:typeface="serif"
+                android:textSize="@dimen/text_17"/>
+
+            <TextView
+                android:id="@+id/tv_amount_received"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="@dimen/size_5"
+                android:typeface="serif"
+                android:textSize="@dimen/text_17"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/black"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_10"
+        android:id="@+id/list_commission">
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

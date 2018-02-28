@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.view.WindowManager;
@@ -22,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.R;
 import com.example.aspl.fortunecourier.activity.associate.LandingAssociateActivity;
 import com.example.aspl.fortunecourier.activity.associate.LoginAssociateActivity;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
@@ -122,7 +122,9 @@ public class SetPhoneNumberCustomerActivity extends Activity implements View.OnC
                                    }
 
                                    if (jsonObject.has(JSONConstant.MESSAGE)) {
-                                       Snackbar.make(textInput_phoneNumber,jsonObject.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
+                                       CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(SetPhoneNumberCustomerActivity.this,getResources().getString(R.string.app_name),jsonObject.getString(JSONConstant.MESSAGE));
+                                       customDialogForHelp.show();
+                                       //Snackbar.make(textInput_phoneNumber,jsonObject.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_SHORT).show();
                                    }
                                     //Snackbar.make(btn_submit,Json_response.getString(JSONConstant.MESSAGE),Snackbar.LENGTH_LONG).show();
                                 }
@@ -185,7 +187,9 @@ public class SetPhoneNumberCustomerActivity extends Activity implements View.OnC
                 if(cd.isConnectingToInternet()){
                     validateAndSubmit();
                 }else {
-                    Snackbar.make(btn_submit,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(SetPhoneNumberCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(btn_submit,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
 

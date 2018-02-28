@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +24,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.R;
 import com.example.aspl.fortunecourier.activity.associate.LandingAssociateActivity;
-import com.example.aspl.fortunecourier.dialog.CustomDialogClass;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
+import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
 import com.example.aspl.fortunecourier.utility.JSONConstant;
@@ -85,7 +85,9 @@ public class LandingCustomerActivity extends AppCompatActivity implements View.O
         if(cd.isConnectingToInternet()){
             getCustomerInfo();
         }else {
-            Snackbar.make(tv_portal,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(LandingCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+            customDialogForHelp.show();
+            //Snackbar.make(tv_portal,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
         }
 
     }
@@ -109,8 +111,9 @@ public class LandingCustomerActivity extends AppCompatActivity implements View.O
                 break;
 
             case R.id.tv_check_rates:
-                    //startActivity(new Intent(LandingCustomerActivity.this,CreateShipmentFromActivity.class));
-                    startActivity(new Intent(LandingCustomerActivity.this,CheckRatesFromActivity.class));
+                    AppConstant.IS_CUSTOMER_LOG_IN = false;
+                    //startActivity(new Intent(LandingCustomerActivity.this,CreateShipmentFromCustomerActivity.class));
+                    startActivity(new Intent(LandingCustomerActivity.this,CheckRatesFromCustomerActivity.class));
                 break;
 
             case R.id.btn_register_now:

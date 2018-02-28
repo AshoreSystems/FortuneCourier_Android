@@ -20,7 +20,6 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -47,6 +46,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.aspl.fortunecourier.DBHelper.DBInfo;
 import com.example.aspl.fortunecourier.R;
 import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.utility.CameraUtility;
@@ -176,7 +176,8 @@ public class ContactUsCustomerActivity extends AppCompatActivity implements View
 
             case R.id.img_info:
                 hideKeyboard();
-                CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(ContactUsCustomerActivity.this,"Help",getResources().getString(R.string.info));
+                DBInfo dbInfo = new DBInfo(ContactUsCustomerActivity.this);
+                CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(ContactUsCustomerActivity.this,"Help",dbInfo.getDescription("Contact US Screen"));
                 customDialogForHelp.show();
                 break;
         }
@@ -193,14 +194,18 @@ public class ContactUsCustomerActivity extends AppCompatActivity implements View
     private void validateAndSubmit() {
         if (cd.isConnectingToInternet()) {
             if (editText_enter_message.getText().toString().trim().isEmpty()) {
-                Snackbar.make(btn_send_message, getResources().getString(R.string.err_msg_enter_message), Snackbar.LENGTH_SHORT).show();
+                CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(ContactUsCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_enter_message));
+                customDialogForHelp.show();
+                //Snackbar.make(btn_send_message, getResources().getString(R.string.err_msg_enter_message), Snackbar.LENGTH_SHORT).show();
             } else {
                 strMessage = editText_enter_message.getText().toString().trim();
                 JSONParser mJSONParser = new JSONParser();
                 mJSONParser.execute();
             }
         } else {
-            Snackbar.make(btn_send_message, getResources().getString(R.string.err_msg_internet), Snackbar.LENGTH_SHORT).show();
+            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(ContactUsCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+            customDialogForHelp.show();
+            //Snackbar.make(btn_send_message, getResources().getString(R.string.err_msg_internet), Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -388,10 +393,14 @@ public class ContactUsCustomerActivity extends AppCompatActivity implements View
             try {
                 JSONObject Json_response = new JSONObject(page);
                 if (Json_response.getString(JSONConstant.STATUS).equalsIgnoreCase(JSONConstant.SUCCESS)) {
-                    Snackbar.make(btn_send_message, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
-                   thread.start();
+                    Toast.makeText(ContactUsCustomerActivity.this,Json_response.getString(JSONConstant.MESSAGE),Toast.LENGTH_SHORT).show();
+                    finish();
+                   /* Snackbar.make(btn_send_message, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
+                   thread.start();*/
                 } else {
-                Snackbar.make(btn_send_message, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(ContactUsCustomerActivity.this,getResources().getString(R.string.app_name),Json_response.getString(JSONConstant.MESSAGE));
+                    customDialogForHelp.show();
+                //Snackbar.make(btn_send_message, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
             }
             } catch (JSONException e) {
                 e.printStackTrace();

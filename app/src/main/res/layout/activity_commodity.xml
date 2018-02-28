@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/header_layout_back"
+            layout="@layout/header_back" />
+
+        <TextView
+            android:id="@+id/tv_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/title_commodity_description"
+            android:textSize="@dimen/text_20"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/img_info"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/size_5"
+            android:src="@drawable/ic_info" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/size_10">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/size_10"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_commodity_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/lbl_commodity_description"
+            android:visibility="gone"
+            android:textSize="@dimen/text_15" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInput_commodity_description"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/size_1"
+            android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/editText_commodity_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:lines="10"
+            android:minLines="5"
+            android:padding="5dp"
+            android:textSize="@dimen/text_15"
+            android:gravity="top|left"
+            android:hint="@string/lbl_commodity_description"
+            android:maxLines="15" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_unit_of_measures"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/lbl_unit_of_measures"
+            android:textSize="@dimen/text_15" />
+        <com.example.aspl.fortunecourier.customspinner.SearchableSpinner
+            android:id="@+id/spinner_unit_of_measures"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_10"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            app:hintText="@string/hint_unit_of_measures">
+
+        </com.example.aspl.fortunecourier.customspinner.SearchableSpinner>
+        <TextView
+            android:id="@+id/tv_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"
+            android:text="@string/lbl_quantity"
+            android:textSize="@dimen/text_15" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInput_quantity"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/editText_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:inputType="number"
+            android:hint="@string/lbl_quantity"
+            android:textSize="@dimen/text_15"
+            android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+        <TextView
+            android:id="@+id/tv_commodity_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/hint_commodity_weight"
+            android:visibility="gone"
+            android:textSize="@dimen/text_15" />
+        <LinearLayout
+            android:id="@+id/ll_commodity_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_margin="@dimen/size_10"
+            android:orientation="horizontal">
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInput_commodity_weight"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/editText_commodity_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:layout_margin="@dimen/size_5"
+                android:textSize="@dimen/text_15"
+                android:hint="@string/hint_commodity_weight"
+                android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+            <com.example.aspl.fortunecourier.customspinner.SearchableSpinner
+                android:id="@+id/spinner_commodity"
+                style="@android:style/Widget.Holo.Light.Spinner"
+                app:hintText="Currency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textColorHint="@android:color/black">
+
+            </com.example.aspl.fortunecourier.customspinner.SearchableSpinner>
+            <TextView
+                android:id="@+id/tv_weight_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="@dimen/size_5"
+                android:text="LBS"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_customs_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/hint_customs_value"
+            android:visibility="gone"
+            android:textSize="@dimen/text_15" />
+
+        <LinearLayout
+            android:id="@+id/ll_customs_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/size_10"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInput_customs_value"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+
+                android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/editText_customs_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:hint="@string/hint_customs_value"
+                android:layout_margin="@dimen/size_5"
+                android:textSize="@dimen/text_15"
+                android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+            <com.example.aspl.fortunecourier.customspinner.SearchableSpinner
+                android:id="@+id/spinner_customs_currency"
+                style="@android:style/Widget.Holo.Light.Spinner"
+                app:hintText="Currency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+
+                android:textColorHint="@android:color/black">
+            </com.example.aspl.fortunecourier.customspinner.SearchableSpinner>
+            <TextView
+                android:id="@+id/tv_currency_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="@dimen/size_5"
+                android:text="USD"/>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_country_of_manufacture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/lbl_country_of_manufacture"
+            android:textSize="@dimen/text_15" />
+        <com.example.aspl.fortunecourier.customspinner.SearchableSpinner
+            android:id="@+id/spinner_country_of_manufacture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_10"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            app:hintText="@string/hint_country_of_manufacture">
+
+        </com.example.aspl.fortunecourier.customspinner.SearchableSpinner>
+        <TextView
+            android:id="@+id/tv_harmonized_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/lbl_harmonized_code"
+            android:visibility="gone"
+            android:textSize="@dimen/text_15" />
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInput_harmonized_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/editText_harmonized_code"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:hint="@string/lbl_harmonized_code"
+            android:textSize="@dimen/text_15"
+            android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+        <TextView
+            android:id="@+id/tv_export_licence_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/lbl_export_licence_no"
+            android:visibility="gone"
+            android:textSize="@dimen/text_15" />
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInput_export_licence_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/editText_export_licence_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/lbl_export_licence_no"
+            android:textSize="@dimen/text_15"
+            android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+        <TextView
+            android:id="@+id/tv_expiration_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/lbl_expiration_date"
+            android:visibility="gone"
+            android:textSize="@dimen/text_15" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInput_expiration_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/editText_expiration_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/lbl_expiration_date"
+            android:textSize="@dimen/text_15"
+            android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_add_commodity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_10"
+            android:background="@drawable/drawable_btn"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_16"
+            android:text="@string/lbl_add_commodity"/>
+
+        <Button
+            android:id="@+id/btn_update_commodity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_10"
+            android:background="@drawable/drawable_btn"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_16"
+            android:text="@string/lbl_update_commodity"/>
+
+    </LinearLayout>
+
+    </ScrollView>
+
+
+
+</LinearLayout>

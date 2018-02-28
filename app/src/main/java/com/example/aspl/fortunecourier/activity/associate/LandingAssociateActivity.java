@@ -3,7 +3,6 @@ package com.example.aspl.fortunecourier.activity.associate;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
@@ -18,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.activity.customer.LandingCustomerActivity;
 import com.example.aspl.fortunecourier.R;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
 import com.example.aspl.fortunecourier.utility.JSONConstant;
@@ -83,7 +83,9 @@ public class LandingAssociateActivity extends AppCompatActivity implements View.
             if(cd.isConnectingToInternet()){
                 getCustomerInfo();
             }else {
-                Snackbar.make(tv_portal,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(LandingAssociateActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                customDialogForHelp.show();
+                //Snackbar.make(tv_portal,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
             }
 
         }

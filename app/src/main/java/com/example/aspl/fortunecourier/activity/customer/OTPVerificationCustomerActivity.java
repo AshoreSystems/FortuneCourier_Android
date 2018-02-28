@@ -9,7 +9,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -23,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -30,11 +30,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.aspl.fortunecourier.R;
+import com.example.aspl.fortunecourier.dialog.CustomDialogForHelp;
 import com.example.aspl.fortunecourier.utility.AppConstant;
 import com.example.aspl.fortunecourier.utility.AppSingleton;
 import com.example.aspl.fortunecourier.utility.ConnectionDetector;
 import com.example.aspl.fortunecourier.utility.JSONConstant;
 import com.example.aspl.fortunecourier.utility.SessionManager;
+import com.example.aspl.fortunecourier.utility.VolleyResponseListener;
+import com.example.aspl.fortunecourier.utility.VolleyUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,6 +62,7 @@ public class OTPVerificationCustomerActivity extends AppCompatActivity implement
     private ConnectionDetector cd;
     private TextInputLayout textInput_otp_code;
     String URL;
+    String strPincode;
 
 
     @Override
@@ -98,7 +102,10 @@ public class OTPVerificationCustomerActivity extends AppCompatActivity implement
             URL = getResources().getString(R.string.url_domain_customer) + getResources().getString(R.string.url_verfiy_forgot_password_otp);
         }else if(getIntent().getStringExtra(AppConstant.SIGNUP_OR_FORGOT_OTP).equalsIgnoreCase(AppConstant.CHANGE_PHONE_OTP)) {
             URL = getResources().getString(R.string.url_domain_customer) + getResources().getString(R.string.url_verify_phone_no_otp);
-        }else {
+        }else if(getIntent().getStringExtra(AppConstant.SIGNUP_OR_FORGOT_OTP).equalsIgnoreCase(AppConstant.VERIFY_PINCODE_OTP)){
+            strPincode = getIntent().getStringExtra("pincode");
+            URL = getResources().getString(R.string.url_domain_customer) + getResources().getString(R.string.url_verify_reset_pin_otp);
+        } else {
             URL = getResources().getString(R.string.url_domain_customer) + getResources().getString(R.string.url_verify_facebook_otp);
         }
     }
@@ -220,33 +227,56 @@ public class OTPVerificationCustomerActivity extends AppCompatActivity implement
                                         mSessionManager.putStringData(SessionManager.KEY_C_PROFILE_URL,Json_response.getString(JSONConstant.C_PROFILE_PIC));
 
                                         mSessionManager.putIntData(SessionManager.KEY_WHICH_USER,1);
-                                        Snackbar.make(btn_verify, getResources().getString(R.string.msg_signup), Snackbar.LENGTH_LONG).show();
-                                        startActivity(new Intent(OTPVerificationCustomerActivity.this, DashboardCustomerActivity.class));
-                                        finish();
+                                        //Snackbar.make(btn_verify, getResources().getString(R.string.msg_signup), Snackbar.LENGTH_LONG).show();
+
+                                        Toast.makeText(OTPVerificationCustomerActivity.this,getResources().getString(R.string.msg_signup),Toast.LENGTH_SHORT).show();
+                                        Intent i = new Intent(OTPVerificationCustomerActivity.this, RegisterPincodeCustomerActivity.class);
+                                        startActivity(i);
 
 
-                                       /* try {
-                                            Thread.sleep(2000);
-                                            startActivity(new Intent(OTPVerificationCustomerActivity.this, DashboardCustomerActivity.class));
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }*/
+                                       /*  Intent i = new Intent(OTPVerificationCustomerActivity.this, DashboardCustomerActivity.class);
+                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(i);
+                                        finish();*/
 
                                     }else if(getIntent().getStringExtra(AppConstant.SIGNUP_OR_FORGOT_OTP).equalsIgnoreCase(AppConstant.FORGOT_OTP)){
                                         //mSessionManager.putStringData(SessionManager.KEY_C_ID,Json_response.getString(JSONConstant.C_ID));
                                         startActivity(new Intent(OTPVerificationCustomerActivity.this, ResetPasswordCustomerActivity.class));
                                     }else if(getIntent().getStringExtra(AppConstant.SIGNUP_OR_FORGOT_OTP).equalsIgnoreCase(AppConstant.CHANGE_PHONE_OTP)) {
-                                        Snackbar.make(btn_verify, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
-                                        thread.start();
+                                        Toast.makeText(OTPVerificationCustomerActivity.this,Json_response.getString(JSONConstant.MESSAGE),Toast.LENGTH_SHORT).show();
+                                        finish();
+                                        /*Snackbar.make(btn_verify, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
+                                        thread.start();*/
+                                        //URL = getResources().getString(R.string.url_domain) + getResources().getString(R.string.url_verify_phone_no_otp);
+                                    }else if(getIntent().getStringExtra(AppConstant.SIGNUP_OR_FORGOT_OTP).equalsIgnoreCase(AppConstant.VERIFY_PINCODE_OTP)) {
+
+                                      Toast.makeText(OTPVerificationCustomerActivity.this,Json_response.getString(JSONConstant.MESSAGE),Toast.LENGTH_SHORT).show();
+                                       /* Snackbar.make(btn_verify, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
+                                        thread.start();*/
+                                       Intent i = new Intent(OTPVerificationCustomerActivity.this, DashboardCustomerActivity.class);
+                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(i);
+                                        finish();
+
                                         //URL = getResources().getString(R.string.url_domain) + getResources().getString(R.string.url_verify_phone_no_otp);
                                     } else {
                                         AppConstant.IS_USER_FROM_FACEBOOK_SIGNUP = true;
                                         mSessionManager.putIntData(SessionManager.KEY_WHICH_USER,1);
-                                        startActivity(new Intent(OTPVerificationCustomerActivity.this, DashboardCustomerActivity.class));
-                                        finish();
+                                       /* Intent i = new Intent(OTPVerificationCustomerActivity.this, DashboardCustomerActivity.class);
+                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(i);
+                                        //startActivity(new Intent(OTPVerificationCustomerActivity.this, DashboardCustomerActivity.class));
+                                        finish();*/
+                                        Toast.makeText(OTPVerificationCustomerActivity.this,getResources().getString(R.string.msg_signup),Toast.LENGTH_SHORT).show();
+                                        Intent i = new Intent(OTPVerificationCustomerActivity.this, RegisterPincodeCustomerActivity.class);
+                                        startActivity(i);
                                     }
                                 } else {
-                                    Snackbar.make(btn_verify, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
+                                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(OTPVerificationCustomerActivity.this,getResources().getString(R.string.app_name),Json_response.getString(JSONConstant.MESSAGE));
+                                    customDialogForHelp.show();
                                 }
                                 progressBar.dismiss();
                             } catch (JSONException e) {
@@ -271,7 +301,12 @@ public class OTPVerificationCustomerActivity extends AppCompatActivity implement
                     if(getIntent().getStringExtra(AppConstant.SIGNUP_OR_FORGOT_OTP).equalsIgnoreCase(AppConstant.SIGNUP_OTP)||getIntent().getStringExtra(AppConstant.SIGNUP_OR_FORGOT_OTP).equalsIgnoreCase(AppConstant.FORGOT_OTP)){
                         params.put(JSONConstant.C_ID, mSessionManager.getStringData(SessionManager.KEY_C_ID));
                         params.put(JSONConstant.CO_OTP, editText_otp_code.getText().toString().trim());
+                    }else if(getIntent().getStringExtra(AppConstant.SIGNUP_OR_FORGOT_OTP).equalsIgnoreCase(AppConstant.VERIFY_PINCODE_OTP)){
+                        params.put(JSONConstant.C_ID, mSessionManager.getStringData(SessionManager.KEY_C_ID));
+                        params.put(JSONConstant.CO_OTP, editText_otp_code.getText().toString().trim());
+                        params.put("c_security_pin",strPincode);
                     }else {
+
                         params.put(JSONConstant.C_ID, mSessionManager.getStringData(SessionManager.KEY_C_ID));
                         params.put(JSONConstant.CO_OTP, editText_otp_code.getText().toString().trim());
                         params.put(JSONConstant.C_DIALLING_CODE,mSessionManager.getStringData(SessionManager.KEY_C_DIALLING_CODE));
@@ -320,7 +355,9 @@ public class OTPVerificationCustomerActivity extends AppCompatActivity implement
                                     startTimer();
                                     //startActivity(new Intent(OTPVerificationCustomerActivity.this, LoginCustomerActivity.class));
                                 } else {
-                                    Snackbar.make(btn_verify, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
+                                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(OTPVerificationCustomerActivity.this,getResources().getString(R.string.app_name),Json_response.getString(JSONConstant.MESSAGE));
+                                    customDialogForHelp.show();
+                                   // Snackbar.make(btn_verify, Json_response.getString(JSONConstant.MESSAGE), Snackbar.LENGTH_LONG).show();
 
                                 }
                                 progressBar.dismiss();
@@ -374,7 +411,9 @@ public class OTPVerificationCustomerActivity extends AppCompatActivity implement
                     validateAndSubmit();
                     //verifyOTP();
                 }else {
-                    Snackbar.make(tv_resend_otp,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(OTPVerificationCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(tv_resend_otp,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
 
                 }
                 break;
@@ -383,9 +422,17 @@ public class OTPVerificationCustomerActivity extends AppCompatActivity implement
                 hideKeyboard();
                 if(cd.isConnectingToInternet()){
                     requestFocus(editText_otp_code);
-                    resendOTP();
+                    if(getIntent().getStringExtra(AppConstant.SIGNUP_OR_FORGOT_OTP).equalsIgnoreCase(AppConstant.VERIFY_PINCODE_OTP)){
+                        resendVerifyOTP();
+                    }else {
+                        resendOTP();
+
+                    }
+
                 }else {
-                    Snackbar.make(tv_resend_otp,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
+                    CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(OTPVerificationCustomerActivity.this,getResources().getString(R.string.app_name),getResources().getString(R.string.err_msg_internet));
+                    customDialogForHelp.show();
+                    //Snackbar.make(tv_resend_otp,getResources().getString(R.string.err_msg_internet),Snackbar.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -434,5 +481,53 @@ public class OTPVerificationCustomerActivity extends AppCompatActivity implement
             }
         }
     };
+
+
+    private void resendVerifyOTP() {
+        progressBar = new ProgressDialog(OTPVerificationCustomerActivity.this);
+        progressBar.setCancelable(true);
+        progressBar.setMessage("Authenticating ...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setIndeterminate(true);
+        progressBar.show();
+
+        String URL = getResources().getString(R.string.url_domain_customer) + getResources().getString(R.string.url_forgot_pin);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(JSONConstant.C_ID, mSessionManager.getStringData(SessionManager.KEY_C_ID));
+        System.out.println("=>" + params.toString());
+
+        VolleyUtils.POST_METHOD(OTPVerificationCustomerActivity.this, URL, params, new VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+                progressBar.dismiss();
+            }
+
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("==Volley Response===>>" + response.toString());
+
+                try {
+                    JSONObject Json_response = new JSONObject(response.toString());
+
+                    if (Json_response.getString(JSONConstant.STATUS).equalsIgnoreCase(JSONConstant.SUCCESS)) {
+                        Toast.makeText(OTPVerificationCustomerActivity.this, Json_response.getString(JSONConstant.MESSAGE), Toast.LENGTH_SHORT).show();
+                        startTimer();
+                        //startActivity(new Intent(OTPVerificationCustomerActivity.this, OTPVerificationCustomerActivity.class).putExtra(AppConstant.SIGNUP_OR_FORGOT_OTP,AppConstant.VERIFY_PINCODE_OTP));
+                    } else {
+                        JSONObject jsonObject = Json_response.getJSONObject(JSONConstant.ERROR_MESSAGES);
+
+                        if (jsonObject.has(JSONConstant.MESSAGE)) {
+                            CustomDialogForHelp customDialogForHelp = new CustomDialogForHelp(OTPVerificationCustomerActivity.this, getResources().getString(R.string.app_name), jsonObject.getString(JSONConstant.MESSAGE));
+                            customDialogForHelp.show();
+                        }
+                    }
+                    progressBar.dismiss();
+                } catch (JSONException e) {
+                    progressBar.dismiss();
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
 }
